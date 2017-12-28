@@ -30,5 +30,5 @@ export default new Router({
       component: Rank
     }
   ],
-  mode: "history"
+  // mode: "history"
 })

@@ -2,9 +2,9 @@
 	<div class="recommend">
 		<div class="recommend-content">
 			<div class="slider-wrapper">
-				<slider>
+				<slider v-if="recommendList[1]">
 					<div v-for="item in recommendList">
-						<a>
+						<a :href="item.url">
 							<img :src="item.pic">
 						</a>
 					</div>
@@ -23,7 +23,7 @@ export default {
 	},
 	data () {
 		return {
-			recommendList: {},
+			recommendList: [],
 
 		}
 	},
