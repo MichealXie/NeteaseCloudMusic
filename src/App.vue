@@ -28,5 +28,4 @@ export default {
   @import './common/stylus/reset'
   #app
     color: $color-theme
-    background-color black
 </style>

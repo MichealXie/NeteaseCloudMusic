@@ -6,7 +6,9 @@
 	+ 天哪...用这种代码实在太傻了, 有空我要自己写一个轮播
 
 
-
+2. 使用 font-awesome
+	+ 有空换成 https://github.com/cenkai88/vue-svg-icon
+	+ 比较没压缩, 且要线上
 
 
 
