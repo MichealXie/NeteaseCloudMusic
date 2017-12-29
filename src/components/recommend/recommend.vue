@@ -15,7 +15,7 @@
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
-					<li class="top-item" v-for="item in topList">
+					<li class="top-item" v-for="item in partlyList">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
@@ -25,36 +25,44 @@
 				</ul>
 			</div>
 		</div>
-		<song-list v-if="listShow" :topList="topList"></song-list>
+		<song-list v-if="listShow" :topList="topList" @emitSelectedId="showplayList"></song-list>
+		<playlist v-if="playlistShow" :id="id"></playlist>
 	</div>
 </template>
 
 <script>
 import slider from '@/base/slider/slider'
 import songList from '@/components/song-list/song-list'
+import playlist from '@/components/playlist/playlist'
 
 export default {
 	components: {
 		slider,
-		'song-list':songList
+		'song-list':songList,
+		'playlist': playlist
 	},
 	data () {
 		return {
 			banners: [],
 			topList:[],
 			listShow: false,
+			id: "",
+			playlistShow: false
 		}
 	},
 	computed: {
 		partlyList(){
-			if(topList)	return topList.slice(0,6)
-			// return 'loading'
-
-		}
+			return this.topList.slice(0,6)
+		},
 	},
 	methods:{
 		showList(){
 			this.listShow = !this.listShow
+		},
+		showplayList(id){
+			console.log('showplayList')
+			this.playlistShow = true
+			this.id = id
 		}
 	},
 	created () {
@@ -65,10 +73,10 @@ export default {
 			this.banners = data.data.banners
 		})
 		//获取推荐歌单
-		this.$http.get('http://localhost:3000/top/playlist')
+		this.$http.get(' https://easy-mock.com/mock/5a464f96f0010a43ffbe743e/cloudmusic/top/playlist')
 		.then( (data) => {
 			console.log(data.data)
-			this.topList = data.data.playlists.slice(0,6)
+			this.topList = data.data.playlists
 		})
 	}
 }
