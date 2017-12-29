@@ -2,8 +2,8 @@
 	<div class="recommend">
 		<div class="recommend-content">
 			<div class="slider-wrapper">
-				<slider v-if="recommendList[1]">
-					<div v-for="item in recommendList">
+				<slider v-if="banners[1]">
+					<div v-for="item in banners">
 						<a :href="item.url">
 							<img :src="item.pic">
 						</a>
@@ -11,7 +11,7 @@
 				</slider>
 			</div>
 			<div class="top-list">
-				<h3 class="title">推荐歌单
+				<h3 class="title" @click="showList()">推荐歌单
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
@@ -25,20 +25,36 @@
 				</ul>
 			</div>
 		</div>
+		<song-list v-if="listShow" :topList="topList"></song-list>
 	</div>
 </template>
 
 <script>
 import slider from '@/base/slider/slider'
+import songList from '@/components/song-list/song-list'
 
 export default {
 	components: {
 		slider,
+		'song-list':songList
 	},
 	data () {
 		return {
-			recommendList: [],
-			topList:[]
+			banners: [],
+			topList:[],
+			listShow: false,
+		}
+	},
+	computed: {
+		partlyList(){
+			if(topList)	return topList.slice(0,6)
+			// return 'loading'
+
+		}
+	},
+	methods:{
+		showList(){
+			this.listShow = !this.listShow
 		}
 	},
 	created () {
@@ -46,7 +62,7 @@ export default {
 		this.$http.get('http://localhost:3000/banner')
 		.then( (data) => {
 			console.log(data)
-			this.recommendList = data.data.banners
+			this.banners = data.data.banners
 		})
 		//获取推荐歌单
 		this.$http.get('http://localhost:3000/top/playlist')
