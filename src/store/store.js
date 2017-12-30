@@ -9,11 +9,21 @@ export const store = new Vuex.Store({
 	state: {
 		banners:[],
 		topList:[],
+		isTopListShow: false,
+		isPlayListShow: false,
 	},
 	getters: {
 		partlyList(state){
 			console.log(state)
 			return state.topList.slice(0,6)
+		}
+	},
+	mutations: {
+		toggleTopListShow(state){
+			state.isTopListShow = !state.isTopListShow
+		},
+		togglePlayListShow(state){
+			state.isPlayListShow = !state.isPlayListShow
 		}
 	},
 	actions:{

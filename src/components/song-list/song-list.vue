@@ -1,11 +1,11 @@
 <template>
 	<div class="song-list">
 		<div class="list-header">
-			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+			<i class="fa fa-arrow-left" aria-hidden="true" @click="toggleTopList()"></i>
 			 <h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
-			<li class="list-item" v-for="item in topList" @click="emitSelectedId(item.id)">
+			<li class="list-item" v-for="item in topList" @click="showPlayList()">
 				<img :src="item.coverImgUrl">
 				<span class="count">
 					<i class="fa fa-music" aria-hidden="true"></i>
@@ -18,13 +18,17 @@
 
 <script>
 export default {
-	props:{
-		topList: Array,
+	computed: {
+		topList(){
+			return this.$store.state.topList
+		}
 	},
-	methods:{
-		emitSelectedId(id){
-			console.log(id)
-			this.$emit('emitSelectedId', id)
+	methods: {
+		showPlayList(){
+			this.$store.commit('togglePlayListShow')
+		},
+		toggleTopList(){
+			this.$store.commit('toggleTopListShow')
 		}
 	}
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="play-list">
 		<div class="list-header">
-			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+			<i class="fa fa-arrow-left" aria-hidden="true" @click="togglePlayListShow"></i>
 			<h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
@@ -12,12 +12,14 @@
 
 <script>
 export default {
-	props:{
-		id:{},
-	},
 	data () {
 		return {
 			list: []
+		}
+	},
+	methods: {
+		togglePlayListShow(){
+			this.$store.commit('togglePlayListShow')
 		}
 	},
 	mounted () {

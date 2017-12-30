@@ -11,7 +11,7 @@
 				</slider>
 			</div>
 			<div class="top-list">
-				<h3 class="title" @click="showList()">推荐歌单
+				<h3 class="title" @click="toggleTopList()">推荐歌单
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
@@ -25,8 +25,8 @@
 				</ul>
 			</div>
 		</div>
-		<song-list v-if="listShow"></song-list>
-		<playlist v-if="playlistShow"></playlist>
+		<song-list v-if="isTopListShow"></song-list>
+		<playlist v-if="isPlayListShow"></playlist>
 	</div>
 </template>
 
@@ -43,25 +43,25 @@ export default {
 	},
 	data () {
 		return {
-			listShow: false,
-			id: "",
-			playlistShow: false
 		}
 	},
 	computed: {
+		banners(){
+			return this.$store.state.banners
+		},
 		partlyList(){
 			return this.$store.getters.partlyList
 		},
-		topList(){
-			return this.$store.state.topList
+		isTopListShow(){
+			return this.$store.state.isTopListShow
 		},
-		banners(){
-			return this.$store.state.banners
+		isPlayListShow(){
+			return this.$store.state.isPlayListShow
 		}
 	},
 	methods:{
-		showList(){
-			console.log('showList')
+		toggleTopList(){
+			this.$store.commit('toggleTopListShow')
 		}
 	},
 	created () {
