@@ -1,11 +1,11 @@
 <template>
 	<div class="top-lists">
 		<div class="list-header">
-			<i class="fa fa-arrow-left" aria-hidden="true" @click="toggleTopList()"></i>
+			<i class="fa fa-arrow-left" aria-hidden="true" @click="toggleTopLists()"></i>
 			 <h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
-			<li class="list-item" v-for="item in topList" :key="item.key" @click="showPlayList()" >
+			<li class="list-item" v-for="item in topLists" :key="item.key" @click="showPlayList()" >
 				<img :src="item.coverImgUrl">
 				<span class="count">
 					<i class="fa fa-music" aria-hidden="true"></i>
@@ -27,8 +27,8 @@ export default {
 		showPlayList(){
 			this.$store.commit('togglePlayListShow')
 		},
-		toggleTopList(){
-			this.$store.commit('toggleTopListShow')
+		toggleTopLists(){
+			this.$store.commit('toggleTopListsShow')
 		}
 	}
 }

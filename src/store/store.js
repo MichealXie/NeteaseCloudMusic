@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
 	state: {
 		banners:[],
 		topLists:[],
-		isTopListShow: false,
+		isTopListsShow: false,
 		isPlayListShow: false,
 	},
 	getters: {
@@ -19,8 +19,8 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		toggleTopListShow(state){
-			state.isTopListShow = !state.isTopListShow
+		toggleTopListsShow(state){
+			state.isTopListsShow = !state.isTopListsShow
 		},
 		togglePlayListShow(state){
 			state.isPlayListShow = !state.isPlayListShow

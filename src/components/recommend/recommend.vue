@@ -11,11 +11,11 @@
 				</slider>
 			</div>
 			<div class="top-list">
-				<h3 class="title" @click="toggleTopList()">推荐歌单
+				<h3 class="title" @click="toggleTopListsShow()">推荐歌单
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
-					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="toggleTopLists()">
+					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="commitIdAndShow(item.id)">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
@@ -38,7 +38,7 @@ import playlist from '@/components/playlist/playlist'
 export default {
 	components: {
 		slider,
-		'song-lists':topLists,
+		'top-lists':topLists,
 		'playlist': playlist
 	},
 	data () {
@@ -60,8 +60,11 @@ export default {
 		}
 	},
 	methods:{
-		toggleTopLists(){
+		toggleTopListsShow(){
 			this.$store.commit('toggleTopListsShow')
+		},
+		commitIdAndShow(id){
+			console.log(id)
 		}
 	},
 	created () {

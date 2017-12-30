@@ -5,6 +5,7 @@
 			<h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
+			这里是歌曲页
 			<li class="single-song" v-for="item in list" :key="item.encodeId"></li>
 		</ul>
 	</div>
