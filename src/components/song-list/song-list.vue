@@ -5,7 +5,7 @@
 			 <h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
-			<li class="list-item" v-for="item in topList" @click="showPlayList()">
+			<li class="list-item" v-for="item in topList" :key="item.key" @click="showPlayList()" >
 				<img :src="item.coverImgUrl">
 				<span class="count">
 					<i class="fa fa-music" aria-hidden="true"></i>

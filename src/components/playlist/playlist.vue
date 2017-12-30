@@ -5,7 +5,7 @@
 			<h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
-			<li class="single-song" v-for="item in list"></li>
+			<li class="single-song" v-for="item in list" :key="item.key"></li>
 		</ul>
 	</div>
 </template>

@@ -3,7 +3,7 @@
 		<div class="recommend-content">
 			<div class="slider-wrapper">
 				<slider v-if="banners[1]">
-					<div v-for="item in banners">
+					<div v-for="item in banners" :key="item.key">
 						<a :href="item.url">
 							<img :src="item.pic">
 						</a>
@@ -15,7 +15,7 @@
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
-					<li class="top-item" v-for="item in partlyList">
+					<li class="top-item" v-for="item in partlyList" :key="item.id">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
