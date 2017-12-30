@@ -25,8 +25,8 @@
 				</ul>
 			</div>
 		</div>
-		<song-list v-if="listShow" :topList="topList" @emitSelectedId="showplayList"></song-list>
-		<playlist v-if="playlistShow" :id="id"></playlist>
+		<song-list v-if="listShow"></song-list>
+		<playlist v-if="playlistShow"></playlist>
 	</div>
 </template>
 
@@ -43,8 +43,6 @@ export default {
 	},
 	data () {
 		return {
-			banners: [],
-			topList:[],
 			listShow: false,
 			id: "",
 			playlistShow: false
@@ -52,32 +50,25 @@ export default {
 	},
 	computed: {
 		partlyList(){
-			return this.topList.slice(0,6)
+			return this.$store.getters.partlyList
 		},
+		topList(){
+			return this.$store.state.topList
+		},
+		banners(){
+			return this.$store.state.banners
+		}
 	},
 	methods:{
 		showList(){
-			this.listShow = !this.listShow
-		},
-		showplayList(id){
-			console.log('showplayList')
-			this.playlistShow = true
-			this.id = id
+			console.log('showList')
 		}
 	},
 	created () {
 		//获取轮播图片
-		this.$http.get('http://localhost:3000/banner')
-		.then( (data) => {
-			console.log(data)
-			this.banners = data.data.banners
-		})
+		this.$store.dispatch('getBanners')
 		//获取推荐歌单
-		this.$http.get(' https://easy-mock.com/mock/5a464f96f0010a43ffbe743e/cloudmusic/top/playlist')
-		.then( (data) => {
-			console.log(data.data)
-			this.topList = data.data.playlists
-		})
+		this.$store.dispatch('getTopList')
 	}
 }
 </script>
