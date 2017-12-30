@@ -1,5 +1,5 @@
 <template>
-	<div class="song-list">
+	<div class="top-lists">
 		<div class="list-header">
 			<i class="fa fa-arrow-left" aria-hidden="true" @click="toggleTopList()"></i>
 			 <h2 class="title">歌单</h2>
@@ -19,8 +19,8 @@
 <script>
 export default {
 	computed: {
-		topList(){
-			return this.$store.state.topList
+		topLists(){
+			return this.$store.state.topLists
 		}
 	},
 	methods: {
@@ -38,7 +38,7 @@ export default {
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 
-	.song-list
+	.top-lists
 		position absolute
 		top 0
 		left 0

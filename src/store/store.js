@@ -8,14 +8,14 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
 	state: {
 		banners:[],
-		topList:[],
+		topLists:[],
 		isTopListShow: false,
 		isPlayListShow: false,
 	},
 	getters: {
 		partlyList(state){
 			console.log(state)
-			return state.topList.slice(0,6)
+			return state.topLists.slice(0,6)
 		}
 	},
 	mutations: {
@@ -34,11 +34,11 @@ export const store = new Vuex.Store({
 					context.state.banners = data.data.banners
 				})
 		},
-		getTopList(context){
+		getTopLists(context){
 			axios.get(' https://easy-mock.com/mock/5a464f96f0010a43ffbe743e/cloudmusic/top/playlist')
 				.then((data) => {
 					console.log(data.data)
-					context.state.topList = data.data.playlists
+					context.state.topLists = data.data.playlists
 				})
 		}
 	},

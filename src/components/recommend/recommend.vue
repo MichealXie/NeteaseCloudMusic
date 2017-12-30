@@ -15,7 +15,7 @@
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</h3>
 				<ul>
-					<li class="top-item" v-for="item in partlyList" :key="item.id">
+					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="toggleTopLists()">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
@@ -25,20 +25,20 @@
 				</ul>
 			</div>
 		</div>
-		<song-list v-if="isTopListShow"></song-list>
+		<top-lists v-if="isTopListsShow"></top-lists>
 		<playlist v-if="isPlayListShow"></playlist>
 	</div>
 </template>
 
 <script>
 import slider from '@/base/slider/slider'
-import songList from '@/components/song-list/song-list'
+import topLists from '@/components/top-lists/top-lists'
 import playlist from '@/components/playlist/playlist'
 
 export default {
 	components: {
 		slider,
-		'song-list':songList,
+		'song-lists':topLists,
 		'playlist': playlist
 	},
 	data () {
@@ -52,23 +52,23 @@ export default {
 		partlyList(){
 			return this.$store.getters.partlyList
 		},
-		isTopListShow(){
-			return this.$store.state.isTopListShow
+		isTopListsShow(){
+			return this.$store.state.isTopListsShow
 		},
 		isPlayListShow(){
 			return this.$store.state.isPlayListShow
 		}
 	},
 	methods:{
-		toggleTopList(){
-			this.$store.commit('toggleTopListShow')
+		toggleTopLists(){
+			this.$store.commit('toggleTopListsShow')
 		}
 	},
 	created () {
 		//获取轮播图片
 		this.$store.dispatch('getBanners')
 		//获取推荐歌单
-		this.$store.dispatch('getTopList')
+		this.$store.dispatch('getTopLists')
 	}
 }
 </script>
