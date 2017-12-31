@@ -10,6 +10,7 @@
 	+ 有空换成 https://github.com/cenkai88/vue-svg-icon
 	+ 比较没压缩, 且要线上
 
+3. Todo:  测试 action 传参
 
 
 

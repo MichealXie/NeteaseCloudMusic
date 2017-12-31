@@ -47,8 +47,8 @@ export default {
 		height 100vh
 		width 100%
 		z-index: 90
-		background grey
 		color black
+		background $list-background
 		.list-header
 			position: relative
 			height: 44px
