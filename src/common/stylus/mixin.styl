@@ -1,3 +1,5 @@
+  @import "../../common/stylus/variable"
+
 // 背景图片
 bg-image($url)
   background-image: url($url + "@2x.png")
@@ -20,3 +22,9 @@ extend-click()
     left: -10px
     right: -10px
     bottom: -10px
+
+//默认字体颜色
+default-font()
+  font-size $font-size-small
+  color $color-theme
+  font-weight 350

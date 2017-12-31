@@ -13,11 +13,17 @@ export const store = new Vuex.Store({
 		isPlayListShow: false,
 		listId: '',
 		playlist: {},
+		privateContent: []
 	},
 	getters: {
 		partlyList(state){
-			console.log(state)
 			return state.topLists.slice(0,6)
+		},
+		partlyPrivate(state){
+			return state.privateContent.slice(1,3)
+		},
+		privateAd(state){
+			return state.privateContent[0]
 		}
 	},
 	mutations: {
@@ -38,7 +44,7 @@ export const store = new Vuex.Store({
 				})
 		},
 		getTopLists(context){
-			axios.get(' https://easy-mock.com/mock/5a464f96f0010a43ffbe743e/cloudmusic/top/playlist')
+			axios.get('http://localhost:3000/top/playlist')
 				.then((data) => {
 					console.log(data.data)
 					context.state.topLists = data.data.playlists
@@ -50,9 +56,16 @@ export const store = new Vuex.Store({
 				.then((data) => {
 					console.log(data)
 					context.state.playlist = data.data.playlist
-					console.log(`aaaa${context.state.playlist}`)
 				})
-		}
+		},
+		getPrivateContent(context){
+			context.state.playlist = {}
+			axios.get('http://localhost:3000/personalized/privatecontent')
+				.then((data) => {
+					console.log(data)
+					context.state.privateContent = data.data.result
+				})
+		},
 	},
 	plugins: [createLogger()]
 })

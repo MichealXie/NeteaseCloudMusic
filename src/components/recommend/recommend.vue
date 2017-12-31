@@ -11,9 +11,7 @@
 				</slider>
 			</div>
 			<div class="top-list">
-				<h3 class="title" @click="toggleTopListsShow()">推荐歌单
-					<i class="fa fa-angle-right" aria-hidden="true"></i>
-				</h3>
+				<app-title @click="toggleTopListsShow()">推荐歌单</app-title>
 				<ul>
 					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="commitIdAndShow(item.id)">
 						<img :src="item.coverImgUrl">
@@ -23,6 +21,25 @@
 						<div class="name">{{item.name}}</div>
 					</li>
 				</ul>
+			</div>
+			<div class="private-content" v-if="privateContent">
+				<app-title>独家放送</app-title>
+				<ul class="partly-private">
+					<li class="private-item" v-for="item in partlyPrivate" :key="item.id">
+						<!-- url 有问题, 是个 id -->
+						<a :href="item.url">
+							<img class="private-img" :src="item.sPicUrl">
+							<p class="private-name">{{item.name}}</p>
+						</a>
+					</li>
+				</ul>
+				<div class="private-ad">
+					<!-- 很奇怪这里的 ad 要加v-if, 不加会报错, 但没有任何影响 -->
+					<a :href="privateAd.url" v-if="privateAd">
+						<img :src="privateAd.picUrl">
+						<p>{{privateAd.name}}</p>
+					</a>
+				</div>
 			</div>
 		</div>
 		<top-lists v-if="isTopListsShow"></top-lists>
@@ -34,12 +51,15 @@
 import slider from '@/base/slider/slider'
 import topLists from '@/components/top-lists/top-lists'
 import playlist from '@/components/playlist/playlist'
+import appTitle from '@/components/app-title/app-title'
 
 export default {
 	components: {
 		slider,
 		'top-lists':topLists,
-		'playlist': playlist
+		'playlist': playlist,
+		'app-title': appTitle,
+
 	},
 	data () {
 		return {
@@ -57,6 +77,15 @@ export default {
 		},
 		isPlayListShow(){
 			return this.$store.state.isPlayListShow
+		},
+		privateContent(){
+			return this.$store.state.privateContent
+		},
+		partlyPrivate(){
+			return this.$store.getters.partlyPrivate
+		},
+		privateAd(){
+			return this.$store.getters.privateAd
 		}
 	},
 	methods:{
@@ -73,11 +102,16 @@ export default {
 		this.$store.dispatch('getBanners')
 		//获取推荐歌单
 		this.$store.dispatch('getTopLists')
+		//获取独家放送
+		this.$store.dispatch('getPrivateContent')
 	}
 }
 </script>
 
 <style lang='stylus'>
+  @import "../../common/stylus/variable"
+  @import "../../common/stylus/mixin"
+
 	.top-list
 		ul
 			display flex
@@ -98,4 +132,32 @@ export default {
 					top .2rem
 					font-size 10px
 					color white
+				.name
+					font-size $font-size-small
+	.private-content
+		.partly-private
+			display flex
+			.private-item
+				width 50%
+				box-sizing border-bo
+				font-size $font-size-small
+				//奇怪的处理方法
+				&:nth-child(odd)
+					padding-right 1px
+				&:nth-child(even)
+					padding-left 1px
+				a
+					default-font()
+					.private-img
+						width 100%
+		.private-ad
+			width 100%
+			a
+				img 
+					width 100%
+				p
+					default-font()
+
+
+						
 </style>
