@@ -5,7 +5,7 @@
 			 <h2 class="title">歌单</h2>
 		</div>
 		<ul class="list">
-			<li class="list-item" v-for="item in topLists" :key="item.key" @click="showPlayList()" >
+			<li class="list-item" v-for="item in topLists" :key="item.key" @click="showPlayList(item.id)" >
 				<img :src="item.coverImgUrl">
 				<span class="count">
 					<i class="fa fa-music" aria-hidden="true"></i>
@@ -18,14 +18,16 @@
 
 <script>
 export default {
+
 	computed: {
 		topLists(){
 			return this.$store.state.topLists
 		}
 	},
 	methods: {
-		showPlayList(){
-			this.$store.commit('togglePlayListShow')
+		showPlayList(id){
+			this.$store.commit('togglePlayListShow', id)
+			this.$store.dispatch('getPlayList')
 		},
 		toggleTopLists(){
 			this.$store.commit('toggleTopListsShow')

@@ -6,16 +6,22 @@
 		</div>
 		<ul class="list">
 			这里是歌曲页
-			<li class="single-song" v-for="item in list" :key="item.encodeId"></li>
+			<li class="single-song" v-for="(item,index) in songs" :key="item.encodeId">
+				<span class="index">{{index}}</span>
+				{{item.name}} + {{item.ar[0].name}}
+			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
 export default {
-	data () {
-		return {
-			list: []
+	computed: {
+		creator(){
+			return this.$store.state.playlist.creator
+		},
+		songs(){
+			return this.$store.state.playlist.tracks
 		}
 	},
 	methods: {
@@ -24,12 +30,7 @@ export default {
 		}
 	},
 	mounted () {
-		console.log(this.id)
-		this.$http.get(`http://localhost:3000/playlist/detail?id=${this.id}`)
-		.then( (data) => {
-			console.log(data)
-			this.list = data
-		})
+
 	}
 }
 </script>

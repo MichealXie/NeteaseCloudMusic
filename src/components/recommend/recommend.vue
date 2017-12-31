@@ -64,7 +64,8 @@ export default {
 			this.$store.commit('toggleTopListsShow')
 		},
 		commitIdAndShow(id){
-			console.log(id)
+			this.$store.commit('togglePlayListShow', id)
+			this.$store.dispatch('getPlayList')
 		}
 	},
 	created () {

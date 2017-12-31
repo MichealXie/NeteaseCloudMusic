@@ -11,6 +11,8 @@ export const store = new Vuex.Store({
 		topLists:[],
 		isTopListsShow: false,
 		isPlayListShow: false,
+		listId: '',
+		playlist: {},
 	},
 	getters: {
 		partlyList(state){
@@ -22,7 +24,8 @@ export const store = new Vuex.Store({
 		toggleTopListsShow(state){
 			state.isTopListsShow = !state.isTopListsShow
 		},
-		togglePlayListShow(state){
+		togglePlayListShow(state, id){
+			state.listId = id
 			state.isPlayListShow = !state.isPlayListShow
 		}
 	},
@@ -30,15 +33,23 @@ export const store = new Vuex.Store({
 		getBanners(context){
 			axios.get('http://localhost:3000/banner')
 				.then((data) => {
-					console.log(data)
+					console.log('banner: ' + data)
 					context.state.banners = data.data.banners
 				})
 		},
 		getTopLists(context){
 			axios.get(' https://easy-mock.com/mock/5a464f96f0010a43ffbe743e/cloudmusic/top/playlist')
 				.then((data) => {
-					console.log(data.data)
+					console.log('推荐列表: ' + data.data)
 					context.state.topLists = data.data.playlists
+				})
+		},
+		getPlayList(context){
+			axios.get(`http://localhost:3000/playlist/detail?id=${context.state.listId}`)
+				.then((data) => {
+					console.log(data)
+					context.state.playlist = data.data.playlist
+					console.log(`aaaa${context.state.playlist}`)
 				})
 		}
 	},
