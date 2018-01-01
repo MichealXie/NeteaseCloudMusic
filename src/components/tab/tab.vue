@@ -24,17 +24,17 @@ export default {
     position fixed
     display: flex
     width 100%
-    height: 44px
+    height: 40px
     line-height: 44px
     font-size: $font-size-medium
     z-index: 999
     background: white
-    margin-top 44px
+    margin-top 48px
     .tab-item
       flex: 1
       text-align: center
       .tab-link
-        padding-bottom: 5px
+        padding-bottom: 7px
         color: $color-text-l
       &.router-link-active
         .tab-link

@@ -18,7 +18,7 @@ export default {
 
   .app-header
     position: fixed
-    height: 44px
+    height: 48px
     width 100%
     display flex
     align-items center
