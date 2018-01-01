@@ -21,10 +21,15 @@ export default {
 <style lang='stylus'>
   @import "../../common/stylus/variable"
   .tab
+    position fixed
     display: flex
+    width 100%
     height: 44px
     line-height: 44px
     font-size: $font-size-medium
+    z-index: 999
+    background: white
+    margin-top 44px
     .tab-item
       flex: 1
       text-align: center

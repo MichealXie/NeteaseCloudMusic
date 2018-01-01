@@ -18,12 +18,14 @@ export default {
   @import "../../common/stylus/mixin"
 
   .app-header
-    position: relative
+    position: fixed
     height: 44px
+    width 100%
     text-align: center
     color: $color-theme
     font-size: 0
     background-color $color-background
+    z-index 999
     .icon
       display: inline-block
       vertical-align: top
