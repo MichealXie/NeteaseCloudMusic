@@ -28,7 +28,7 @@
 					<li class="private-item" v-for="item in partlyPrivate" :key="item.id">
 						<!-- url 有问题, 是个 id -->
 						<a :href="item.url">
-							<img class="private-img" :src="item.sPicUrl">
+							<img class="private-img" v-lazy="item.sPicUrl">
 							<p class="private-name">{{item.name}}</p>
 						</a>
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
 				<div class="private-ad">
 					<!-- 很奇怪这里的 ad 要加v-if, 不加会报错, 但没有任何影响 -->
 					<a :href="privateAd.url" v-if="privateAd">
-						<img :src="privateAd.picUrl">
+						<img v-lazy="privateAd.picUrl">
 						<p>{{privateAd.name}}</p>
 					</a>
 				</div>
@@ -45,7 +45,7 @@
 					<app-title>推荐 MV</app-title>
 					<ul class="mvs">
 						<li class="mv" v-for="item in recommendMV" :key="item.id">
-							<img class="img" :src="item.picUrl">
+							<img class="img" v-lazy="item.picUrl">
 							<p class="name"> {{item.name}}</p>
 							<p class="singer"> {{item.artists[0].name}}</p>
 							<div class="mv-info">
@@ -60,7 +60,7 @@
 					<ul class="djs">
 						<li class="dj" v-for="item in recommendDJ" :key="item.id">
 							<div class="img-ct">
-								<img class="img" :src="item.picUrl">
+								<img class="img" v-lazy="item.picUrl">
 								<p class="info"> {{item.copywriter}}</p>
 							</div>
 							<p class="name">{{item.name}}</p>
