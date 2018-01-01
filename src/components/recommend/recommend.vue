@@ -55,6 +55,18 @@
 						</li>
 					</ul>
 				</div>
+				<div class="recommend-DJ">
+					<app-title>推荐电台</app-title>
+					<ul class="djs">
+						<li class="dj" v-for="item in recommendDJ" :key="item.id">
+							<div class="img-ct">
+								<img class="img" :src="item.picUrl">
+								<p class="info"> {{item.copywriter}}</p>
+							</div>
+							<p class="name">{{item.name}}</p>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<top-lists v-if="isTopListsShow"></top-lists>
@@ -106,6 +118,9 @@ export default {
 		},
 		recommendMV(){
 			return this.$store.state.recommendMV
+		},
+		recommendDJ(){
+			return this.$store.state.recommendDJ
 		}
 	},
 	methods:{
@@ -126,6 +141,8 @@ export default {
 		this.$store.dispatch('getPrivateContent')
 		//获取推荐 MV
 		this.$store.dispatch('getRecommendMV')
+		//获取推荐电台
+		this.$store.dispatch('getRecommendDJ')
 	}
 }
 </script>
@@ -155,7 +172,7 @@ export default {
 					font-size 10px
 					color white
 				.name
-					font-size $font-size-small
+					default-font()
 	.private-content
 		.partly-private
 			display flex
@@ -170,9 +187,10 @@ export default {
 				&:nth-child(even)
 					padding-left 1px
 				a
-					default-font()
 					.private-img
 						width 100%
+					.private-name
+						default-font()
 				i
 					position absolute
 					top .2rem
@@ -204,16 +222,41 @@ export default {
 					width 100%
 				.name
 					default-font()
-					text-overflow ellipsis
-					overflow hidden
-					white-space:nowrap
+					no-wrap()
 				.singer
 					color: $not-important
+					padding 0 .4rem
 				.mv-info
 					position absolute
 					top .2rem
 					right .3rem
 					color white
+	.djs
+			display flex
+			flex-wrap wrap
+			.dj
+				width 33.33%
+				position relative
+				box-sizing border-box
+				padding-right 2px
+				margin-bottom 1rem
+				&:nth-child(3n)
+					padding 0
+				.img-ct
+					position relative
+					img 
+						width 100%
+					.info
+						position absolute
+						bottom .3rem
+						left .2rem
+						color white
+						font-size $font-size-small-s
+						no-wrap()
+				.name
+					default-font()
+					
+
 
 
 						

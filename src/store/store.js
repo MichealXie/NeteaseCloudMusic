@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
 		listId: '',
 		playlist: {},
 		privateContent: [],
-		recommendMV: []
+		recommendMV: [],
+		recommendDJ: []
 	},
 	getters: {
 		partlyList(state){
@@ -25,6 +26,9 @@ export const store = new Vuex.Store({
 		},
 		privateAd(state){
 			return state.privateContent[0]
+		},
+		partlyDJ(state){
+			return state.recommendDJ.slice(0,6)
 		}
 	},
 	mutations: {
@@ -72,6 +76,13 @@ export const store = new Vuex.Store({
 			axios.get('http://localhost:3000/personalized/mv')
 				.then((data) => {
 					context.state.recommendMV = data.data.result
+				})
+		},
+		getRecommendDJ(context){
+			context.state.playlist = {}
+			axios.get('http://localhost:3000/personalized/djprogram')
+				.then((data) => {
+					context.state.recommendDJ = data.data.result
 				})
 		}
 	},
