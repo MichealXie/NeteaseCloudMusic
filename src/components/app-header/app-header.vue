@@ -1,14 +1,25 @@
 <template>
   <div class="app-header">
-    <i class="fa fa-microphone" aria-hidden="true"></i>
-    <input type="text" placeholder="搜索音乐,歌词,电台" @click="">
+    <i class="fa" aria-hidden="true" :class="{'fa-times': isSearchShow,'fa-microphone': !isSearchShow }"></i>
+    <router-link class="router-link" to="/search" @click="toggleSearchShow()">
+      <input type="text" placeholder="搜索音乐,歌词,电台">
+    </router-link>
     <i class="fa fa-headphones" aria-hidden="true"></i>
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      isSearchShow: false
+    }
+  },
+  methods: {
+    toggleSearchShow(){
+      this.isSearchShow = !this.isSearchShow
+    }
+  }
 }
 </script>
 
@@ -29,15 +40,16 @@ export default {
       flex 0 0 3.5rem
       text-align center
       font-size 1.5rem
-    input 
+    .router-link
       flex 1
-      width: 100%;
-      height: 32px
-      line-height: 24px
-      font-size: $font-size-small
-      color: #666;
-      border-radius: 20px
-      text-indent: 5%;
-      text-align center
-      outline none
+      input 
+        width: 100%;
+        height: 32px
+        line-height: 24px
+        font-size: $font-size-small
+        color: #666;
+        border-radius: 20px
+        text-indent: 5%;
+        text-align center
+        outline none
 </style>

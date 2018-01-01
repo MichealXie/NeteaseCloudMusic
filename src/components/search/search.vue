@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style lang='stylus'>
-
+	.search
+		background pink
+		height 100vh
 </style>
