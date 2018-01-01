@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
 		isPlayListShow: false,
 		listId: '',
 		playlist: {},
-		privateContent: []
+		privateContent: [],
+		recommendMV: []
 	},
 	getters: {
 		partlyList(state){
@@ -66,6 +67,13 @@ export const store = new Vuex.Store({
 					context.state.privateContent = data.data.result
 				})
 		},
+		getRecommendMV(context){
+			context.state.playlist = {}
+			axios.get('http://localhost:3000/personalized/mv')
+				.then((data) => {
+					context.state.recommendMV = data.data.result
+				})
+		}
 	},
 	plugins: [createLogger()]
 })

@@ -12,7 +12,8 @@
 
 3. Todo:  测试 action 传参
 
-
+## 可改进:
+1. 我通过vuex 的 mutation payload 传递歌曲参数, 但好像更正常的做法是把 id 放在 url 最后
 
 
 ## Build Setup

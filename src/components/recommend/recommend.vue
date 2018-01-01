@@ -31,6 +31,7 @@
 							<img class="private-img" :src="item.sPicUrl">
 							<p class="private-name">{{item.name}}</p>
 						</a>
+						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
 				</ul>
 				<div class="private-ad">
@@ -39,6 +40,20 @@
 						<img :src="privateAd.picUrl">
 						<p>{{privateAd.name}}</p>
 					</a>
+				</div>
+				<div class="recommend-mv">
+					<app-title>推荐 MV</app-title>
+					<ul class="mvs">
+						<li class="mv" v-for="item in recommendMV" :key="item.id">
+							<img class="img" :src="item.picUrl">
+							<p class="name"> {{item.name}}</p>
+							<p class="singer"> {{item.artists[0].name}}</p>
+							<div class="mv-info">
+								<i class="fa fa-video-camera" aria-hidden="true"></i>
+								{{item.playCount}}
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -52,6 +67,8 @@ import slider from '@/base/slider/slider'
 import topLists from '@/components/top-lists/top-lists'
 import playlist from '@/components/playlist/playlist'
 import appTitle from '@/components/app-title/app-title'
+//万一有点用呢...
+import recommendMV from '@/components/recommend-mv/recommend-mv'
 
 export default {
 	components: {
@@ -86,6 +103,9 @@ export default {
 		},
 		privateAd(){
 			return this.$store.getters.privateAd
+		},
+		recommendMV(){
+			return this.$store.state.recommendMV
 		}
 	},
 	methods:{
@@ -104,6 +124,8 @@ export default {
 		this.$store.dispatch('getTopLists')
 		//获取独家放送
 		this.$store.dispatch('getPrivateContent')
+		//获取推荐 MV
+		this.$store.dispatch('getRecommendMV')
 	}
 }
 </script>
@@ -138,8 +160,9 @@ export default {
 		.partly-private
 			display flex
 			.private-item
+				position relative
 				width 50%
-				box-sizing border-bo
+				box-sizing border-box
 				font-size $font-size-small
 				//奇怪的处理方法
 				&:nth-child(odd)
@@ -150,6 +173,12 @@ export default {
 					default-font()
 					.private-img
 						width 100%
+				i
+					position absolute
+					top .2rem
+					left .3rem
+					color $not-important
+					font-size 1.2rem
 		.private-ad
 			width 100%
 			a
@@ -157,6 +186,34 @@ export default {
 					width 100%
 				p
 					default-font()
+	.recommend-mv
+		.mvs
+			display flex
+			flex-wrap wrap
+			.mv
+				position relative
+				width 50%
+				box-sizing border-box
+				font-size $font-size-small
+				//奇怪的处理方法
+				&:nth-child(odd)
+					padding-right 1px
+				&:nth-child(even)
+					padding-left 1px
+				.img
+					width 100%
+				.name
+					default-font()
+					text-overflow ellipsis
+					overflow hidden
+					white-space:nowrap
+				.singer
+					color: $not-important
+				.mv-info
+					position absolute
+					top .2rem
+					right .3rem
+					color white
 
 
 						

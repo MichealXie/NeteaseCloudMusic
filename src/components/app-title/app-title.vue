@@ -20,7 +20,7 @@ export default {
 	.app-title
 		position relative
 		font-size $font-size-medium-x
-		padding .5rem 0
+		padding 1rem 0 .5rem 0
 		.red-block
 			position absolute
 			height $font-size-medium

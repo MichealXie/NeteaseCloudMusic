@@ -1,16 +1,13 @@
 <template>
 	<div class="tab">
 		<router-link tag="div" to="/recommend" class="tab-item">
-			<span class="tab-link">推荐</span>
+			<span class="tab-link">个性推荐</span>
 		</router-link>
-		<router-link tag="div" to="/singer" class="tab-item">
-			<span class="tab-link">歌手</span>
+		<router-link tag="div" to="/song-list" class="tab-item">
+			<span class="tab-link">歌单</span>
 		</router-link>
 		<router-link tag="div" to="/rank" class="tab-item">
-			<span class="tab-link">排行</span>
-		</router-link>
-		<router-link tag="div" to="/search" class="tab-item">
-			<span class="tab-link">搜索</span>
+			<span class="tab-link">排行榜</span>
 		</router-link>
 	</div>
 </template>
@@ -36,6 +33,6 @@ export default {
         color: $color-text-l
       &.router-link-active
         .tab-link
-          color: $color-theme
-          border-bottom: 2px solid $color-theme
+          color: $color-background
+          border-bottom: 2px solid $color-background
 </style>
