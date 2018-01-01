@@ -24,6 +24,7 @@ export default {
     align-items center
     color: $color-text
     background $color-background
+    z-index 999
     i.fa-microphone, i.fa-headphones
       flex 0 0 2.5rem
       text-align center
