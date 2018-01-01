@@ -1,9 +1,8 @@
 <template>
   <div class="app-header">
-    <h1 class="text">我的网易云</h1>
-    <router-link tag="div" class="mine" to="/user">
-      <i class="icon-mine"></i>
-    </router-link>
+    <i class="fa fa-microphone" aria-hidden="true"></i>
+    <input type="text" placeholder="搜索音乐,歌词,电台">
+    <i class="fa fa-headphones" aria-hidden="true"></i>
   </div>
 </template>
 
@@ -13,7 +12,7 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 
@@ -21,31 +20,21 @@ export default {
     position: fixed
     height: 44px
     width 100%
-    text-align: center
-    color: $color-theme
-    font-size: 0
-    background-color $color-background
-    z-index 999
-    .icon
-      display: inline-block
-      vertical-align: top
-      margin-top: 6px
-      width: 30px
-      height: 32px
-      margin-right: 9px
-      background-size: 30px 32px
-    .text
-      display: inline-block
-      vertical-align: top
-      line-height: 44px
-      font-size: $font-size-large
-    .mine
-      position: absolute
-      top: 0
-      right: 0
-      .icon-mine
-        display: block
-        padding: 12px
-        font-size: 20px
-        color: $color-theme
+    display flex
+    align-items center
+    color: $color-text
+    background $color-background
+    i.fa-microphone, i.fa-headphones
+      flex 0 0 2.5rem
+      text-align center
+      font-size 1.5rem
+    input 
+      flex 1
+      width: 100%;
+      height: 30px
+      line-height: 24px
+      font-size: $font-size-small
+      color: #666;
+      border-radius: 20px
+      text-indent: 5%;
 </style>
