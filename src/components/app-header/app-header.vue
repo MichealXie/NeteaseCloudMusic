@@ -1,7 +1,7 @@
 <template>
   <div class="app-header">
     <i class="fa fa-microphone" aria-hidden="true"></i>
-    <input type="text" placeholder="搜索音乐,歌词,电台">
+    <input type="text" placeholder="搜索音乐,歌词,电台" @click="">
     <i class="fa fa-headphones" aria-hidden="true"></i>
   </div>
 </template>
@@ -26,16 +26,18 @@ export default {
     background $color-background
     z-index 999
     i.fa-microphone, i.fa-headphones
-      flex 0 0 2.5rem
+      flex 0 0 3.5rem
       text-align center
       font-size 1.5rem
     input 
       flex 1
       width: 100%;
-      height: 30px
+      height: 32px
       line-height: 24px
       font-size: $font-size-small
       color: #666;
       border-radius: 20px
       text-indent: 5%;
+      text-align center
+      outline none
 </style>
