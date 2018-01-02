@@ -26,4 +26,5 @@ export default {
   @import './common/stylus/reset'
   #app
     color: $color-theme
+    font-family: Microsoft Yahei, sans-serif
 </style>

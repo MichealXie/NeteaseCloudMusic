@@ -16,7 +16,11 @@ export const store = new Vuex.Store({
 		privateContent: [],
 		recommendMV: [],
 		recommendDJ: [],
-		songLists: []
+		songLists: [],
+		newSongRank: {},
+		hotSongRank: {},
+		originalSongRank: {},
+		rapidSongRank: {}
 	},
 	getters: {
 		partlyList(state){
@@ -30,7 +34,7 @@ export const store = new Vuex.Store({
 		},
 		partlyDJ(state){
 			return state.recommendDJ.slice(0,6)
-		}
+		},
 	},
 	mutations: {
 		togglePlayListShow(state, id){
@@ -98,6 +102,28 @@ export const store = new Vuex.Store({
 			axios.get('http://localhost:3000/top/playlist/highquality')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
+				})
+		},
+		getRank(context){
+			// 新歌榜
+			axios.get('http://localhost:3000/top/list?idx=0')
+				.then((data) => {
+					context.state.newSongRank = data.data.playlist
+				})
+			// 热歌榜
+			axios.get('http://localhost:3000/top/list?idx=1')
+				.then((data) => {
+					context.state.hotSongRank = data.data.playlist
+				})
+			// 原创榜
+			axios.get('http://localhost:3000/top/list?idx=2')
+				.then((data) => {
+					context.state.originalSongRank = data.data.playlist
+				})
+			// 彪升榜
+			axios.get('http://localhost:3000/top/list?idx=3')
+				.then((data) => {
+					context.state.rapidSongRank = data.data.playlist
 				})
 		}
 	},
