@@ -69,13 +69,15 @@ export default {
 			transform translateX(50%)
 			display flex
 			justify-content space-around
-			width 70%
+			width 80%
 			margin 10px 0
 			border-radius 20px
 			border 1px solid $color-background
 			overflow hidden
 			z-index 999
 			background white
+			font-size $font-size-medium
+			color $color-background
 			&>*
 				flex 1
 				display flex
@@ -109,8 +111,8 @@ export default {
 							width 100%
 						.info
 							position absolute
-							top .2rem
-							right .3rem
+							top 5px
+							right 5px
 							color white
 					.name
 						default-font()

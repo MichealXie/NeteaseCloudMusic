@@ -11,7 +11,7 @@
 				</slider>
 			</div>
 			<div class="top-list">
-				<app-title @click="toggleTopListsShow()">推荐歌单</app-title>
+				<app-title>推荐歌单</app-title>
 				<ul>
 					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="commitIdAndShow(item.id)">
 						<img :src="item.coverImgUrl">
@@ -69,22 +69,16 @@
 				</div>
 			</div>
 		</div>
-		<top-lists v-if="isTopListsShow"></top-lists>
-		<playlist v-if="isPlayListShow"></playlist>
 	</div>
 </template>
 
 <script>
 import slider from '@/base/slider/slider'
-import topLists from '@/components/top-lists/top-lists'
-import playlist from '@/components/playlist/playlist'
 import appTitle from '@/components/app-title/app-title'
 
 export default {
 	components: {
 		slider,
-		'top-lists':topLists,
-		'playlist': playlist,
 		'app-title': appTitle,
 
 	},
@@ -98,9 +92,6 @@ export default {
 		},
 		partlyList(){
 			return this.$store.getters.partlyList
-		},
-		isTopListsShow(){
-			return this.$store.state.isTopListsShow
 		},
 		isPlayListShow(){
 			return this.$store.state.isPlayListShow
@@ -122,9 +113,6 @@ export default {
 		}
 	},
 	methods:{
-		toggleTopListsShow(){
-			this.$store.commit('toggleTopListsShow')
-		},
 		commitIdAndShow(id){
 			this.$store.commit('togglePlayListShow', id)
 			this.$store.dispatch('getPlayList')
@@ -159,19 +147,20 @@ export default {
 				position relative
 				box-sizing border-box
 				padding-right 2px
-				margin-bottom 1rem
+				margin-bottom 5px
 				&:nth-child(3n)
 					padding 0
 				img 
 					width 100%
 				.count
 					position absolute
-					right .3rem
-					top .2rem
+					right 5px
+					top 5px
 					font-size 10px
 					color white
 				.name
 					default-font()
+					no-wrap()
 	.private-content
 		.partly-private
 			display flex
@@ -192,10 +181,10 @@ export default {
 						default-font()
 				i
 					position absolute
-					top .2rem
-					left .3rem
+					top 5px
+					left 5px
 					color $not-important
-					font-size 1.2rem
+					font-size 22px
 		.private-ad
 			width 100%
 			a
@@ -224,11 +213,11 @@ export default {
 					no-wrap()
 				.singer
 					color: $not-important
-					padding 0 .4rem
+					padding 0 8px
 				.mv-info
 					position absolute
-					top .2rem
-					right .3rem
+					top 5px
+					right 5px
 					color white
 	.djs
 			display flex
@@ -238,7 +227,7 @@ export default {
 				position relative
 				box-sizing border-box
 				padding-right 2px
-				margin-bottom 1rem
+				margin-bottom 10px
 				&:nth-child(3n)
 					padding 0
 				.img-ct
@@ -247,8 +236,8 @@ export default {
 						width 100%
 					.info
 						position absolute
-						bottom .3rem
-						left .2rem
+						bottom 5px
+						left 5px
 						color white
 						font-size $font-size-small-s
 						no-wrap()

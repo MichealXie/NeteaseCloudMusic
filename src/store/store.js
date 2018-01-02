@@ -33,9 +33,6 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		toggleTopListsShow(state){
-			state.isTopListsShow = !state.isTopListsShow
-		},
 		togglePlayListShow(state, id){
 			state.listId = id
 			state.isPlayListShow = !state.isPlayListShow

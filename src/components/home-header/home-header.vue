@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">
+  <div class="home-header">
     <i class="fa" aria-hidden="true" :class="{'fa-times': isSearchShow,'fa-microphone': !isSearchShow }"></i>
     <router-link class="router-link" to="/search" @click="toggleSearchShow()">
       <input type="text" placeholder="搜索音乐,歌词,电台">
@@ -27,7 +27,7 @@ export default {
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 
-  .app-header
+  .home-header
     position: fixed
     height: 48px
     width 100%
@@ -37,9 +37,9 @@ export default {
     background $color-background
     z-index 999
     i.fa-microphone, i.fa-headphones
-      flex 0 0 3.5rem
+      flex 0 0 56px
       text-align center
-      font-size 1.5rem
+      font-size 24px
     .router-link
       flex 1
       input 
@@ -49,7 +49,6 @@ export default {
         font-size: $font-size-small
         color: #666;
         border-radius: 20px
-        text-indent: 5%;
         text-align center
         outline none
 </style>

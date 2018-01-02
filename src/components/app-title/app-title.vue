@@ -20,17 +20,17 @@ export default {
 	.app-title
 		position relative
 		font-size $font-size-medium-x
-		padding .7rem 0 .5rem 0
+		padding 7px 0 7px 0
 		.red-block
 			position absolute
-			height $font-size-large
+			height $font-size-medium
 			border 1px solid $color-background
 		.title
-			padding-left .7rem
-			font-size $font-size-large
+			padding-left 7px
+			font-size $font-size-medium
 			font-weight 350
 			i
-				padding-left .5rem
+				padding-left 5px
 				font-weight 100 
 				font-size $font-size-medium-x
 				color grey
