@@ -1,5 +1,5 @@
 <template>
-	<div class="tab">
+	<div class="home-tab">
 		<router-link tag="div" to="/home/recommend" class="tab-item">
 			<span class="tab-link">个性推荐</span>
 		</router-link>
@@ -20,7 +20,7 @@ export default {
 
 <style lang='stylus'>
   @import "../../common/stylus/variable"
-  .tab
+  .home-tab
     position fixed
     display: flex
     width 100%
@@ -30,6 +30,7 @@ export default {
     z-index: 999
     background: white
     margin-top 48px
+    border-bottom .5px solid $light-border
     .tab-item
       flex: 1
       text-align: center

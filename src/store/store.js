@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
 		playlist: {},
 		privateContent: [],
 		recommendMV: [],
-		recommendDJ: []
+		recommendDJ: [],
+		songLists: []
 	},
 	getters: {
 		partlyList(state){
@@ -56,7 +57,6 @@ export const store = new Vuex.Store({
 				})
 		},
 		getPlayList(context){
-			context.state.playlist = {}
 			axios.get(`http://localhost:3000/playlist/detail?id=${context.state.listId}`)
 				.then((data) => {
 					console.log(data)
@@ -64,7 +64,6 @@ export const store = new Vuex.Store({
 				})
 		},
 		getPrivateContent(context){
-			context.state.playlist = {}
 			axios.get('http://localhost:3000/personalized/privatecontent')
 				.then((data) => {
 					console.log(data)
@@ -72,17 +71,33 @@ export const store = new Vuex.Store({
 				})
 		},
 		getRecommendMV(context){
-			context.state.playlist = {}
 			axios.get('http://localhost:3000/personalized/mv')
 				.then((data) => {
 					context.state.recommendMV = data.data.result
 				})
 		},
 		getRecommendDJ(context){
-			context.state.playlist = {}
 			axios.get('http://localhost:3000/personalized/djprogram')
 				.then((data) => {
 					context.state.recommendDJ = data.data.result
+				})
+		},
+		getLatestLists(context){
+			axios.get('http://localhost:3000/top/playlist?limit=20&order=new')
+				.then((data) => {
+					context.state.songLists = data.data.playlists
+				})
+		},
+		getPopularLists(context){
+			axios.get('http://localhost:3000/top/playlist?limit=20&order=hot')
+				.then((data) => {
+					context.state.songLists = data.data.playlists
+				})
+		},
+		getRecommendLists(context){
+			axios.get('http://localhost:3000/top/playlist/highquality')
+				.then((data) => {
+					context.state.songLists = data.data.playlists
 				})
 		}
 	},
