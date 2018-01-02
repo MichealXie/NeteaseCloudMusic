@@ -26,22 +26,16 @@
 				<app-title>独家放送</app-title>
 				<ul class="partly-private">
 					<li class="private-item" v-for="item in partlyPrivate" :key="item.id">
-						<!-- url 有问题, 是个 id -->
-						<a :href="item.url">
-							<img class="private-img" v-lazy="item.sPicUrl">
-							<p class="private-name">{{item.name}}</p>
-						</a>
+						<img class="private-img" v-lazy="item.sPicUrl">
+						<p class="private-name">{{item.name}}</p>
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
 				</ul>
-			</div>				
 				<div class="private-ad">
-					<!-- 很奇怪这里的 ad 要加v-if, 不加会报错, 但没有任何影响 -->
-					<a :href="privateAd.url" v-if="privateAd">
-						<img v-lazy="privateAd.picUrl">
-						<p>{{privateAd.name}}</p>
-					</a>
+					<img v-lazy="privateAd.picUrl">
+					<p>{{privateAd.name}}</p>
 				</div>
+			</div>				
 				<div class="recommend-mv">
 					<app-title>推荐 MV</app-title>
 					<ul class="mvs">
@@ -173,11 +167,10 @@ export default {
 					padding-right 1px
 				&:nth-child(even)
 					padding-left 1px
-				a
-					.private-img
-						width 100%
-					.private-name
-						default-font()
+				.private-img
+					width 100%
+				.private-name
+					default-font()
 				i
 					position absolute
 					top 5px
@@ -186,9 +179,8 @@ export default {
 					font-size 22px
 		.private-ad
 			width 100%
-			a
-				img 
-					width 100%
+			img 
+				width 100%
 				p
 					default-font()
 	.recommend-mv
