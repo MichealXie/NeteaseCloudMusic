@@ -80,18 +80,21 @@ export const store = new Vuex.Store({
 				})
 		},
 		getLatestLists(context){
+			context.state.songLists = []
 			axios.get('http://localhost:3000/top/playlist?limit=20&order=new')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
 				})
 		},
 		getPopularLists(context){
+			context.state.songLists = []
 			axios.get('http://localhost:3000/top/playlist?limit=20&order=hot')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
 				})
 		},
 		getRecommendLists(context){
+			context.state.songLists = []
 			axios.get('http://localhost:3000/top/playlist/highquality')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
