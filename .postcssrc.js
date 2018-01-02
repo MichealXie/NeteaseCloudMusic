@@ -6,8 +6,8 @@ module.exports = {
     "postcss-import": {},
     "autoprefixer": {},
     "postcss-px-to-viewport": {
-      viewportWidth: 750,
-      viewportHeight: 1334,
+      viewportWidth: 375,
+      viewportHeight: 667,
       unitPrecision: 5,
       viewportUnit: 'vw',
       selectorBlackList: [],
