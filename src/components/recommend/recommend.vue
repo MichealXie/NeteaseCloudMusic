@@ -13,13 +13,13 @@
 			<div class="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
-					<li class="top-item" v-for="item in partlyList" :key="item.id" @click="commitIdAndShow(item.id)">
+					<router-link to="/song-details" class="top-item" v-for="item in partlyList" :key="item.id" @click="passAndGetList(item.id)">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
 							{{ item.playCount }}</span>
 						<div class="name">{{item.name}}</div>
-					</li>
+					</router-link>
 				</ul>
 			</div>
 			<div class="private-content" v-if="privateContent">
@@ -86,9 +86,6 @@ export default {
 		partlyList(){
 			return this.$store.getters.partlyList
 		},
-		isPlayListShow(){
-			return this.$store.state.isPlayListShow
-		},
 		privateContent(){
 			return this.$store.state.privateContent
 		},
@@ -106,8 +103,8 @@ export default {
 		}
 	},
 	methods:{
-		commitIdAndShow(id){
-			this.$store.commit('togglePlayListShow', id)
+		passAndGetList(id){
+			this.$store.commit('passSongList', id)
 			this.$store.dispatch('getPlayList')
 		}
 	},
@@ -135,7 +132,7 @@ export default {
 		ul
 			display flex
 			flex-wrap wrap
-			li.top-item
+			.top-item
 				width 33.33%
 				position relative
 				box-sizing border-box

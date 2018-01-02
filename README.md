@@ -36,6 +36,8 @@
 	+ 在 .postcsssrc.js 里配置usePostCSS:true...(这步卡了我2小时!生气.jpg)
 	+ 安装包, 还有把 包放入,build 的 utils.js
 
+7. 项目开始变复杂了, 页面切换有点烦, 实现的方式很多, 最佳实践应该怎么做呢?
+	- [ ] 明天花一个小时确定整个项目结构
 ## 可改进:
 1. 我通过vuex 的 mutation payload 传递歌曲参数, 但好像更正常的做法是把 id 放在 url 最后
 

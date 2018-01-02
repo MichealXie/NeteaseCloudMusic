@@ -1,7 +1,7 @@
 <template>
   <div class="home-header">
-    <i class="fa" aria-hidden="true" :class="{'fa-times': isSearchShow,'fa-microphone': !isSearchShow }"></i>
-    <router-link class="router-link" to="/search" @click="toggleSearchShow()">
+    <i class="fa fa-microphone" aria-hidden="true"></i>
+    <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
     </router-link>
     <i class="fa fa-headphones" aria-hidden="true"></i>
@@ -12,13 +12,11 @@
 export default {
   data () {
     return {
-      isSearchShow: false
+      
     }
   },
   methods: {
-    toggleSearchShow(){
-      this.isSearchShow = !this.isSearchShow
-    }
+
   }
 }
 </script>

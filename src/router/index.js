@@ -3,9 +3,10 @@ import Router from 'vue-router'
 import Rank from '@/components/rank/rank'
 import Home from '@/components/home/home'
 import Recommend from '@/components/recommend/recommend'
-import songLists from '@/components/song-lists/song-lists'
+import SongLists from '@/components/song-lists/song-lists'
 import Singer from '@/components/singer/singer'
 import Search from '@/components/search/search'
+import SongDetails from '@/components/song-details/song-details'
 
 Vue.use(Router)
 
@@ -25,7 +26,7 @@ export default new Router({
         },
         {
           path: 'song-lists',
-          component: songLists
+          component: SongLists
         },
         {
           path: 'rank',
@@ -37,6 +38,10 @@ export default new Router({
       path: '/search',
       component: Search
     },
+    {
+      path: '/song-details',
+      component: SongDetails
+    }
   ],
   mode: "history"
 })

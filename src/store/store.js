@@ -9,8 +9,6 @@ export const store = new Vuex.Store({
 	state: {
 		banners:[],
 		topLists:[],
-		isTopListsShow: false,
-		isPlayListShow: false,
 		listId: '',
 		playlist: {},
 		privateContent: [],
@@ -37,9 +35,8 @@ export const store = new Vuex.Store({
 		},
 	},
 	mutations: {
-		togglePlayListShow(state, id){
+		passSongList(state, id){
 			state.listId = id
-			state.isPlayListShow = !state.isPlayListShow
 		}
 	},
 	actions:{
