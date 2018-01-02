@@ -1,12 +1,12 @@
 <template>
 	<div class="tab">
-		<router-link tag="div" to="/recommend" class="tab-item">
+		<router-link tag="div" to="/home/recommend" class="tab-item">
 			<span class="tab-link">个性推荐</span>
 		</router-link>
-		<router-link tag="div" to="/song-list" class="tab-item">
+		<router-link tag="div" to="/home/song-lists" class="tab-item">
 			<span class="tab-link">歌单</span>
 		</router-link>
-		<router-link tag="div" to="/rank" class="tab-item">
+		<router-link tag="div" to="/home/rank" class="tab-item">
 			<span class="tab-link">排行榜</span>
 		</router-link>
 	</div>

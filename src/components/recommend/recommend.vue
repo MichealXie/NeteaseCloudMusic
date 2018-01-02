@@ -79,8 +79,6 @@ import slider from '@/base/slider/slider'
 import topLists from '@/components/top-lists/top-lists'
 import playlist from '@/components/playlist/playlist'
 import appTitle from '@/components/app-title/app-title'
-//万一有点用呢...
-import recommendMV from '@/components/recommend-mv/recommend-mv'
 
 export default {
 	components: {

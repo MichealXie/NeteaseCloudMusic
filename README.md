@@ -12,6 +12,21 @@
 
 3. Todo:  测试 action 传参
 
+4. em....search 页面应该怎么在 router 里显示呢
+	- [ ] 试试把 app-header 放到 recommend 里
+	- [ ] 或者重新设计二级路由: 
+		+ 首页 home
+			- 推荐
+			- 歌单
+			- 排行榜
+		+ 搜索 search
+			- 单曲
+			- 歌手
+			- .....等等
+	- [ ] components 结构:
+		+ 全部做成router-link
+		+ 全局只有两个: link 跟播放界面
+	
 ## 可改进:
 1. 我通过vuex 的 mutation payload 传递歌曲参数, 但好像更正常的做法是把 id 放在 url 最后
 

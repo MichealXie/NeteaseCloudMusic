@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <app-tab></app-tab>
     <keep-alive>
       <router-view/>
     </keep-alive>
+    <player></player>
   </div>
 </template>
 
 <script>
-import appHeader from '@/components/app-header/app-header'
-import appTab from '@/components/tab/tab'
+
+import player from '@/components/player/player'
 
 export default {
   name: 'app',
   components: {
-    'app-header': appHeader,
-    'app-tab': appTab,
-
+    player,
+    //还有个人信息界面
   }
 
 }
