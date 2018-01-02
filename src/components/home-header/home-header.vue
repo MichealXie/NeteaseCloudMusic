@@ -40,6 +40,7 @@ export default {
       flex 0 0 56px
       text-align center
       font-size 24px
+      color white
     .router-link
       flex 1
       input 

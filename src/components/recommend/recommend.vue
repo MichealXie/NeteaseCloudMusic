@@ -34,6 +34,7 @@
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
 				</ul>
+			</div>				
 				<div class="private-ad">
 					<!-- 很奇怪这里的 ad 要加v-if, 不加会报错, 但没有任何影响 -->
 					<a :href="privateAd.url" v-if="privateAd">
@@ -67,7 +68,6 @@
 						</li>
 					</ul>
 				</div>
-			</div>
 		</div>
 	</div>
 </template>
