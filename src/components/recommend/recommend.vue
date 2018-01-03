@@ -13,7 +13,7 @@
 			<div class="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
-					<router-link to="/song-details" class="top-item" v-for="item in partlyList" :key="item.id" @click="passAndGetList(item.id)">
+					<router-link :to="'/song-details/' + item.id" class="top-item" v-for="item in partlyList" :key="item.id" @click="passAndGetList(item.id)">
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>

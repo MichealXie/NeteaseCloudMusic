@@ -6,7 +6,7 @@ import Recommend from '@/components/recommend/recommend'
 import SongLists from '@/components/song-lists/song-lists'
 import Singer from '@/components/singer/singer'
 import Search from '@/components/search/search'
-import SongDetails from '@/components/song-details/song-details'
+import SongDetails from '@/components/song-list-detail/song-list-detail'
 
 Vue.use(Router)
 
@@ -39,9 +39,9 @@ export default new Router({
       component: Search
     },
     {
-      path: '/song-details',
-      component: SongDetails
-    }
+      path: '/song-details/:id',
+      component: SongDetails,
+    },
   ],
   mode: "history"
 })

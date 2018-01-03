@@ -9,7 +9,6 @@ export const store = new Vuex.Store({
 	state: {
 		banners:[],
 		topLists:[],
-		listId: '',
 		playlist: {},
 		privateContent: [],
 		recommendMV: [],
@@ -18,7 +17,8 @@ export const store = new Vuex.Store({
 		newSongRank: {},
 		hotSongRank: {},
 		originalSongRank: {},
-		rapidSongRank: {}
+		rapidSongRank: {},
+		songListDetail: {},
 	},
 	getters: {
 		partlyList(state){
@@ -35,8 +35,8 @@ export const store = new Vuex.Store({
 		},
 	},
 	mutations: {
-		passSongList(state, id){
-			state.listId = id
+		setSongListDetail(state, payload){
+			state.songListDetail = payload
 		}
 	},
 	actions:{
@@ -52,13 +52,6 @@ export const store = new Vuex.Store({
 				.then((data) => {
 					console.log(data.data)
 					context.state.topLists = data.data.playlists
-				})
-		},
-		getPlayList(context){
-			axios.get(`http://localhost:3000/playlist/detail?id=${context.state.listId}`)
-				.then((data) => {
-					console.log(data)
-					context.state.playlist = data.data.playlist
 				})
 		},
 		getPrivateContent(context){
@@ -122,6 +115,10 @@ export const store = new Vuex.Store({
 				.then((data) => {
 					context.state.rapidSongRank = data.data.playlist
 				})
+		},
+		async getSongListDetail(context,payload){
+			let data = await axios.get(`http://localhost:3000/playlist/detail?id=${payload}`)
+			context.commit('setSongListDetail', data.data.playlist)
 		}
 	},
 	plugins: [createLogger()]
