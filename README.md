@@ -30,18 +30,26 @@
 5. 麻烦的移动端自适应
 	+ 选项1: 使用 flexible
 	+ 选项2: 添加事件resize, 实时确定根元素的 rem, 默认100, 全程 rem 控制大小
-	+ 选项3: 直接使用 vh, vw
+	- [x] 选项3: 直接使用 vh, vw => postcss + px 完全搞定
 
 6. 由问题5引出的问题6...  postcss 如何引入?
 	+ 在 .postcsssrc.js 里配置usePostCSS:true...(这步卡了我2小时!生气.jpg)
-	+ 安装包, 还有把 包放入,build 的 utils.js
+	+ 安装包, 还有把包放入,build 的 utils.js
 
 7. 项目开始变复杂了, 页面切换有点烦, 实现的方式很多, 最佳实践应该怎么做呢?
 	- [ ] 明天花一个小时确定整个项目结构
 ## 可改进:
 1. 我通过vuex 的 mutation payload 传递歌曲参数, 但好像更正常的做法是把 id 放在 url 最后
 
+2. rank 界面可重构: 样式完全一样, 把4个东西东西放入一个对象,  v-for 搞定
 
+3. promise 可改为 async
+
+4. 分离 loading 组件
+
+5. 默认加载中图片可改为灰色网易云
+
+6. 判断数据是否存在来减少网络请求...
 ## Build Setup
 
 ``` bash
