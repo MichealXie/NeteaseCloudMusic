@@ -13,7 +13,10 @@
 			<div class="detail-info">
 				<div class="img-ct">
 					<img v-lazy="songListDetail.creator.backgroundUrl">
-					<span class="count">{{songListDetail.playCount}}</span>
+					<span class="count">
+						<i class="fa fa-headphones" aria-hidden="true"></i>
+						{{songListDetail.playCount}}
+					</span>
 				</div>
 				<div class="list-creator">
 						{{songListDetail.name}}
@@ -73,6 +76,7 @@ export default {
 
 	.song-list-detail
 		.detail-header
+			color rgba(255,255,255,0.9)
 			background url('./background.png')
 			.top
 				display flex
@@ -110,7 +114,7 @@ export default {
 						.nickname
 							padding 5px
 							font-size: $font-size-medium
-							color $default-text
+							color rgba(255,255,255,0.7)
 			.list-data
 				display flex
 				.icon-ct
@@ -119,8 +123,10 @@ export default {
 					align-items center
 					flex-direction column
 					padding 8px 0
+					font-size $font-size-small				
 					i 
-						font-size 20px
+						font-size $font-size-large-x
+						padding 8px 0
 		.detail-list
 			.songs
 				.song
