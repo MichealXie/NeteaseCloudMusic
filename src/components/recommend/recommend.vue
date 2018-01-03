@@ -126,6 +126,7 @@ export default {
 <style lang='stylus'>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
+		
 	.slider-wrapper
 		padding-top 88px
 	.top-list

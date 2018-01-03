@@ -19,8 +19,27 @@ default-font()
   padding 4px 8px
   line-height: $font-size-medium-x
 
+default-singer()
+  font-size $font-size-small-s
+  color $not-important
+
+song-name()
+  color black
+  font-size $font-size-medium
+  padding 5px 0
+  font-weight 350
+
 //不换行
 no-wrap()
   text-overflow ellipsis
   overflow hidden
   white-space:nowrap
+
+//一个物体居中
+flex-center()
+  display flex
+  align-items: center
+  justify-content: center
+
+border-1px()
+  box-shadow: inset 0px -1px 1px -1px #c8c7cc;
