@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
 		songListDetail: {},
 		type: '',
 		searchResult:{},
+		isSearching: false,
 	},
 	getters: {
 		partlyList(state){
@@ -150,7 +151,10 @@ export const store = new Vuex.Store({
 			context.commit('setSongListDetail', data.data.playlist)
 		},
 		async getSongSearch(context,payload){
+			if (context.state.isSearching) return 
+			context.state.isSearching = true
 			let data = await axios.get(`http://localhost:3000/search?keywords=${payload.keywords}&type=${payload.type}`)
+			context.state.isSearching = false
 			payload.data = data
 			context.commit('setSearch', payload)
 		}

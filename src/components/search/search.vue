@@ -1,5 +1,6 @@
 <template>
 	<div class="search">
+		<loading v-show="isSearching"></loading>
 		<div class="search-header">
 			<i class="fa fa-microphone" aria-hidden="true"></i>
 			<router-link class="router-link" to="/search">
@@ -84,12 +85,17 @@
 </template>
 
 <script>
+import loading from '@/base/loading/loading'
+
 export default {
+	components: {
+		loading,
+	},
 	data () {
 		return {
 			type: 1,
 			keywords: '',
-			name: 'songs'
+			name: 'songs',
 		}
 	},
 	computed: {
@@ -102,13 +108,16 @@ export default {
 				keywords: this.keywords,
 				name: this.name
 			}
+		},
+		isSearching(){
+			return this.$store.state.isSearching
 		}
 	},
 	methods: {
 		selectType(type,name){
 			if(type) this.type = type
 			if(name) this.name = name
-			if(this.keywords) this.$store.dispatch('getSongSearch',(this.searchOption))
+			if(this.keywords) this.$store.dispatch('getSongSearch',this.searchOption)
 		},
 	},
 	watch: {
