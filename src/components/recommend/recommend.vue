@@ -184,8 +184,8 @@ export default {
 			width 100%
 			img 
 				width 100%
-				p
-					default-font()
+			p
+				default-font()
 	.recommend-mv
 		.mvs
 			display flex
