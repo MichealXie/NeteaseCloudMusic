@@ -13,7 +13,7 @@
 						<img class="img" :src="item.coverImgUrl">
 						<div class="info">
 							<i aria-hidden="true" class="fa fa-music"></i>
-							<span class="count">{{item.playCount}}</span>
+							<span class="count">{{item.playCount | palycount}}</span>
 						</div>
 					</div>
 					<p class="name">{{item.name}}</p>

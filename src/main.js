@@ -12,7 +12,12 @@ Vue.use(VueLazyload,{
   error:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC69yZoF-Kmt8lTCX6cqRWlgKPrg0B5j-GkD2z0jq8HugLQIptLw'
 })
 
-
+Vue.filter('palycount', (count) => {
+  if(count > 100000){
+    return Math.floor(count/10000) + '万'
+  }
+  else return count
+})
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 /* eslint-disable no-new */
