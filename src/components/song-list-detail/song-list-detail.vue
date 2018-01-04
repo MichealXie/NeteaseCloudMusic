@@ -1,5 +1,6 @@
 <template>
 	<div class="song-list-detail">
+		<loading v-show="!Object.keys(songListDetail).length"></loading>
 		<div class="detail-header">
 			<div class="top">
 				<router-link class="icon" to="/">
@@ -56,15 +57,18 @@
 </template>
 
 <script>
+import loading from '@/base/loading/loading'
 
 export default {
+	components:{
+		loading,
+	},
 	computed: {
 		songListDetail(){
 			return this.$store.state.songListDetail
 		}
 	},
-	//FIXME: 只生效一次, 
-	created () {
+	activated () {
 		this.$store.dispatch('getSongListDetail',this.$route.params.id)
 	}
 }
