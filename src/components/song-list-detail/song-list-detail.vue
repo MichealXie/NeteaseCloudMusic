@@ -16,7 +16,7 @@
 					<img v-lazy="songListDetail.creator.backgroundUrl">
 					<span class="count">
 						<i class="fa fa-headphones" aria-hidden="true"></i>
-						{{songListDetail.playCount  | palycount}}
+						{{songListDetail.playCount  | playcount}}
 					</span>
 				</div>
 				<div class="list-creator">
@@ -30,15 +30,15 @@
 			<div class="list-data">
 				<div class="icon-ct">
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
-					<p>{{songListDetail.subscribedCount | palycount}}</p>
+					<p>{{songListDetail.subscribedCount | playcount}}</p>
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
-					<p>{{songListDetail.trackCount | palycount}}</p>
+					<p>{{songListDetail.trackCount | playcount}}</p>
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-share-square-o" aria-hidden="true"></i>
-					<p>{{songListDetail.shareCount | palycount}}</p>					
+					<p>{{songListDetail.shareCount | playcount}}</p>					
 				</div>
 			</div>
 		</div>

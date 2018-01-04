@@ -18,7 +18,7 @@
 						<img :src="item.coverImgUrl">
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
-							{{ item.playCount | palycount}}</span>
+							{{ item.playCount | playcount}}</span>
 						<div class="name">{{item.name}}</div>
 					</router-link>
 				</ul>
@@ -46,7 +46,7 @@
 							<p class="singer"> {{item.artists[0].name}}</p>
 							<div class="mv-info">
 								<i class="fa fa-video-camera" aria-hidden="true"></i>
-								{{item.playCount | palycount}}
+								{{item.playCount | playcount}}
 							</div>
 						</li>
 					</ul>

@@ -12,7 +12,7 @@ Vue.use(VueLazyload,{
   error:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC69yZoF-Kmt8lTCX6cqRWlgKPrg0B5j-GkD2z0jq8HugLQIptLw'
 })
 
-Vue.filter('palycount', (count) => {
+Vue.filter('playcount', (count) => {
   if(count > 100000){
     return Math.floor(count/10000) + '万'
   }
