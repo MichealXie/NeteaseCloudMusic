@@ -33,8 +33,31 @@ export const store = new Vuex.Store({
 		partlyDJ(state){
 			return state.recommendDJ.slice(0,6)
 		},
+		newTop3(state){
+			if (state.newSongRank.tracks){
+				return state.newSongRank.tracks.slice(0, 3)
+			}
+		},
+		hotTop3(state) {
+			if (state.hotSongRank.tracks){
+				return state.hotSongRank.tracks.slice(0, 3)
+			}
+		},
+		originalTop3(state) {
+			if (state.originalSongRank){
+				return state.originalSongRank.tracks.slice(0, 3)
+			}
+		},
+		rapidTop3(state) {
+			if (state.rapidSongRank.tracks){
+				return state.rapidSongRank.tracks.slice(0, 3)
+			}
+		}
 	},
 	mutations: {
+		clearSongListDetail(state){
+			state.songListDetail = {}
+		},
 		setSongListDetail(state, payload){
 			state.songListDetail = payload
 		}
@@ -117,6 +140,7 @@ export const store = new Vuex.Store({
 				})
 		},
 		async getSongListDetail(context,payload){
+			context.commit('clearSongListDetail')
 			let data = await axios.get(`http://localhost:3000/playlist/detail?id=${payload}`)
 			context.commit('setSongListDetail', data.data.playlist)
 		}
