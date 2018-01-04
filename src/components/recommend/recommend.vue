@@ -1,8 +1,9 @@
 <template>
 	<div class="recommend">
+		<loading v-show="!banners.length"></loading>
 		<div class="recommend-content">
 			<div class="slider-wrapper">
-				<slider v-if="banners[1]">
+				<slider v-if="banners">
 					<div v-for="item in banners" :key="item.key">
 						<a :href="item.url">
 							<img :src="item.pic">
@@ -68,15 +69,18 @@
 
 <script>
 import slider from '@/base/slider/slider'
+import loading from '@/base/loading/loading'
 import appTitle from '@/components/app-title/app-title'
 
 export default {
 	components: {
 		slider,
+		loading,
 		'app-title': appTitle,
 	},
 	data () {
 		return {
+			
 		}
 	},
 	computed: {
@@ -119,6 +123,7 @@ export default {
 		this.$store.dispatch('getRecommendMV')
 		//获取推荐电台
 		this.$store.dispatch('getRecommendDJ')
+
 	}
 }
 </script>

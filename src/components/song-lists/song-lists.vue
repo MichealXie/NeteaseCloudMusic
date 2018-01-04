@@ -1,5 +1,6 @@
 <template>
 	<div class="song-lists">
+		<loading v-show="!Object.keys(songLists).length"></loading>
 		<div class="lists-tab">
 			<div class="latest" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>
 			<div class="popular" :class="{active: status === 'popular'}" @click="switchStatus('popular')">热门</div>
@@ -7,7 +8,7 @@
 		</div>
 		<div class="duet-lists">
 			<ul>
-				<li class="item" v-for="item in imgs" :key="item.id">
+				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in songLists" :key="item.id">
 					<div class="img-ct">
 						<img class="img" :src="item.coverImgUrl">
 						<div class="info">
@@ -16,21 +17,26 @@
 						</div>
 					</div>
 					<p class="name">{{item.name}}</p>
-				</li>
+				</router-link>
 			</ul>
 		</div>
 	</div>
 </template>
 
 <script>
+import loading from '@/base/loading/loading'
+
 export default {
+	components:{
+		loading,
+	},
 	data () {
 		return {
 			status: 'latest'
 		}
 	},
 	computed: {
-		imgs(){
+		songLists(){
 			return this.$store.state.songLists
 		}
 	},

@@ -1,5 +1,6 @@
 <template>
 	<div class="rank">
+		<loading v-show="!Object.keys(newSongRank).length"></loading>
 		<app-title>
 			网易云官方榜
 		</app-title>
@@ -51,10 +52,12 @@
 
 <script>
 import appTitle from '@/components/app-title/app-title'
+import loading from '@/base/loading/loading'
 
 export default {
 	components: {
 		'app-title': appTitle,
+		loading,
 	},
 	computed: {
 		newSongRank(){
@@ -70,16 +73,16 @@ export default {
 			return this.$store.state.rapidSongRank
 		},
 		newTop3(){
-			return this.$store.state.newSongRank.tracks.slice(0,3)
+			return this.$store.getters.newTop3
 		},
 		hotTop3(){
-			return this.$store.state.hotSongRank.tracks.slice(0,3)
+			return this.$store.getters.hotTop3
 		},
 		originalTop3(){
-			return this.$store.state.originalSongRank.tracks.slice(0,3)
+			return this.$store.getters.originalTop3
 		},
 		rapidTop3(){
-			return this.$store.state.rapidSongRank.tracks.slice(0,3)
+			return this.$store.getters.rapidTop3
 		}
 	},
 	created(){
