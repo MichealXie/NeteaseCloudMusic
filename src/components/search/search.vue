@@ -1,30 +1,128 @@
 <template>
 	<div class="search">
-		this is search
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
+		<div class="search-header">
+			<i class="fa fa-microphone" aria-hidden="true"></i>
+			<router-link class="router-link" to="/search">
+				<input v-model.lazy="keywords" type="text" placeholder="搜索音乐,歌词,电台">
+			</router-link>
+			<!-- TODO 变换层, 取消或搜索 -->
+			<router-link to="home/recommend" class="goback">取消</router-link>
+		</div>
+		<div class="search-tab">
+			<div class="song" :class="{'active': type === 1}" @click="selectType(1,'songs')">单曲</div>
+			<div class="album" :class="{'active': type === 10}" @click="selectType(10,'albums')">专辑</div>
+			<div class="singer" :class="{'active': type === 100}" @click="selectType(100,'artists')">歌手</div>
+			<div class="songlist" :class="{'active': type === 1000}" @click="selectType(1000,'playlists')">歌单</div>
+			<div class="user" :class="{'active': type === 1002}" @click="selectType(1002,'userprofiles')">用户</div>
+		</div>
+		<div class="result">
+			<ul class="songs" v-show="type === 1">
+				<li v-for="item in searchResult.songs" :key="item.id">
+					<div class="info">
+						<div class="name">
+							{{item.name}}
+						</div>
+						<div class="singer">
+							{{item.artists[0].name}} - {{item.album.name}}
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="albums" v-show="type === 10">
+				<li v-for="item in searchResult.albums" :key="item.id">
+					<div class="cover">
+						<img :src="item.picUrl" alt="">
+					</div>
+					<div class="info">
+						<div class="name">
+							{{item.name}}
+						</div>
+						<div class="singer">
+							<!-- TODO 也许可以加个时间 filter? -->
+							{{item.artist.name}}
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="artists" v-show="type === 100">
+				<li v-for="item in searchResult.artists" :key="item.id">
+					<div class="cover">
+						<img :src="item.img1v1Url" alt="">
+					</div>
+					<div class="name">
+						<!-- TODO 翻译名字也可以写出来 -->
+						{{item.name}}
+					</div>
+				</li>
+			</ul>
+			<ul class="playlists" v-show="type === 1000">
+				<li v-for="item in searchResult.playlists" :key="item.id">
+					<div class="cover">
+						<img :src="item.coverImgUrl" alt="">
+					</div>
+					<div class="info">
+						<span class="name">{{item.name}}</span>
+						<span class="more">{{item.trackCount}}首 by {{item.creator.nickname}}, 播放{{item.playCount | playcount}}次</span>
+					</div>
+				</li>
+			</ul>
+			<ul class="userprofiles" v-show="type === 1002">
+				<li v-for="item in searchResult.userprofiles" :key="item.id">
+					<div class="cover">
+						<img :src="item.avatarUrl" alt="">
+					</div>
+					<div class="info">
+						<div class="name">
+							{{item.nickname}} <i class="fa" :class="{'fa-venus': item.gender === 0, 'fa-mars': item.gender === 1}" aria-hidden="true"></i>
+						</div>
+						<div class="signature">{{item.signature}}</div>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
 <script>
 export default {
-
+	data () {
+		return {
+			type: 1,
+			keywords: '',
+			name: 'songs'
+		}
+	},
+	computed: {
+		searchResult(){
+			return this.$store.state.searchResult
+		},
+		searchOption(){
+			return {
+				type: this.type,
+				keywords: this.keywords,
+				name: this.name
+			}
+		}
+	},
+	methods: {
+		selectType(type,name){
+			if(type) this.type = type
+			if(name) this.name = name
+			if(this.keywords) this.$store.dispatch('getSongSearch',(this.searchOption))
+		},
+	},
+	watch: {
+		keywords: function(newVal,oldVal){
+			if(newVal) this.selectType()
+		},
+	}
 }
 </script>
 
 <style lang='stylus'>
-	.search
-		.a
-			width 37.5px
-			height 1rem
-			background coral
-		.b
-			width 10rem
-			height 10rem
-			background pink
-		.c
-			width 187.5px
-			height 5rem
-			background grey
+  @import "../../common/stylus/variable"
+  @import "../../common/stylus/mixin"
+	@import "./search.styl"
+	
+
 </style>

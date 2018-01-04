@@ -19,6 +19,8 @@ export const store = new Vuex.Store({
 		originalSongRank: {},
 		rapidSongRank: {},
 		songListDetail: {},
+		type: '',
+		searchResult:{},
 	},
 	getters: {
 		partlyList(state){
@@ -60,6 +62,9 @@ export const store = new Vuex.Store({
 		},
 		setSongListDetail(state, payload){
 			state.songListDetail = payload
+		},
+		setSearch(state, payload){
+			state.searchResult[payload.name] = payload.data.data.result[payload.name]
 		}
 	},
 	actions:{
@@ -143,6 +148,11 @@ export const store = new Vuex.Store({
 			context.commit('clearSongListDetail')
 			let data = await axios.get(`http://localhost:3000/playlist/detail?id=${payload}`)
 			context.commit('setSongListDetail', data.data.playlist)
+		},
+		async getSongSearch(context,payload){
+			let data = await axios.get(`http://localhost:3000/search?keywords=${payload.keywords}&type=${payload.type}`)
+			payload.data = data
+			context.commit('setSearch', payload)
 		}
 	},
 	plugins: [createLogger()]

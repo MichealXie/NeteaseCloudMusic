@@ -1,0 +1,146 @@
+.search
+		.search-header
+			position: fixed
+			height: 48px
+			width 100%
+			display flex
+			align-items center
+			color: black
+			background $color-background
+			z-index 999
+			i.fa-microphone, .goback 
+				flex 0 0 56px
+				text-align center
+				font-size 24px
+				color white
+			.goback 
+				font-size $font-size-medium
+			.router-link
+				flex 1
+				input 
+					width: 100%;
+					height: 32px
+					line-height: 24px
+					font-size: $font-size-small
+					color: #666;
+					border-radius: 20px
+					text-align center
+					outline none
+		.search-tab
+			display flex
+			position: fixed
+			width 100%
+			top 48px
+			height 40px			
+			background white
+			font-size 15px
+			color $not-important
+			&>*
+				flex 1
+				flex-center()
+				border-1px()
+			.active
+				color: $color-background
+				border-bottom: 2px solid $color-background
+	.result
+		padding-top 88px
+		.songs
+			li
+				border-1px()
+				padding 0 10px
+				.info
+					padding 5px 0
+					.name
+						song-name()
+					.singer
+						default-singer()
+		.albums
+			li
+				display flex
+				padding 0 10px
+				.cover
+					flex 0 0 50px
+					height 50px
+					margin-bottom: 4px
+					img 
+						width 100%
+						height 100%
+				.info
+					flex 1
+					margin-left 10px
+					padding-top 5px
+					border-1px()
+					.name
+						song-name()
+					.singer
+						default-singer()
+		.artists
+			li
+				display flex
+				padding 0 10px
+				.cover
+					flex 0 0 50px
+					height 50px
+					margin-bottom: 4px
+					img 
+						width 100%
+						height 100%
+				.name
+					flex 1
+					display flex
+					align-items: center
+					margin-left 10px
+					padding-top 5px
+					border-1px()
+		.playlists
+			li
+				display flex
+				padding 0 10px
+				.cover
+					flex 0 0 50px
+					height 50px
+					margin-bottom: 4px
+					img 
+						width 100%
+						height 100%
+				.info
+					flex 1
+					display flex
+					flex-direction: column
+					justify-content: space-around
+					margin-left 10px
+					padding-top 5px
+					border-1px()
+					.name
+						song-name()
+					.more
+						default-singer()
+		.userprofiles
+			li
+				display flex
+				padding 0 10px
+				.cover
+					flex 0 0 50px
+					height 50px
+					margin-bottom: 4px
+					img 
+						width 100%
+						height 100%
+						border-radius: 50%
+				.info
+					flex 1
+					display flex
+					flex-direction: column
+					justify-content: space-around
+					margin-left 10px
+					padding-top 5px
+					width calc(100% - 50px)
+					padding-right 30px
+					box-sizing: border-box
+					border-1px()
+					.name
+						song-name()
+					.signature
+						default-singer()
+						no-wrap()
+						
