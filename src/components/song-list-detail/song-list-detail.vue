@@ -50,6 +50,7 @@
 						<div class="name">{{item.name}}</div>
 						<div class="singer">{{item.ar[0].name}} - {{item.al.name}}</div>
 					</div>
+					<span class="placeholder"></span>
 				</li>
 			</ul>
 		</div>
@@ -135,6 +136,7 @@ export default {
 			.songs
 				.song
 					display flex
+					no-wrap()
 					.index
 						flex 0 0 40px
 						height 50px
@@ -145,11 +147,19 @@ export default {
 						display flex
 						flex-direction column
 						justify-content center
+						width calc(100% - 80px)
 						border-1px()
 						.name
+							width 100%
 							song-name()
+							no-wrap()
 						.singer
+							width 100%
 							default-singer()
+							no-wrap()
+					.placeholder
+						flex 20px
+						border-1px()
 
 
 						
