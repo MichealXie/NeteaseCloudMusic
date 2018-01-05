@@ -4,7 +4,7 @@
     <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
     </router-link>
-    <i class="fa fa-headphones" aria-hidden="true"></i>
+    <i class="fa fa-headphones" aria-hidden="true" @click="showPlayer()"></i>
   </div>
 </template>
 
@@ -16,7 +16,9 @@ export default {
     }
   },
   methods: {
-
+    showPlayer(){
+      this.$store.commit('showPlayer')
+    }
   }
 }
 </script>
@@ -33,7 +35,7 @@ export default {
     align-items center
     color: $color-text
     background $color-background
-    z-index 999
+    z-index 100
     i.fa-microphone, i.fa-headphones
       flex 0 0 56px
       text-align center

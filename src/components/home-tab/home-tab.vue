@@ -27,7 +27,7 @@ export default {
     height: 40px
     line-height: 44px
     font-size: $font-size-medium
-    z-index: 999
+    z-index: 100
     background: white
     margin-top 48px
     border-bottom .5px solid $light-border

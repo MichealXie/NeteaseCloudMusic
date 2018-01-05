@@ -23,7 +23,11 @@ export const store = new Vuex.Store({
 		searchResult:{},
 		isSearching: false,
 		albumSongs: [],
-		albumInfo:{}
+		albumInfo:{},
+		isPlay: false,
+		currentSong: '',
+		playingList: [],
+		isPlayerShow: false,
 	},
 	getters: {
 		partlyList(state){
@@ -77,6 +81,21 @@ export const store = new Vuex.Store({
 		},
 		setAlbumInfo(state, payload){
 			state.albumInfo = payload
+		},
+		setCurrentSong(state, payload){
+			state.currentSong = payload
+		},
+		showPlayer(state){
+			state.isPlayerShow = true
+		},
+		hidePlayer(state) {
+			state.isPlayerShow = false
+		},
+		setPlayingList(state, payload){
+			state.playingList = payload
+		},
+		togglePlay(state){
+			state.isPlay = !state.isPlay
 		}
 	},
 	actions:{
@@ -175,6 +194,10 @@ export const store = new Vuex.Store({
 			let data = await axios.get(`http://localhost:3000/album?id=${payload}`)
 			context.commit('setAlbumSongs', data.data.songs)
 			context.commit('setAlbumInfo', data.data.album)			
+		},
+		async getSongUrl(context, payload){
+			let data = await axios.get(`http://localhost:3000/music/url?id=${payload}`)
+			context.commit('setCurrentSong', data.data.data[0].url)
 		},
 	},
 	plugins: [createLogger()]
