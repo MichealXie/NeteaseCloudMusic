@@ -99,6 +99,7 @@ export default {
 				color white
 		.duet-lists
 			padding-top 140px
+			background $list-background
 			ul
 				display flex
 				flex-wrap wrap

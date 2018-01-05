@@ -97,6 +97,8 @@ export default {
 
 	.rank
 		padding-top 88px
+		background $list-background
+		min-height calc(100vh - 88px)
 		.rank-item
 			display flex
 			width 100%

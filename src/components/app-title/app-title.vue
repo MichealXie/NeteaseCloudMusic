@@ -21,6 +21,7 @@ export default {
 		position relative
 		font-size $font-size-medium-x
 		padding 10px 0
+		background $list-background
 		.red-block
 			position absolute
 			height $font-size-medium

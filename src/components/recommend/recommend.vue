@@ -135,6 +135,7 @@ export default {
 	.slider-wrapper
 		padding-top 88px
 	.top-list
+		background $list-background
 		ul
 			display flex
 			flex-wrap wrap
@@ -158,6 +159,7 @@ export default {
 					default-font()
 					no-wrap()
 	.private-content
+		background $list-background
 		.partly-private
 			display flex
 			.private-item
@@ -187,6 +189,7 @@ export default {
 			p
 				default-font()
 	.recommend-mv
+		background $list-background
 		.mvs
 			display flex
 			flex-wrap wrap
@@ -214,30 +217,31 @@ export default {
 					right 5px
 					color white
 	.djs
-			display flex
-			flex-wrap wrap
-			.dj
-				width 33.33%
+		background $list-background
+		display flex
+		flex-wrap wrap
+		.dj
+			width 33.33%
+			position relative
+			box-sizing border-box
+			padding-right 2px
+			margin-bottom 10px
+			&:nth-child(3n)
+				padding 0
+			.img-ct
 				position relative
-				box-sizing border-box
-				padding-right 2px
-				margin-bottom 10px
-				&:nth-child(3n)
-					padding 0
-				.img-ct
-					position relative
-					img 
-						width 100%
-					.info
-						position absolute
-						bottom 5px
-						left 5px
-						color white
-						font-size $font-size-small-s
-						width 100%
-						no-wrap()
-				.name
-					default-font()
+				img 
+					width 100%
+				.info
+					position absolute
+					bottom 5px
+					left 5px
+					color white
+					font-size $font-size-small-s
+					width 100%
+					no-wrap()
+			.name
+				default-font()
 					
 
 
