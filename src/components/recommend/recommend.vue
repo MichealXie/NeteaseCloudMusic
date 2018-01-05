@@ -32,9 +32,9 @@
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
 				</ul>
-				<div class="private-ad">
-					<img v-lazy="privateAd.picUrl">
-					<p>{{privateAd.name}}</p>
+				<div class="private-ad" v-if="Object.keys(privateContent).length">
+					<img v-lazy="privateContent[0].picUrl">
+					<p>{{privateContent[0].name}}</p>
 				</div>
 			</div>				
 				<div class="recommend-mv">

@@ -32,9 +32,6 @@ export const store = new Vuex.Store({
 		partlyPrivate(state){
 			if (state.privateContent) return state.privateContent.slice(1,3)
 		},
-		privateAd(state){
-			return state.privateContent[0]
-		},
 		partlyDJ(state){
 			return state.recommendDJ.slice(0,6)
 		},
