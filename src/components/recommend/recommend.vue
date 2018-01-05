@@ -25,6 +25,10 @@
 			</div>
 			<div class="private-content" v-if="privateContent">
 				<app-title>独家放送</app-title>
+				<a :href="privateContent[0].url" class="private-ad" v-if="Object.keys(privateContent).length">
+					<img v-lazy="privateContent[0].picUrl">
+					<p>{{privateContent[0].name}}</p>
+				</a>
 				<ul class="partly-private">
 					<li class="private-item" v-for="item in partlyPrivate" :key="item.id">
 						<img class="private-img" v-lazy="item.sPicUrl">
@@ -32,10 +36,6 @@
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
 				</ul>
-				<div class="private-ad" v-if="Object.keys(privateContent).length">
-					<img v-lazy="privateContent[0].picUrl">
-					<p>{{privateContent[0].name}}</p>
-				</div>
 			</div>				
 				<div class="recommend-mv">
 					<app-title>推荐 MV</app-title>
