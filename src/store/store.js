@@ -22,13 +22,15 @@ export const store = new Vuex.Store({
 		type: '',
 		searchResult:{},
 		isSearching: false,
+		albumSongs: [],
+		albumInfo:{}
 	},
 	getters: {
 		partlyList(state){
-			return state.topLists.slice(0,6)
+			if (state.topLists) return state.topLists.slice(0,6)
 		},
 		partlyPrivate(state){
-			return state.privateContent.slice(1,3)
+			if (state.privateContent) return state.privateContent.slice(1,3)
 		},
 		privateAd(state){
 			return state.privateContent[0]
@@ -47,7 +49,7 @@ export const store = new Vuex.Store({
 			}
 		},
 		originalTop3(state) {
-			if (state.originalSongRank){
+			if (state.originalSongRank.tracks){
 				return state.originalSongRank.tracks.slice(0, 3)
 			}
 		},
@@ -66,6 +68,18 @@ export const store = new Vuex.Store({
 		},
 		setSearch(state, payload){
 			state.searchResult[payload.name] = payload.data.data.result[payload.name]
+		},
+		clearAlbumSongs(state) {
+			state.albumSongs = []
+		},
+		setAlbumSongs(state,payload){
+			state.albumSongs = payload
+		},
+		clearAlbumInfo(state) {
+			state.albumInfo = {}
+		},
+		setAlbumInfo(state, payload){
+			state.albumInfo = payload
 		}
 	},
 	actions:{
@@ -157,7 +171,14 @@ export const store = new Vuex.Store({
 			context.state.isSearching = false
 			payload.data = data
 			context.commit('setSearch', payload)
-		}
+		},
+		async getAlbum(context, payload) {
+			context.commit('clearAlbumSongs')
+			context.commit('clearAlbumInfo')
+			let data = await axios.get(`http://localhost:3000/album?id=${payload}`)
+			context.commit('setAlbumSongs', data.data.songs)
+			context.commit('setAlbumInfo', data.data.album)			
+		},
 	},
 	plugins: [createLogger()]
 })
