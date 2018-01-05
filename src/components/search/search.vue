@@ -9,14 +9,29 @@
 			<!-- TODO 变换层, 取消或搜索 -->
 			<div class="goback" @click="goback()">取消</div>
 		</div>
-		<div class="search-tab">
+		<div class="search-tab"  v-show="keywords">
 			<div class="song" :class="{'active': type === 1}" @click="selectType(1,'songs')">单曲</div>
 			<div class="album" :class="{'active': type === 10}" @click="selectType(10,'albums')">专辑</div>
 			<div class="singer" :class="{'active': type === 100}" @click="selectType(100,'artists')">歌手</div>
 			<div class="songlist" :class="{'active': type === 1000}" @click="selectType(1000,'playlists')">歌单</div>
 			<div class="user" :class="{'active': type === 1002}" @click="selectType(1002,'userprofiles')">用户</div>
 		</div>
-		<div class="result">
+		<div class="suggestion" v-show="!keywords">
+			<span class="title"> 热门搜索 </span>
+			<ul>
+				<li class="item" v-for="song in hotTop3" :key="song.id" @click="bingKeywords(song.name)">
+					{{song.name}}
+				</li>				
+				<li class="item" v-for="singer in originalTop3" :key="singer.id" @click="bingKeywords(singer.ar[0].name)">
+					{{singer.ar[0].name}}
+				</li>
+				<li class="item" v-for="singer in newTop3" :key="singer.id" @click="bingKeywords(singer.ar[0].name)">
+					{{singer.ar[0].name}}
+				</li>
+			</ul>
+			<!-- TODO 可以加一个搜索历史(体力活) -->
+		</div>
+		<div class="result" v-show="keywords">
 			<ul class="songs" v-show="type === 1">
 				<li v-for="item in searchResult.songs" :key="item.id">
 					<div class="info">
@@ -111,7 +126,16 @@ export default {
 		},
 		isSearching(){
 			return this.$store.state.isSearching
-		}
+		},
+		hotTop3(){
+			return this.$store.getters.hotTop3
+		},
+		originalTop3(){
+			return this.$store.getters.originalTop3
+		},
+		newTop3(){
+			return this.$store.getters.newTop3
+		},
 	},
 	methods: {
 		goback(){
@@ -122,6 +146,10 @@ export default {
 			if(name) this.name = name
 			if(this.keywords) this.$store.dispatch('getSongSearch',this.searchOption)
 		},
+		bingKeywords(val){
+			this.keywords = val
+			this.selectType()
+		}
 	},
 	watch: {
 		keywords: function(newVal,oldVal){
