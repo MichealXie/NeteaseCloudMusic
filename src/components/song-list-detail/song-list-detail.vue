@@ -92,6 +92,10 @@ export default {
 				display flex
 				align-items center
 				height 48px
+				width 100%
+				background url('./background.png') no-repeat
+				position fixed
+				z-index 2
 				.title
 					flex 1
 					text-align center
@@ -99,6 +103,7 @@ export default {
 					flex 0 0 24px
 					padding 10px
 			.detail-info
+				padding-top 48px
 				display flex
 				.img-ct
 					flex 1
