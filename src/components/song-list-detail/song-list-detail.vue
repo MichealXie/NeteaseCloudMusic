@@ -3,9 +3,9 @@
 		<loading v-show="!Object.keys(songListDetail).length"></loading>
 		<div class="detail-header">
 			<div class="top">
-				<router-link class="icon" to="/">
+				<div class="icon" @click="goback()">
 					<i class="fa fa-chevron-left" aria-hidden="true"></i>
-				</router-link>
+				</div>
 				<p class="title">歌单</p>
 				<div class="icon">
 					<i aria-hidden="true" class="fa fa-headphones"></i>
@@ -67,6 +67,11 @@ export default {
 	computed: {
 		songListDetail(){
 			return this.$store.state.songListDetail
+		}
+	},
+	methods:{
+		goback(){
+			history.back()
 		}
 	},
 	activated () {
