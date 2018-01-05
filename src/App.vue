@@ -3,7 +3,7 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    <player></player>
+    <player v-show="isPlayerShow"></player>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
   components: {
     player,
     //还有个人信息界面
+  },
+  computed: {
+    isPlayerShow(){
+      return this.$store.state.isPlayerShow
+    }
   }
 
 }
