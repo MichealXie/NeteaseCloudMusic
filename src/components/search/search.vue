@@ -7,7 +7,7 @@
 				<input v-model.lazy="keywords" type="text" placeholder="搜索音乐,歌词,电台">
 			</router-link>
 			<!-- TODO 变换层, 取消或搜索 -->
-			<router-link to="home/recommend" class="goback">取消</router-link>
+			<div class="goback" @click="goback()">取消</div>
 		</div>
 		<div class="search-tab">
 			<div class="song" :class="{'active': type === 1}" @click="selectType(1,'songs')">单曲</div>
@@ -30,9 +30,9 @@
 				</li>
 			</ul>
 			<ul class="albums" v-show="type === 10">
-				<li v-for="item in searchResult.albums" :key="item.id">
+				<router-link class="item" :to="'album/' + item.id" v-for="item in searchResult.albums" :key="item.id">
 					<div class="cover">
-						<img :src="item.picUrl" alt="">
+						<img v-lazy="item.picUrl" alt="">
 					</div>
 					<div class="info">
 						<div class="name">
@@ -43,12 +43,12 @@
 							{{item.artist.name}}
 						</div>
 					</div>
-				</li>
+				</router-link>
 			</ul>
 			<ul class="artists" v-show="type === 100">
 				<li v-for="item in searchResult.artists" :key="item.id">
 					<div class="cover">
-						<img :src="item.img1v1Url" alt="">
+						<img v-lazy="item.img1v1Url" alt="">
 					</div>
 					<div class="name">
 						<!-- TODO 翻译名字也可以写出来 -->
@@ -57,20 +57,20 @@
 				</li>
 			</ul>
 			<ul class="playlists" v-show="type === 1000">
-				<li v-for="item in searchResult.playlists" :key="item.id">
+				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in searchResult.playlists" :key="item.id">
 					<div class="cover">
-						<img :src="item.coverImgUrl" alt="">
+						<img v-lazy="item.coverImgUrl" alt="">
 					</div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
 						<span class="more">{{item.trackCount}}首 by {{item.creator.nickname}}, 播放{{item.playCount | playcount}}次</span>
 					</div>
-				</li>
+				</router-link>
 			</ul>
 			<ul class="userprofiles" v-show="type === 1002">
 				<li v-for="item in searchResult.userprofiles" :key="item.id">
 					<div class="cover">
-						<img :src="item.avatarUrl" alt="">
+						<img v-lazy="item.avatarUrl" alt="">
 					</div>
 					<div class="info">
 						<div class="name">
@@ -114,6 +114,9 @@ export default {
 		}
 	},
 	methods: {
+		goback(){
+			history.back()
+		},
 		selectType(type,name){
 			if(type) this.type = type
 			if(name) this.name = name
