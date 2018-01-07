@@ -8,7 +8,7 @@ import {store} from './store/store'
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload,{
-  loading:'http://img.zcool.cn/community/01df4b59a7c1aaa801211d25b11d9b.gif',
+  loading: require('./assets/loading.png'),
   error:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC69yZoF-Kmt8lTCX6cqRWlgKPrg0B5j-GkD2z0jq8HugLQIptLw'
 })
 

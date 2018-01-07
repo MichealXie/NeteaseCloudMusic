@@ -13,7 +13,7 @@
 						<img class="img" :src="item.coverImgUrl">
 						<div class="info">
 							<i aria-hidden="true" class="fa fa-music"></i>
-							<span class="count">{{item.playCount | palycount}}</span>
+							<span class="count">{{item.playCount | playcount}}</span>
 						</div>
 					</div>
 					<p class="name">{{item.name}}</p>
@@ -67,6 +67,8 @@ export default {
   @import "../../common/stylus/mixin"
 
 	.song-lists
+		background $list-background
+		min-height 100vh
 		.lists-tab
 			position fixed
 			top 88px
