@@ -13,7 +13,7 @@
 			</div>
 			<div class="detail-info">
 				<div class="img-ct">
-					<img v-lazy="songListDetail.creator.backgroundUrl">
+					<img v-lazy="songListDetail.creator.backgroundUrl" v-if="songListDetail.creator">
 					<span class="count">
 						<i class="fa fa-headphones" aria-hidden="true"></i>
 						{{songListDetail.playCount  | playcount}}
@@ -22,8 +22,8 @@
 				<div class="list-creator">
 						{{songListDetail.name}}
 					<div class="creator-info">
-						<img v-lazy="songListDetail.creator.avatarUrl" alt="">
-						<span class="nickname">{{songListDetail.creator.nickname}}</span>
+						<img v-lazy="songListDetail.creator.avatarUrl" v-if="songListDetail.creator">
+						<span class="nickname" v-if="songListDetail.creator">{{songListDetail.creator.nickname}}</span>
 					</div>
 				</div>
 			</div>
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="detail-list">
+		<div class="detail-list" v-show="Object.keys(songListDetail).length">
 			<ul class="songs">
 				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
