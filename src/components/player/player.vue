@@ -10,7 +10,7 @@
 				<span class="singer"></span>
 			</div>
 		</div>
-		<i class="fa" :class="{'fa-play-circle-o': isPlay,'fa-pause-circle-o': !isPlay}" @click="togglePlay()" aria-hidden="true"></i>
+		<i class="fa" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" @click="togglePlay()" aria-hidden="true"></i>
 	</div>
 </template>
 
@@ -32,6 +32,25 @@ export default {
 		},
 		hidePlayer(){
 			this.$store.commit('hidePlayer')
+		}
+	},
+	watch: {
+		isPlay: function(newV, oldV){
+			if(newV === true){
+				this.$nextTick( () => {
+					this.$refs.player.play()
+				})
+			}
+			else{
+				this.$refs.player.pause()
+			}
+		},
+		currentSong: function(newV,oldV) {
+			if(oldV !== ''){
+				this.$nextTick( () => {
+					this.$refs.player.play()
+				})
+			}
 		}
 	}
 }
