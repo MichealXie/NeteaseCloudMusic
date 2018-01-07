@@ -96,7 +96,13 @@ export const store = new Vuex.Store({
 		},
 		togglePlay(state){
 			state.isPlay = !state.isPlay
-		}
+		},
+		playMusic(state){
+			state.isPlay = true
+		},
+		pauseMuisc(state){
+			state.isPlay = false
+		},
 	},
 	actions:{
 		getBanners(context){
@@ -198,6 +204,7 @@ export const store = new Vuex.Store({
 		async getSongUrl(context, payload){
 			let data = await axios.get(`http://localhost:3000/music/url?id=${payload}`)
 			context.commit('setCurrentSong', data.data.data[0].url)
+			context.commit('playMusic')
 		},
 	},
 	plugins: [createLogger()]
