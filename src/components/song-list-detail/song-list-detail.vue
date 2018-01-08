@@ -44,7 +44,7 @@
 		</div>
 		<div class="detail-list" v-show="Object.keys(songListDetail).length">
 			<ul class="songs">
-				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id, songListDetail.tracks)">
+				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
 					<div class="info">
 						<div class="name">{{item.name}}</div>
@@ -73,9 +73,10 @@ export default {
 		goback(){
 			history.back()
 		},
-		playSong(id, tracks){
+		playSong(id, index, tracks){
 			this.$store.dispatch('getSongUrl',id)
 			this.$store.commit('setPlayingList',tracks)
+			this.$store.commit('setCurrentSongIndex',index)
 		}
 	},
 	activated () {

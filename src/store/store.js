@@ -26,6 +26,7 @@ export const store = new Vuex.Store({
 		albumInfo:{},
 		isPlay: false,
 		currentSong: '',
+		currentSongIndex: 0,
 		playingList: [],
 		isPlayerShow: false,
 	},
@@ -84,6 +85,9 @@ export const store = new Vuex.Store({
 		},
 		setCurrentSong(state, payload){
 			state.currentSong = payload
+		},
+		setCurrentSongIndex(state, payload){
+			state.currentSongIndex = payload
 		},
 		showPlayer(state){
 			state.isPlayerShow = true
