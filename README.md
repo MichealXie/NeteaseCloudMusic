@@ -43,6 +43,10 @@
 	+ 记录下   保存类型还有名称
 	  - store 有一个对象, 包括了所有的搜索结果
 		- 每次调用根据 type, keywords来搜索, 再通过对象名称来调用结果	 
+
+9. audio 在display的情况下, 会报错, 无法获取 => {
+	duration 只能在事件durationchange 触发后获取...困扰. jpg
+}
 ## 可改进:
 1. - [x] 我通过vuex 的 mutation payload 传递歌曲参数, 但好像更正常的做法是把 id 放在 url 最后  
 	+ 修改完成
@@ -69,6 +73,8 @@
 10. - [ ] search 的热门搜索是根据排行榜来的, 假如没打开过排行榜, 就没有数据显示
 
 11. - [ ] 首页获取的50个 playlist 可以用在 toplist
+
+12 - [ ] 高分辨率下背景repeat/ 部分字体大小
 ## Build Setup
 
 ``` bash
