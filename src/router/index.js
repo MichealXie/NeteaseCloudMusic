@@ -8,7 +8,7 @@ import Singer from '@/components/singer/singer'
 import Search from '@/components/search/search'
 import SongDetails from '@/components/song-list-detail/song-list-detail'
 import Album from '@/components/album/album'
-
+import Player from '@/components/player/player'
 
 Vue.use(Router)
 
@@ -47,6 +47,10 @@ export default new Router({
     {
       path: '/album/:id',
       component: Album
+    },
+    {
+      path: '/player',
+      component: Player
     }
   ],
   mode: "history"

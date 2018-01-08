@@ -3,26 +3,20 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    <player v-show="isPlayerShow"></player>
+    <app-audio></app-audio>
   </div>
 </template>
 
 <script>
 
 import player from '@/components/player/player'
+import appAudio from '@/components/app-audio/app-audio'
 
 export default {
   name: 'app',
   components: {
-    player,
-    //还有个人信息界面
+    'app-audio': appAudio
   },
-  computed: {
-    isPlayerShow(){
-      return this.$store.state.isPlayerShow
-    }
-  }
-
 }
 </script>
 

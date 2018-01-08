@@ -1,8 +1,7 @@
 <template>
 	<div class="player">
-		<audio :src="currentSong" ref="player"></audio>
 		<div class="header">
-			<div class="goback" @click="hidePlayer()">
+			<div class="goback" @click="goback()">
 				<i class="fa fa-angle-left" aria-hidden="true"></i>
 			</div>
 			<div class="info">
@@ -54,8 +53,8 @@ export default {
 		}
 	},
 	computed: {
-		currentSong(){
-			return this.$store.state.currentSong
+		player(){
+			return document.getElementById('player')
 		},
 		isPlay(){
 			return this.$store.state.isPlay
@@ -67,67 +66,45 @@ export default {
 			return this.$store.state.playingList
 		},
 		progressBarLength(){
-			return getComputedStyle(this.$refs.player).width
+			return getComputedStyle(this.player).width
 		},
 	},
 	methods:{
 		togglePlay(){
 			this.$store.commit('togglePlay')
-			if(this.isPlay) this.$refs.player.pause()
-			if(!this.isPlay) this.$refs.player.play()
+			if(this.isPlay) this.player.pause()
+			if(!this.isPlay) this.player.play()
 		},
-		hidePlayer(){
-			this.$store.commit('hidePlayer')
+		goback(){
+			history.back()
 		},
 		setTime($event){
 			//点击进度条设置时间
 			let percentage = $event.offsetX / parseInt(this.progressBarLength)
-			this.$refs.player.currentTime = percentage * this.$refs.player.duration
+			this.player.currentTime = percentage * this.$refs.player.duration
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
 		},
 		 moveProgress(){
-			this.$refs.currentProgress.style.width = (this.$refs.player.currentTime / this.$refs.player.duration) * parseInt(this.progressBarLength) + "px"
+			this.$refs.currentProgress.style.width = (this.player.currentTime / this.player.duration) * parseInt(this.progressBarLength) + "px"
 		},
 		setPlayedTime(){
-			this.min = Math.floor(this.$refs.player.currentTime / 60)
-			let sec = Math.floor(this.$refs.player.currentTime % 60)
+			this.min = Math.floor(this.player.currentTime / 60)
+			let sec = Math.floor(this.player.currentTime % 60)
 			if(sec < 10) this.sec = '0' + sec
 			else this.sec = sec
 		},
 		setFulltTime(){
-			let min = Math.floor(this.$refs.player.duration / 60)
-			let sec = Math.floor(this.$refs.player.duration % 60)
+			let min = Math.floor(this.player.duration / 60)
+			let sec = Math.floor(this.player.duration % 60)
 			if(sec < 10) sec = '0' + sec
 			console.log(min + ':' + sec)
 			this.fullTime =  min + ':' + sec
 		}
 	},
-	watch: {
-		isPlay: function(newV, oldV){
-			if(newV === true){
-				this.$nextTick( () => {
-					this.$refs.player.play()
-					console.log(this.$refs.player)
-					console.log(this.$refs.player.duration)
-					console.log(this.$refs.player.currentTime)
-					console.log(this.$refs.player.duration)					
-				})
-			}
-			else{
-				this.$refs.player.pause()
-			}
-		},
-		currentSong: function(newV,oldV) {
-			if(oldV !== ''){
-				this.$nextTick( () => {
-					this.$refs.player.play()
-				})
-			}
-		}
-	},
 	mounted () {
 		this.$nextTick( () => {
-			this.$refs.player.addEventListener('timeupdate', () => {
+			console.log(this.player)
+			this.player.addEventListener('timeupdate', () => {
 				this.moveProgress()
 				this.setPlayedTime()
 				this.setFulltTime()

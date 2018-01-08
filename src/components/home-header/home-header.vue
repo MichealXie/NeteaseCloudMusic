@@ -1,10 +1,14 @@
 <template>
   <div class="home-header">
-    <i class="fa fa-microphone" aria-hidden="true"></i>
+    <div class="btn">
+      <i class="fa fa-microphone" aria-hidden="true"></i>
+    </div>
     <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
     </router-link>
-    <i class="fa fa-headphones" aria-hidden="true" @click="showPlayer()"></i>
+    <router-link to="/player" class="btn">
+      <i class="fa fa-headphones" aria-hidden="true"></i>
+    </router-link>
   </div>
 </template>
 
@@ -36,7 +40,7 @@ export default {
     color: $color-text
     background $color-background
     z-index 100
-    i.fa-microphone, i.fa-headphones
+    .btn
       flex 0 0 56px
       text-align center
       font-size 24px
