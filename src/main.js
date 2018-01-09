@@ -6,7 +6,9 @@ import router from './router'
 import axios from 'axios'
 import {store} from './store/store'
 import VueLazyload from 'vue-lazyload'
+import VueCarousel from 'vue-carousel';
 
+Vue.use(VueCarousel);
 Vue.use(VueLazyload,{
   loading: require('./assets/loading.png'),
   error:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC69yZoF-Kmt8lTCX6cqRWlgKPrg0B5j-GkD2z0jq8HugLQIptLw'

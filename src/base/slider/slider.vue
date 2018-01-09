@@ -1,151 +1,47 @@
 <template>
-	<div class="slider" ref="slider" style="overflow:hidden;position: relative">
-		<div class="slider-group" ref="sliderGroup">
-			<slot>
-			</slot>
-		</div>
-		<div class="dots">
-			<span class="dot" v-for="(dot, index) in dots" :class="{active: currentPageIndex === index}" :key="index"></span>
-		</div>
-	</div>
+  <md-card>
+    <md-card-actions>
+      <div class="md-subhead">
+        <span>Pagination</span>
+        <span>（</span>
+        <span>分页器</span>
+        <span>）</span>
+      </div>
+      <md-button class="md-icon-button"
+                 target="_blank"
+                 href="https://github.com/surmon-china/vue-awesome-swiper/blob/master/examples/03-pagination.vue">
+        <md-icon>code</md-icon>
+      </md-button>
+    </md-card-actions>
+    <md-card-media>
+      <!-- swiper -->
+      <swiper :options="swiperOption">
+        <swiper-slide>Slide 1</swiper-slide>
+        <swiper-slide>Slide 2</swiper-slide>
+        <swiper-slide>Slide 3</swiper-slide>
+        <swiper-slide>Slide 4</swiper-slide>
+        <swiper-slide>Slide 5</swiper-slide>
+        <swiper-slide>Slide 6</swiper-slide>
+        <swiper-slide>Slide 7</swiper-slide>
+        <swiper-slide>Slide 8</swiper-slide>
+        <swiper-slide>Slide 9</swiper-slide>
+        <swiper-slide>Slide 10</swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+    </md-card-media>
+  </md-card>
 </template>
 
 <script>
-import BScroll from 'better-scroll'
-
-export default {
-	props:{
-		loop:{
-			type:Boolean,
-			default: false
-		},
-		autoPlay:{
-			type: Boolean,
-			default: true
-		},
-		interval: {
-			type: Number,
-			default: 4000
-		}
-	},
-	data () {
-		return {
-			dots: [],
-			currentPageIndex: 0
-		}
-	},
-	methods:{
-		_setSliderWidth(isResize){
-			this.children = this.$refs.sliderGroup.children
-			let width = 0
-			let sliderWidth = this.$refs.slider.clientWidth
-			for(let child of this.children){
-				// console.log(child)
-				child.classList.add('slider-item')
-				child.style.width= sliderWidth + 'px'
-				width += sliderWidth
-			}
-			if(this.loop && !isResize){
-				width += 2*sliderWidth
-			}
-			this.$refs.sliderGroup.style.width = width + 'px'
-		},
-		_initDots(){
-			this.dots = new Array(this.children.length)
-		},
-		_initSlider(){
-			this.slider = new BScroll(this.$refs.slider, {
-				scrollX: true,
-				scrollY: false,
-				momentum: false,
-				snap: true,
-				snapLoop: this.loop,
-				snapThreshold: 0.3,
-				snapSpeed: 400,
-			})
-			this.slider.on("scrollEnd", () => {
-				let pageIndex = this.slider.getCurrentPage().pageX
-				// if( this.loop){
-				// 	pageIndex -= 1
-				// }
-				this.currentPageIndex = pageIndex
-				if(this.autoPlay){
-					clearTimeout(this.timer)
-					this._play()
-				}
-			})
-		},
-		_play(){
-			let pageIndex = this.currentPageIndex + 1
-			// if(this.loop){
-			// 	pageIndex += 1
-			// }
-			this.timer = setTimeout(() => {
-				this.slider.goToPage(pageIndex, 0, 400)
-				pageIndex ++
-			},this.interval)
-		}
-	},
-	mounted(){
-		setTimeout( () => {
-			this._setSliderWidth()
-			this._initDots()
-			this._initSlider()
-
-			if(this.autoPlay){
-				this._play()
-			}
-		},20)
-		window.addEventListener("resize", () => {
-			if(!this.slider) return
-			this._setSliderWidth(true)
-			this.slider.refresh()
-		})
-	},
-	destroyed () {
-		clearTimeout(this.timer)
-	}
-}
+  export default {
+    data() {
+      return {
+        swiperOption: {
+          pagination: {
+            el: '.swiper-pagination'
+          }
+        }
+      }
+    }
+  }
 </script>
-
-<style scoped lang="stylus">
-  @import "../../common/stylus/variable"
-
-  .slider
-    min-height: 1px
-    .slider-group
-      position: relative
-      overflow: hidden
-      white-space: nowrap
-      .slider-item
-        float: left
-        box-sizing: border-box
-        overflow: hidden
-        text-align: center
-        a
-          display: block
-          width: 100%
-          overflow: hidden
-          text-decoration: none
-        img
-          display: block
-          width: 100%
-    .dots
-      position: absolute
-      right: 0
-      left: 0
-      bottom: 12px
-      text-align: center
-      font-size: 0
-      .dot
-        display: inline-block
-        margin: 0 4px
-        width: 8px
-        height: 8px
-        border-radius: 50%
-        background: $color-text-l
-        &.active
-          width: 20px
-          border-radius: 5px
-          background: $color-text-ll
-</style>

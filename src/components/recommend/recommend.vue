@@ -2,15 +2,11 @@
 	<div class="recommend">
 		<loading v-show="!banners.length"></loading>
 		<div class="recommend-content">
-			<div class="slider-wrapper">
-				<slider v-if="banners">
-					<div v-for="item in banners" :key="item.key">
-						<a :href="item.url">
-							<img :src="item.pic">
-						</a>
-					</div>
-				</slider>
-			</div>
+			<carousel class="slider-wrapper" :scrollPerPage="true" :autoplay="true" :paginationEnabled="false" :perPage="1">
+				<slide v-for="item in banners" :key="item.id">
+					<img :src="item.pic" class="slider-img">
+				</slide>
+			</carousel>
 			<div class="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
@@ -68,13 +64,13 @@
 </template>
 
 <script>
-import slider from '@/base/slider/slider'
+// import slider from '@/base/slider/slider'
 import loading from '@/base/loading/loading'
 import appTitle from '@/components/app-title/app-title'
 
 export default {
 	components: {
-		slider,
+		// slider,
 		loading,
 		'app-title': appTitle,
 	},
@@ -131,7 +127,8 @@ export default {
 <style lang='stylus'>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
-		
+	.slider-img
+		width 375px
 	.slider-wrapper
 		padding-top 88px
 	.top-list
