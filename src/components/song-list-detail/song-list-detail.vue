@@ -11,9 +11,9 @@
 					<i aria-hidden="true" class="fa fa-headphones"></i>
 				</router-link>
 			</div>
-			<div class="detail-info">
+			<div class="detail-info" v-if="songListDetail && songListDetail.creator">
 				<div class="img-ct">
-					<img v-lazy="songListDetail.creator.backgroundUrl" v-if="songListDetail.creator">
+					<img v-lazy="songListDetail.creator.backgroundUrl">
 					<span class="count">
 						<i class="fa fa-headphones" aria-hidden="true"></i>
 						{{songListDetail.playCount  | playcount}}
@@ -22,12 +22,12 @@
 				<div class="list-creator">
 						{{songListDetail.name}}
 					<div class="creator-info">
-						<img v-lazy="songListDetail.creator.avatarUrl" v-if="songListDetail.creator">
-						<span class="nickname" v-if="songListDetail.creator">{{songListDetail.creator.nickname}}</span>
+						<img v-lazy="songListDetail.creator.avatarUrl">
+						<span class="nickname">{{songListDetail.creator.nickname}}</span>
 					</div>
 				</div>
 			</div>
-			<div class="list-data">
+			<div class="list-data" v-if="songListDetail">
 				<div class="icon-ct">
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
 					<p>{{songListDetail.subscribedCount | playcount}}</p>
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="detail-list" v-show="Object.keys(songListDetail).length">
+		<div class="detail-list" v-if="songListDetail">
 			<ul class="songs">
 				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
@@ -83,6 +83,7 @@ export default {
 			this.$router.go(-1)
 		},
 		playSong(id, index, tracks){
+			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)
 			this.$store.commit('setPlayingList',tracks)
 			this.$store.commit('setCurrentSongIndex',index)
