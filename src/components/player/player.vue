@@ -14,7 +14,7 @@
 		</div>
 		<div class="music-center">
 			<div class="black-circle">
-				<img :src="playingList[currentSongIndex].al.picUrl" alt="">
+				<img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt="">
 			</div>
 		</div>
 		<div class="control-center">
@@ -33,13 +33,13 @@
 			</div>
 			<div class="music-ctrl">
 				<i class="fa fa-random" aria-hidden="true"></i>
-				<i class="fa fa-step-backward" aria-hidden="true"></i>
+				<i class="fa fa-step-backward" aria-hidden="true" @click="prevSong()"></i>
 				<i class="fa play-btn" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" @click="togglePlay()" aria-hidden="true"></i>
-				<i class="fa fa-step-forward" aria-hidden="true"></i>
+				<i class="fa fa-step-forward" aria-hidden="true" @click="nextSong()"></i>
 				<i class="fa fa-list" aria-hidden="true"></i>
 			</div>
 		</div>
-		<div class="background" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
+		<div class="background" v-if="playingList[currentSongIndex]" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
 	</div>
 </template>
 
@@ -72,16 +72,28 @@ export default {
 	methods:{
 		togglePlay(){
 			this.$store.commit('togglePlay')
-			if(this.isPlay) this.player.pause()
-			if(!this.isPlay) this.player.play()
+		},
+		nextSong(){
+			this.$store.commit('setIsPlay', false)			
+			this.$store.commit('songIndexAddOne')
+			let id = this.playingList[this.currentSongIndex].id
+			this.$store.dispatch('getSongUrl', id)
+			this.$store.commit('setIsPlay', true)
+		},
+		prevSong(){
+			this.$store.commit('setIsPlay', false)
+			this.$store.commit('songIndexReduceOne')
+			let id = this.playingList[this.currentSongIndex].id
+			this.$store.dispatch('getSongUrl', id)
+			this.$store.commit('setIsPlay', true)
 		},
 		goback(){
-			history.back()
+			this.$router.go(-1)
 		},
 		setTime($event){
 			//点击进度条设置时间
 			let percentage = $event.offsetX / parseInt(this.progressBarLength)
-			this.player.currentTime = percentage * this.$refs.player.duration
+			this.player.currentTime = percentage * this.player.duration
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
 		},
 		 moveProgress(){
@@ -97,13 +109,11 @@ export default {
 			let min = Math.floor(this.player.duration / 60)
 			let sec = Math.floor(this.player.duration % 60)
 			if(sec < 10) sec = '0' + sec
-			console.log(min + ':' + sec)
 			this.fullTime =  min + ':' + sec
-		}
+		},
 	},
 	mounted () {
 		this.$nextTick( () => {
-			console.log(this.player)
 			this.player.addEventListener('timeupdate', () => {
 				this.moveProgress()
 				this.setPlayedTime()
@@ -125,6 +135,9 @@ export default {
 		height 100vh
 		width 100%
 		overflow hidden
+		background-image url('./background.png')
+		background-size cover
+		background-repeat no-repeat
 		.background
 			position fixed
 			top 0 
