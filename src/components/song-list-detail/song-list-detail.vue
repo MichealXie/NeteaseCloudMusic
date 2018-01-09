@@ -1,15 +1,15 @@
 <template>
 	<div class="song-list-detail">
-		<loading v-show="!Object.keys(songListDetail).length"></loading>
+		<loading v-show="isLoading"></loading>
 		<div class="detail-header">
 			<div class="top">
 				<div class="icon" @click="goback()">
 					<i class="fa fa-chevron-left" aria-hidden="true"></i>
 				</div>
 				<p class="title">歌单</p>
-				<div class="icon">
+				<router-link to="/player" class="icon">
 					<i aria-hidden="true" class="fa fa-headphones"></i>
-				</div>
+				</router-link>
 			</div>
 			<div class="detail-info">
 				<div class="img-ct">
@@ -54,33 +54,48 @@
 				</li>
 			</ul>
 		</div>
+		<mini-player></mini-player>
 	</div>
 </template>
 
 <script>
 import loading from '@/base/loading/loading'
+import miniPlayer from '@/base/mini-player/mini-player'
 
 export default {
 	components:{
 		loading,
+		'mini-player': miniPlayer
 	},
 	computed: {
+		isLoading(){
+			return this.$store.state.isLoading
+		},
 		songListDetail(){
 			return this.$store.state.songListDetail
+		},
+		listId(){
+			return this.$route.params.id
 		}
 	},
 	methods:{
 		goback(){
-			history.back()
+			this.$router.go(-1)
 		},
 		playSong(id, index, tracks){
 			this.$store.dispatch('getSongUrl',id)
 			this.$store.commit('setPlayingList',tracks)
 			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setIsPlay', true)
 		}
 	},
-	activated () {
-		this.$store.dispatch('getSongListDetail',this.$route.params.id)
+	created () {
+		this.$store.dispatch('getSongListDetail', this.listId)
+	},
+	watch: {
+		listId:function(newV,oldV){
+			this.$store.dispatch('getSongListDetail', this.listId)
+		}
 	}
 }
 </script>
