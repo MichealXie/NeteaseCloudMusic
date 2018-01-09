@@ -8,8 +8,6 @@
 </template>
 
 <script>
-
-import player from '@/components/player/player'
 import appAudio from '@/components/app-audio/app-audio'
 
 export default {
