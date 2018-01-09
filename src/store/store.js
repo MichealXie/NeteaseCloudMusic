@@ -19,6 +19,7 @@ export const store = new Vuex.Store({
 		originalSongRank: {},
 		rapidSongRank: {},
 		songListDetail: {},
+		isLoading: true,
 		type: '',
 		searchResult:{},
 		isSearching: false,
@@ -62,11 +63,11 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		clearSongListDetail(state){
-			state.songListDetail = {}
-		},
 		setSongListDetail(state, payload){
 			state.songListDetail = payload
+		},
+		setIsLoading(state, payload){
+			state.isLoading = payload
 		},
 		setSearch(state, payload){
 			state.searchResult[payload.name] = payload.data.data.result[payload.name]
@@ -101,12 +102,15 @@ export const store = new Vuex.Store({
 		togglePlay(state){
 			state.isPlay = !state.isPlay
 		},
-		playMusic(state){
-			state.isPlay = true
+		setIsPlay(state, payload){
+			state.isPlay = payload
 		},
-		pauseMuisc(state){
-			state.isPlay = false
+		songIndexAddOne(state){
+			state.currentSongIndex += 1
 		},
+		songIndexReduceOne(state) {
+			state.currentSongIndex -= 1
+		}
 	},
 	actions:{
 		getBanners(context){
@@ -186,9 +190,10 @@ export const store = new Vuex.Store({
 				})
 		},
 		async getSongListDetail(context,payload){
-			context.commit('clearSongListDetail')
+			context.commit('setIsLoading', true)
 			let data = await axios.get(`http://localhost:3000/playlist/detail?id=${payload}`)
 			context.commit('setSongListDetail', data.data.playlist)
+			context.commit('setIsLoading', false)			
 		},
 		async getSongSearch(context,payload){
 			if (context.state.isSearching) return 
@@ -208,7 +213,6 @@ export const store = new Vuex.Store({
 		async getSongUrl(context, payload){
 			let data = await axios.get(`http://localhost:3000/music/url?id=${payload}`)
 			context.commit('setCurrentSong', data.data.data[0].url)
-			context.commit('playMusic')
 		},
 	},
 	plugins: [createLogger()]
