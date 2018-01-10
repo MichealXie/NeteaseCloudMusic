@@ -19,15 +19,9 @@
 		<div class="suggestion" v-show="!keywords">
 			<span class="title"> 热门搜索 </span>
 			<ul>
-				<li class="item" v-for="song in hotTop3" :key="song.id" @click="bingKeywords(song.name)">
-					{{song.name}}
+				<li class="item" v-for="song in recommend" @click="bingKeywords(song)">
+					{{song}}
 				</li>				
-				<li class="item" v-for="singer in originalTop3" :key="singer.id" @click="bingKeywords(singer.ar[0].name)">
-					{{singer.ar[0].name}}
-				</li>
-				<li class="item" v-for="singer in newTop3" :key="singer.id" @click="bingKeywords(singer.ar[0].name)">
-					{{singer.ar[0].name}}
-				</li>
 			</ul>
 			<!-- TODO 可以加一个搜索历史(体力活) -->
 		</div>
@@ -111,6 +105,20 @@ export default {
 			type: 1,
 			keywords: '',
 			name: 'songs',
+			recommend: [
+				'Ed sherran',
+				'男孩别哭',
+				'你被我写在歌里',
+				'Sad Season',
+				'好妹妹乐队',
+				'Isaac Gracie',
+				'袁维娅',
+				'Maroon 5',
+				'Lorde',
+				'窦靖童',
+				'Fun',
+				'谢春花'
+			]
 		}
 	},
 	computed: {
@@ -126,15 +134,6 @@ export default {
 		},
 		isSearching(){
 			return this.$store.state.isSearching
-		},
-		hotTop3(){
-			return this.$store.getters.hotTop3
-		},
-		originalTop3(){
-			return this.$store.getters.originalTop3
-		},
-		newTop3(){
-			return this.$store.getters.newTop3
 		},
 	},
 	methods: {
