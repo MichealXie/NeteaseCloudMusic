@@ -24,4 +24,5 @@ export default {
   #app
     color: $color-theme
     font-family: Microsoft Yahei, sans-serif
+    font-size 16px
 </style>

@@ -109,13 +109,15 @@ export default {
 		padding-bottom 48px
 		.detail-header
 			color rgba(255,255,255,0.9)
-			background url('./background.png')
+			background-image url('./background.png')
+			background-size cover
 			.top
 				display flex
 				align-items center
 				height 48px
 				width 100%
-				background url('./background.png') no-repeat
+				background url('./background.png')
+				background-size cover				
 				position fixed
 				z-index 2
 				.title
@@ -124,6 +126,8 @@ export default {
 				.icon
 					flex 0 0 24px
 					padding 10px
+					font-size 24px
+					color white
 			.detail-info
 				padding-top 48px
 				display flex

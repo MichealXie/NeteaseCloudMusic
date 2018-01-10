@@ -27,7 +27,7 @@
 			</div>
 			<div class="progress-bar">
 				<span class="playedTime">{{min}} : {{sec}}</span>
-				<div class="full-progress" @click="setTime($event)" ref="progressBar">
+				<div class="full-progress" @click="setTime($event)" id="progressBar">
 					<div class="current-progress" ref="currentProgress"></div>
 				</div>
 				<span class="restTime">{{fullTime}}</span>
@@ -67,7 +67,8 @@ export default {
 			return this.$store.state.playingList
 		},
 		progressBarLength(){
-			return getComputedStyle(this.player).width
+			let progressBar = document.getElementById('progressBar')
+			return getComputedStyle(progressBar).width
 		},
 	},
 	methods:{
@@ -94,7 +95,10 @@ export default {
 		setTime($event){
 			//点击进度条设置时间
 			let percentage = $event.offsetX / parseInt(this.progressBarLength)
+			console.log(percentage)
 			this.player.currentTime = percentage * this.player.duration
+			console.log(this.player.currentTime)
+			console.log(this.player.duration)
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
 		},
 		 moveProgress(){
@@ -156,6 +160,7 @@ export default {
 			width 100%
 			display flex
 			border-1px()
+			color white
 			.goback, .share
 				flex 0 0 48px
 				flex-center()
@@ -170,8 +175,15 @@ export default {
 				.song
 					color white
 					font-size $font-size-large-x
+					font-weight 300
+					no-wrap()
+					width 279px
 				.singer
 					color $not-important
+					font-weight 300
+					font-size 14px	
+					no-wrap()
+					width 279px				
 		.music-center
 			position relative
 			overflow hidden
