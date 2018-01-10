@@ -97,6 +97,7 @@ export default {
 
 	.rank
 		padding-top 88px
+		padding-bottom 48px
 		background $list-background
 		min-height calc(100vh - 88px)
 		.rank-item

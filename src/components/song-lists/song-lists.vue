@@ -69,6 +69,7 @@ export default {
 	.song-lists
 		background $list-background
 		min-height 100vh
+		padding-bottom 48px
 		.lists-tab
 			position fixed
 			top 88px

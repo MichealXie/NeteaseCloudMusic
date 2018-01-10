@@ -127,6 +127,8 @@ export default {
 <style lang='stylus'>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
+.recommend
+	padding-bottom 48px
 	.slider-img
 		width 375px
 	.slider-wrapper

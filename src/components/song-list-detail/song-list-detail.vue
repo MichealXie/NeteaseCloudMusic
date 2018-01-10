@@ -106,6 +106,7 @@ export default {
   @import "../../common/stylus/mixin"
 
 	.song-list-detail
+		padding-bottom 48px
 		.detail-header
 			color rgba(255,255,255,0.9)
 			background url('./background.png')
