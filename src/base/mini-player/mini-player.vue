@@ -34,7 +34,7 @@ export default {
 		singer(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
 			else{
-				return "当前未播放~"
+				return '当前无歌曲播放~'
 			}
 		},
 		player(){

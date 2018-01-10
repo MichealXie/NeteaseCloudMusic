@@ -5,8 +5,8 @@
 				<i class="fa fa-angle-left" aria-hidden="true"></i>
 			</div>
 			<div class="info">
-				<span class="song" v-if="playingList[currentSongIndex]">{{playingList[currentSongIndex].name}}</span>
-				<span class="singer" v-if="playingList[currentSongIndex]">{{playingList[currentSongIndex].ar[0].name}}</span>
+				<span class="song">{{song}}</span>
+				<span class="singer">{{singer}}</span>
 			</div>
 			<div class="share">
 				<i class="fa fa-share-alt" aria-hidden="true"></i>
@@ -48,12 +48,20 @@
 export default {
 	data () {
 		return {
-			min:'',
-			sec: '',
-			fullTime: ''
+			min:'0',
+			sec: '00',
+			fullTime: '0: 00'
 		}
 	},
 	computed: {
+		song(){
+			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
+			else return 'oops'
+		},
+		singer(){
+			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
+			else return '当前无歌曲播放~'
+		},
 		player(){
 			return document.getElementById('player')
 		},
