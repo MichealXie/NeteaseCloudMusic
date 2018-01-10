@@ -83,6 +83,10 @@
 		+  loading 应该根据 vuex 的状态来显示  ---done
 
 15. - [ ] 修复进度条
+
+16. - [ ] 无歌曲时player 界面显示
+
+17. - [ ] 搜索单曲的点击播放
 ## Build Setup
 
 ``` bash

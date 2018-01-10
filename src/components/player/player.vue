@@ -13,7 +13,8 @@
 			</div>
 		</div>
 		<div class="music-center">
-			<div class="black-circle">
+			<img src="../../assets/play-controler.png" alt="" class="hook">
+			<div class="black-circle" :class="{'spin': isPlay}">
 				<img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt="">
 			</div>
 		</div>
@@ -147,8 +148,9 @@ export default {
 			z-index -2
 			overflow hidden
 			background-size cover
-			background-position top 25% left 25% 
+			background-position 50%
 			filter: blur(20px) brightness(80%)
+			transition opacity .3s linear
 		.header
 			height 48px
 			width 100%
@@ -171,21 +173,36 @@ export default {
 				.singer
 					color $not-important
 		.music-center
-			flex-center()
+			position relative
+			overflow hidden
+			height 500px
+			.hook
+				position absolute
+				top -20px
+				left 50%
+				transform translateX(-20%)
+				height 180px
+				z-index 10
 			.black-circle
-				position relative
-				padding-top 50%
-				border 20px solid black
-				border-radius 50%
+				position absolute
+				top 88px
+				left calc(50% - 150px)
+				background-image url('../../assets/cd-wrapper.png')
+				background-size contain
+				background-repeat no-repeat
+				width 300px
+				height 300px
 				overflow hidden
-				width 50%
-				height 50%
+				margin 0 auto
+				flex-center()
+				transition 1s
+				&.spin
+					animation fa-spin 20s infinite linear
 				img 
-					position absolute
-					top 0
-					left 0
-					width 100%
-					height 100%
+					width 65%
+					height 65%
+					border-radius 50%
+					// background-image url('../../assets/loading.png')
 		.control-center
 			position absolute
 			bottom 20px

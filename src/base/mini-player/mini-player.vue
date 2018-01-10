@@ -22,7 +22,7 @@ export default {
 		img(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].al.picUrl
 			else{
-				return ''
+				return null
 			}
 		},
 		song(){
@@ -82,8 +82,10 @@ export default {
 			flex 0 0 56px
 			flex-center()
 			.cover
-				width 80%
-				height 80%
+				width 40px
+				height 40px
+				background-image url('../../assets/loading.png')
+				background-size contain
 		.info
 			flex 1
 			display flex
@@ -98,4 +100,5 @@ export default {
 			flex 0 0 56px
 			font-size 30px
 			flex-center()
+			color $not-important
 </style>
