@@ -110,6 +110,20 @@ export const store = new Vuex.Store({
 		},
 		songIndexReduceOne(state) {
 			state.currentSongIndex -= 1
+		},
+		setSearchSongs(state, payload){
+			console.log(payload)
+			state.playingList = []
+			for(let item of payload){
+				state.playingList.push({
+					name: item.name,
+					id: item.id,
+					al: {
+						picUrl: item.album.artist.img1v1Url
+					},
+					ar: item.artists
+				})
+			}
 		}
 	},
 	actions:{

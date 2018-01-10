@@ -33,7 +33,7 @@
 		</div>
 		<div class="result" v-show="keywords">
 			<ul class="songs" v-show="type === 1">
-				<li v-for="item in searchResult.songs" :key="item.id">
+				<li class="item" v-for="(item,index) in searchResult.songs" :key="item.id" @click="playSong(item, index, searchResult.songs)">
 					<div class="info">
 						<div class="name">
 							{{item.name}}
@@ -149,6 +149,13 @@ export default {
 		bingKeywords(val){
 			this.keywords = val
 			this.selectType()
+		},
+		playSong(item, index, tracks){
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl',item.id)
+			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setSearchSongs',tracks)
+			this.$store.commit('setIsPlay', true)
 		}
 	},
 	watch: {

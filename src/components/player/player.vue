@@ -195,7 +195,6 @@ export default {
 				overflow hidden
 				margin 0 auto
 				flex-center()
-				transition 1s
 				&.spin
 					animation fa-spin 20s infinite linear
 				img 
