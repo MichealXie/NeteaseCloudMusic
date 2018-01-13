@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createLogger from 'vuex/dist/logger'
 
+axios.defaults.timeout = 5000
+axios.defaults.baseURL = 'http://localhost:3000'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -128,91 +130,91 @@ export const store = new Vuex.Store({
 	},
 	actions:{
 		getBanners(context){
-			axios.get('http://localhost:3000/banner')
+			axios.get('/banner')
 				.then((data) => {
 					console.log(data)
 					context.state.banners = data.data.banners
 				})
 		},
 		getTopLists(context){
-			axios.get('http://localhost:3000/top/playlist')
+			axios.get('/top/playlist')
 				.then((data) => {
 					console.log(data.data)
 					context.state.topLists = data.data.playlists
 				})
 		},
 		getPrivateContent(context){
-			axios.get('http://localhost:3000/personalized/privatecontent')
+			axios.get('/personalized/privatecontent')
 				.then((data) => {
 					console.log(data)
 					context.state.privateContent = data.data.result
 				})
 		},
 		getRecommendMV(context){
-			axios.get('http://localhost:3000/personalized/mv')
+			axios.get('/personalized/mv')
 				.then((data) => {
 					context.state.recommendMV = data.data.result
 				})
 		},
 		getRecommendDJ(context){
-			axios.get('http://localhost:3000/personalized/djprogram')
+			axios.get('/personalized/djprogram')
 				.then((data) => {
 					context.state.recommendDJ = data.data.result
 				})
 		},
 		getLatestLists(context){
 			context.state.songLists = []
-			axios.get('http://localhost:3000/top/playlist?limit=20&order=new')
+			axios.get('/top/playlist?limit=20&order=new')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
 				})
 		},
 		getPopularLists(context){
 			context.state.songLists = []
-			axios.get('http://localhost:3000/top/playlist?limit=20&order=hot')
+			axios.get('/top/playlist?limit=20&order=hot')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
 				})
 		},
 		getRecommendLists(context){
 			context.state.songLists = []
-			axios.get('http://localhost:3000/top/playlist/highquality')
+			axios.get('/top/playlist/highquality')
 				.then((data) => {
 					context.state.songLists = data.data.playlists
 				})
 		},
 		getRank(context){
 			// 新歌榜
-			axios.get('http://localhost:3000/top/list?idx=0')
+			axios.get('/top/list?idx=0')
 				.then((data) => {
 					context.state.newSongRank = data.data.playlist
 				})
 			// 热歌榜
-			axios.get('http://localhost:3000/top/list?idx=1')
+			axios.get('/top/list?idx=1')
 				.then((data) => {
 					context.state.hotSongRank = data.data.playlist
 				})
 			// 原创榜
-			axios.get('http://localhost:3000/top/list?idx=2')
+			axios.get('/top/list?idx=2')
 				.then((data) => {
 					context.state.originalSongRank = data.data.playlist
 				})
 			// 彪升榜
-			axios.get('http://localhost:3000/top/list?idx=3')
+			axios.get('/top/list?idx=3')
 				.then((data) => {
 					context.state.rapidSongRank = data.data.playlist
 				})
 		},
 		async getSongListDetail(context,payload){
 			context.commit('setIsLoading', true)
-			let data = await axios.get(`http://localhost:3000/playlist/detail?id=${payload}`)
+			let data = await axios.get(`/playlist/detail?id=${payload}`)
 			context.commit('setSongListDetail', data.data.playlist)
 			context.commit('setIsLoading', false)			
 		},
 		async getSongSearch(context,payload){
 			if (context.state.isSearching) return 
 			context.state.isSearching = true
-			let data = await axios.get(`http://localhost:3000/search?keywords=${payload.keywords}&type=${payload.type}`)
+			let data = await axios.get(`/search?keywords=${payload.keywords}&type=${payload.type}`)
 			context.state.isSearching = false
 			payload.data = data
 			context.commit('setSearch', payload)
@@ -220,12 +222,12 @@ export const store = new Vuex.Store({
 		async getAlbum(context, payload) {
 			context.commit('clearAlbumSongs')
 			context.commit('clearAlbumInfo')
-			let data = await axios.get(`http://localhost:3000/album?id=${payload}`)
+			let data = await axios.get(`/album?id=${payload}`)
 			context.commit('setAlbumSongs', data.data.songs)
 			context.commit('setAlbumInfo', data.data.album)			
 		},
 		async getSongUrl(context, payload){
-			let data = await axios.get(`http://localhost:3000/music/url?id=${payload}`)
+			let data = await axios.get(`/music/url?id=${payload}`)
 			context.commit('setCurrentSong', data.data.data[0].url)
 		},
 	},
