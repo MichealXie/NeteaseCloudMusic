@@ -2,9 +2,9 @@
 	<div class="song-lists">
 		<loading v-show="!Object.keys(songLists).length"></loading>
 		<div class="lists-tab">
-			<div class="latest" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>
-			<div class="popular" :class="{active: status === 'popular'}" @click="switchStatus('popular')">热门</div>
-			<div class="recommend" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
+			<div class="lists-item" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>
+			<div class="lists-item" :class="{active: status === 'popular'}" @click="switchStatus('popular')">热门</div>
+			<div class="lists-item" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
 		</div>
 		<div class="duet-lists">
 			<ul>
@@ -87,7 +87,7 @@ export default {
 			background white
 			font-size $font-size-medium
 			color $color-background
-			&>*
+			.lists-item
 				flex 1
 				display flex
 				justify-content center
