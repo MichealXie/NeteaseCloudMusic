@@ -29,13 +29,11 @@ export default {
         this.$refs.player.prevSong()
       }
       if(e.key === 'i' && e.ctrlKey){
-        this.$refs.player.addVolumn()
+        this.$refs.player.addVolume()
       }
       if(e.key === 'k' && e.ctrlKey){
-        this.$refs.player.reduceVolumn()
+        this.$refs.player.reduceVolume()
       }
-      console.log(e);
-      
     })
   }
 }

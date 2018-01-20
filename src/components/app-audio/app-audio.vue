@@ -33,11 +33,11 @@ export default {
 			this.$store.dispatch('getSongUrl', id)
 			this.$store.commit('setIsPlay', true)
 		},
-		addVolumn(){
-			this.$refs.player.volume += 0.1
+		addVolume(){
+			if(this.$refs.player.volume <= 0.9) this.$refs.player.volume += 0.1
 		},
-		reduceVolumn(){
-			this.$refs.player.volume -= 0.1
+		reduceVolume(){
+			if(this.$refs.player.volume >= 0.1) this.$refs.player.volume -= 0.1
 		}
 	},
 	mounted () {

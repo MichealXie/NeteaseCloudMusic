@@ -117,7 +117,6 @@ export const store = new Vuex.Store({
 			state.currentSongIndex -= 1
 		},
 		setSearchSongs(state, payload){
-			console.log(payload)
 			state.playingList = []
 			for(let item of payload){
 				state.playingList.push({
@@ -141,21 +140,18 @@ export const store = new Vuex.Store({
 		getBanners(context){
 			axios.get('/banner')
 				.then((data) => {
-					console.log(data)
 					context.state.banners = data.data.banners
 				})
 		},
 		getTopLists(context){
 			axios.get('/top/playlist?limit=6')
 				.then((data) => {
-					console.log(data.data)
 					context.state.topLists = data.data.playlists
 				})
 		},
 		getPrivateContent(context){
 			axios.get('/personalized/privatecontent')
 				.then((data) => {
-					console.log(data)
 					context.state.privateContent = data.data.result
 				})
 		},
