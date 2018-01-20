@@ -2,7 +2,9 @@
 	<div class="user-info">
 		<div class="top" :style="'background-image:url(' +  userInfo.profile.backgroundUrl + ')'">
 			<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-			<div class="share"><i class="fa fa-share-alt" aria-hidden="true"></i></div>
+			<router-link to="/home/recommend" class="home">
+				<i class="fa fa-home" aria-hidden="true"></i>
+			</router-link>
 			<div class="avatar"><img :src="userInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{userInfo.profile.nickname}}</div>
 		</div>
@@ -67,11 +69,12 @@ export default {
 				left 10px
 				top 5px
 				font-size 30px
-			.share
+			.home
 				position fixed
 				right 10px
 				top 5px
 				font-size 24px
+				color white
 			.avatar
 				position absolute
 				top 30%
@@ -115,7 +118,6 @@ export default {
 						flex-direction: column
 						justify-content: space-around
 						margin-left 10px
-						padding-top 5px
 						border-1px()
 						.name
 							song-name()

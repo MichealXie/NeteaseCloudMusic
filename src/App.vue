@@ -18,7 +18,6 @@ export default {
     'app-audio': appAudio
   },
   created () {
-    this.$store.dispatch('login')
   },
   mounted () {
     window.addEventListener('keypress', (e) => {

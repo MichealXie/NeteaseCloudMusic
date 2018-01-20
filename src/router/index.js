@@ -61,6 +61,16 @@ const userInfo = (reslove) => {
     reslove(module)
   })
 }
+const Login = (reslove) => {
+  import('@/components/login/login').then((module) => {
+    reslove(module)
+  })
+}
+const phoneLogin = (reslove) => {
+  import('@/components/phone-login/phone-login').then((module) => {
+    reslove(module)
+  })
+}
 
 Vue.use(Router)
 
@@ -68,11 +78,19 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home/recommend'
+      redirect: '/login'
     },
     {
       path:'/userInfo',
       component: userInfo
+    },
+    {
+      path:'/login',
+      component: Login,
+    },
+    {
+      path: '/phone-login',
+      component: phoneLogin
     },
     {
       path: '/home',

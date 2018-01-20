@@ -134,7 +134,7 @@ export const store = new Vuex.Store({
 		},
 		setUserPlaylist(state, payload){
 			state.userPlaylist = payload
-		}
+		},
 	},
 	actions:{
 		getBanners(context){
@@ -239,8 +239,9 @@ export const store = new Vuex.Store({
 		async getMyInfo(context, payload){
 			
 		},
-		async login(context){
-			let data = await axios.get('/login/cellphone?phone=13288081126&password=1172161412')
+		async login(context, payload){
+			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
+			console.log(data)
 			context.commit('setUserInfo', data.data)
 		},
 		async getUserPlaylist(context){
