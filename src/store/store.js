@@ -13,7 +13,6 @@ export const store = new Vuex.Store({
 		isLogin: false,
 		loginCode: 0,
 		isLoading: false,
-		banners:[],
 		topLists:[],
 		playlist: {},
 		privateContent: [],
@@ -145,12 +144,6 @@ export const store = new Vuex.Store({
 		},
 	},
 	actions:{
-		getBanners(context){
-			axios.get('/banner')
-				.then((data) => {
-					context.state.banners = data.data.banners
-				})
-		},
 		getTopLists(context){
 			axios.get('/top/playlist?limit=6')
 				.then((data) => {
@@ -254,7 +247,6 @@ export const store = new Vuex.Store({
 				localStorage.userInfo = info
 				context.commit('setIsLogin', true)
 			}
-			
 		},
 		async getUserPlaylist(context){
 			let data = await axios.get(`/user/playlist?uid=${context.getters.userID}`)

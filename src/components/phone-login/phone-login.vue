@@ -34,7 +34,6 @@ export default {
 		},
 		errorInfo(){
 			if(this.loginCode === 502) return '密码不正确'
-			else if( this.loginCode === 999 ) return '账号或密码未输入'
 			else return '账号不存在'
 		}
 	},
@@ -51,10 +50,10 @@ export default {
 				}
 				this.$store.dispatch('login', info)
 			}
-			else{
-				this.$store.commit('setLoginCode', 999)
-			}
 		}
+	},
+	activated () {
+		this.$store.commit('setLoginCode', 0)
 	},
 	watch: {
 		loginCode(newV, oldV){

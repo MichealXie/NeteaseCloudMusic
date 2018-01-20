@@ -31,7 +31,6 @@ export default {
     }
   },
   mounted () {
-
     // 快捷键绑定
     window.addEventListener('keypress', (e) => {
       if(e.key === 'l' && e.ctrlKey){
@@ -62,4 +61,8 @@ export default {
       transition: opacity .5s
     .fade-enter, .fade-leave-to
       opacity: 0
+    // chrome 自动填充input 会变黄, 很讨厌啊
+    input:-webkit-autofill 
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+      -webkit-text-fill-color: #333;
 </style>

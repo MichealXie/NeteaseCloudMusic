@@ -1,6 +1,6 @@
 <template>
 	<div class="recommend">
-		<loading v-show="!banners.length"></loading>
+		<loading v-show="!topLists.length"></loading>
 		<div class="recommend-content">
 			<slider></slider>
 			<div class="top-list" ref="top-list">
@@ -76,9 +76,6 @@ export default {
 		}
 	},
 	computed: {
-		banners(){
-			return this.$store.state.banners
-		},
 		topLists(){
 			return this.$store.state.topLists
 		},
@@ -105,8 +102,6 @@ export default {
 		}
 	},
 	created () {
-		//获取轮播图片
-		this.$store.dispatch('getBanners')
 		//获取推荐歌单
 		this.$store.dispatch('getTopLists')
 		//获取独家放送

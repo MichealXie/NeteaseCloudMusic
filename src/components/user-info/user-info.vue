@@ -58,7 +58,7 @@ export default {
 	},
 	created () {
 		this.$store.dispatch('getUserPlaylist')
-	}
+	},
 }
 </script>
 
