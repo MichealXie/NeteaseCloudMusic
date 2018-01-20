@@ -13,7 +13,7 @@
 			</div>
 			<div class="detail-info" v-if="songListDetail && songListDetail.creator">
 				<div class="img-ct">
-					<img v-lazy="songListDetail.creator.backgroundUrl">
+					<div class="img"><img v-lazy="songListDetail.coverImgUrl"></div>
 					<span class="count">
 						<i class="fa fa-headphones" aria-hidden="true"></i>
 						{{songListDetail.playCount  | playcount}}
@@ -34,7 +34,7 @@
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
-					<p>{{songListDetail.trackCount | playcount}}</p>
+					<p>{{songListDetail.commentCount | playcount}}</p>
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-share-square-o" aria-hidden="true"></i>
@@ -44,6 +44,13 @@
 		</div>
 		<div class="detail-list" v-if="songListDetail">
 			<ul class="songs">
+				<div class="play-all" @click="playSong(songListDetail.trackIds[0].id,0, songListDetail.tracks)">
+					<i class="fa fa-play-circle-o" aria-hidden="true"></i>
+					<div class="play">
+						播放全部
+						<span class="count">(共{{songListDetail.trackCount}}首)</span>
+					</div>
+				</div>
 				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
 					<div class="info">
@@ -68,6 +75,9 @@ export default {
 		'mini-player': miniPlayer
 	},
 	computed: {
+		player(){
+			return document.getElementById("player")
+		},
 		isLoading(){
 			return this.$store.state.isLoading
 		},
@@ -83,6 +93,7 @@ export default {
 			this.$router.go(-1)
 		},
 		playSong(id, index, tracks){
+			this.player.pause()
 			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)
 			this.$store.commit('setPlayingList',tracks)
@@ -135,8 +146,12 @@ export default {
 					flex 1
 					position relative
 					margin 10px 0 0 20px
-					img 
+					.img
+						position relative
+						gradient-cover()					
 						width 100%
+						img
+							width 100%
 					.count
 						position absolute
 						top 5px 
@@ -171,6 +186,22 @@ export default {
 		.detail-list
 			background $list-background
 			.songs
+				.play-all
+					display flex
+					.fa
+						flex 0 0 40px
+						height 50px
+						font-size 24px
+						color $not-important
+						flex-center()
+					.play
+						flex 1
+						width calc(100% - 80px)
+						border-1px()
+						display flex
+						align-items center
+						.count
+							default-singer()
 				.song
 					display flex
 					no-wrap()

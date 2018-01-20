@@ -37,9 +37,6 @@ export const store = new Vuex.Store({
 		userPlaylist: {}
 	},
 	getters: {
-		partlyList(state){
-			if (state.topLists) return state.topLists.slice(0,6)
-		},
 		partlyPrivate(state){
 			if (state.privateContent) return state.privateContent.slice(1,3)
 		},
@@ -149,7 +146,7 @@ export const store = new Vuex.Store({
 				})
 		},
 		getTopLists(context){
-			axios.get('/top/playlist')
+			axios.get('/top/playlist?limit=6')
 				.then((data) => {
 					console.log(data.data)
 					context.state.topLists = data.data.playlists
@@ -255,5 +252,5 @@ export const store = new Vuex.Store({
 			context.commit('setUserPlaylist', data.data.playlist)
 		}
 	},
-	plugins: [createLogger()]
+	// plugins: [createLogger()]
 })

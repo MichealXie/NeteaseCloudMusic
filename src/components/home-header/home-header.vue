@@ -27,10 +27,11 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
-
+  a
+    color white
   .home-header
     position: fixed
     height: 48px
@@ -44,7 +45,6 @@ export default {
       flex 0 0 56px
       text-align center
       font-size 24px
-      color white
     .router-link
       flex 1
       input 

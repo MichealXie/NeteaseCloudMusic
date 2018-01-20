@@ -25,6 +25,9 @@ export default {
 			this.$store.dispatch('getSongUrl', id)
 		},
 	},
+	mounted () {
+		this.$refs.player.volume = 0.5
+	},
 	watch: {
 		isPlay: function(newV, oldV){
 			if(newV === true){

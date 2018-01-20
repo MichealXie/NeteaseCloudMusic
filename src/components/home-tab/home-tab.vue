@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang='stylus' scoped>
   @import "../../common/stylus/variable"
   .home-tab
     position fixed
@@ -35,7 +35,7 @@ export default {
       flex: 1
       text-align: center
       .tab-link
-        padding-bottom: 7px
+        padding-bottom: 8px
         color: $color-text-l
       &.router-link-active
         .tab-link

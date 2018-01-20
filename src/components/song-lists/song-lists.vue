@@ -2,15 +2,15 @@
 	<div class="song-lists">
 		<loading v-show="!Object.keys(songLists).length"></loading>
 		<div class="lists-tab">
+			<div class="lists-item" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
 			<div class="lists-item" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>
 			<div class="lists-item" :class="{active: status === 'popular'}" @click="switchStatus('popular')">热门</div>
-			<div class="lists-item" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
 		</div>
 		<div class="duet-lists">
 			<ul>
 				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in songLists" :key="item.id">
 					<div class="img-ct">
-						<img class="img" :src="item.coverImgUrl">
+						<div class="img"><img :src="item.coverImgUrl"></div>
 						<div class="info">
 							<i aria-hidden="true" class="fa fa-music"></i>
 							<span class="count">{{item.playCount | playcount}}</span>
@@ -32,7 +32,7 @@ export default {
 	},
 	data () {
 		return {
-			status: 'latest'
+			status: 'recommend'
 		}
 	},
 	computed: {
@@ -57,7 +57,7 @@ export default {
 		}
 	},
 	created () {
-		this.$store.dispatch('getLatestLists')
+		this.$store.dispatch('getRecommendLists')
 	}
 }
 </script>
@@ -118,7 +118,11 @@ export default {
 						padding-left 2px
 					.img-ct
 						.img
+							position relative
+							gradient-cover()					
 							width 100%
+							img
+								width 100%
 						.info
 							position absolute
 							top 5px

@@ -76,7 +76,7 @@ export default {
 		},
 		progressBarLength(){
 			let progressBar = document.getElementById('progressBar')
-			return getComputedStyle(progressBar).width
+			if(getComputedStyle(progressBar)) return getComputedStyle(progressBar).width
 		},
 	},
 	methods:{
@@ -108,6 +108,7 @@ export default {
 			console.log(this.player.currentTime)
 			console.log(this.player.duration)
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
+			this.$store.commit('setIsPlay',true)
 		},
 		 moveProgress(){
 			this.$refs.currentProgress.style.width = (this.player.currentTime / this.player.duration) * parseInt(this.progressBarLength) + "px"
@@ -244,9 +245,22 @@ export default {
 					background white
 					height 4px
 					.current-progress
+						position relative
 						background $color-background
 						height 4px
 						width 0
+						transition .3s 
+						&:after
+							content ''
+							position absolute
+							right 0
+							top 0
+							transform translate(30%, -40%)
+							border 4px solid white
+							border-radius 50%
+							background $color-background
+							width 5px
+							height 5px
 				.playedTime, .restTime
 					flex 0 0 60px
 					flex-center()

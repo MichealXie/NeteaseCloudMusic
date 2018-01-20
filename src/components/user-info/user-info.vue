@@ -42,6 +42,11 @@ export default {
 			return this.$store.state.userPlaylist
 		}
 	},
+	methods: {
+		goBack(){
+			this.$router.go(-1)
+		}
+	},
 	created () {
 		this.$store.dispatch('getUserPlaylist')
 	}

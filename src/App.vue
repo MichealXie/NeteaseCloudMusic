@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
+    <transition name="fade">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
+    </transition>
     <app-audio></app-audio>
   </div>
 </template>
@@ -28,4 +30,8 @@ export default {
     color: $color-theme
     font-family: Microsoft Yahei, sans-serif
     font-size 16px
+  .fade-enter-active, .fade-leave-active 
+    transition: opacity .5s
+  .fade-enter, .fade-leave-to
+    opacity: 0
 </style>

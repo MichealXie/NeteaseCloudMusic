@@ -6,8 +6,8 @@
 			<div class="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
-					<router-link :to="'/song-details/' + item.id" class="top-item" v-for="item in partlyList" :key="item.id" @click="passAndGetList(item.id)">
-						<img :src="item.coverImgUrl">
+					<router-link :to="'/song-details/' + item.id" class="top-item" v-for="item in topLists" :key="item.id" @click="passAndGetList(item.id)">
+						<div class="img"><img :src="item.coverImgUrl"></div>
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
 							{{ item.playCount | playcount}}</span>
@@ -19,7 +19,7 @@
 				<app-title>独家放送</app-title>
 				<ul class="partly-private">
 					<li class="private-item" v-for="item in partlyPrivate" :key="item.id">
-						<img class="private-img" v-lazy="item.sPicUrl">
+						<div class="img"><img v-lazy="item.sPicUrl"></div>
 						<p class="private-name">{{item.name}}</p>
 						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					</li>
@@ -33,7 +33,7 @@
 					<app-title>推荐 MV</app-title>
 					<ul class="mvs">
 						<li class="mv" v-for="item in recommendMV" :key="item.id">
-							<img class="img" v-lazy="item.picUrl">
+							<div class="img"><img v-lazy="item.picUrl"></div>
 							<p class="name"> {{item.name}}</p>
 							<p class="singer"> {{item.artists[0].name}}</p>
 							<div class="mv-info">
@@ -48,7 +48,7 @@
 					<ul class="djs">
 						<li class="dj" v-for="item in recommendDJ" :key="item.id">
 							<div class="img-ct">
-								<img class="img" v-lazy="item.picUrl">
+								<div class="img"><img v-lazy="item.picUrl"></div>
 								<p class="info"> {{item.copywriter}}</p>
 							</div>
 							<p class="name">{{item.name}}</p>
@@ -79,8 +79,8 @@ export default {
 		banners(){
 			return this.$store.state.banners
 		},
-		partlyList(){
-			return this.$store.getters.partlyList
+		topLists(){
+			return this.$store.state.topLists
 		},
 		privateContent(){
 			return this.$store.state.privateContent
@@ -142,8 +142,12 @@ export default {
 				margin-bottom 5px
 				&:nth-child(3n)
 					padding 0
-				img 
+				.img
+					position relative
+					gradient-cover()					
 					width 100%
+					img
+						width 100%
 				.count
 					position absolute
 					right 5px
@@ -167,8 +171,12 @@ export default {
 					padding-right 1px
 				&:nth-child(even)
 					padding-left 1px
-				.private-img
+				.img
+					position relative
+					gradient-cover()					
 					width 100%
+					img
+						width 100%
 				.private-name
 					default-font()
 				i
@@ -177,6 +185,7 @@ export default {
 					left 5px
 					color $not-important
 					font-size 22px
+					color white
 		.private-ad
 			width 100%
 			img 
@@ -199,7 +208,11 @@ export default {
 				&:nth-child(even)
 					padding-left 1px
 				.img
+					position relative
+					gradient-cover()					
 					width 100%
+					img
+						width 100%
 				.name
 					default-font()
 					no-wrap()
@@ -225,8 +238,12 @@ export default {
 				padding 0
 			.img-ct
 				position relative
-				img 
+				.img
+					position relative
+					gradient-cover()					
 					width 100%
+					img
+						width 100%
 				.info
 					position absolute
 					bottom 5px

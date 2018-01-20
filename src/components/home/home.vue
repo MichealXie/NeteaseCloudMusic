@@ -2,9 +2,11 @@
 	<div class="home">
 		<home-header></home-header>
     <home-tab></home-tab>
-		<keep-alive>
-			<router-view></router-view>
-		</keep-alive>
+		<transition name="fade">
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>	
+		</transition>
 		<mini-player></mini-player>
 	</div>
 </template>
@@ -23,6 +25,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="stylus">
+  .fade-enter-active, .fade-leave-active 
+    transition: opacity .5s
+  .fade-enter, .fade-leave-to
+    opacity: 0
 </style>
