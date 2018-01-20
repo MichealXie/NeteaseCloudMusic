@@ -233,7 +233,6 @@ export default {
 					left 5px
 					color white
 					font-size $font-size-small-s
-					width 100%
 					no-wrap()
 			.name
 				default-font()

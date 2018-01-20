@@ -33,6 +33,8 @@ export const store = new Vuex.Store({
 		currentSongIndex: 0,
 		playingList: [],
 		isPlayerShow: false,
+		userInfo:{},
+		userPlaylist: {}
 	},
 	getters: {
 		partlyList(state){
@@ -63,6 +65,9 @@ export const store = new Vuex.Store({
 			if (state.rapidSongRank.tracks){
 				return state.rapidSongRank.tracks.slice(0, 3)
 			}
+		},
+		userID(state){
+			if (state.userInfo.account) return state.userInfo.account.id
 		}
 	},
 	mutations: {
@@ -127,6 +132,12 @@ export const store = new Vuex.Store({
 					ar: item.artists
 				})
 			}
+		},
+		setUserInfo(state, payload){
+			state.userInfo = payload
+		},
+		setUserPlaylist(state, payload){
+			state.userPlaylist = payload
 		}
 	},
 	actions:{
@@ -231,6 +242,18 @@ export const store = new Vuex.Store({
 			let data = await axios.get(`/music/url?id=${payload}`)
 			context.commit('setCurrentSong', data.data.data[0].url)
 		},
+		// 以下是个人资料
+		async getMyInfo(context, payload){
+			
+		},
+		async login(context){
+			let data = await axios.get('/login/cellphone?phone=13288081126&password=1172161412')
+			context.commit('setUserInfo', data.data)
+		},
+		async getUserPlaylist(context){
+			let data = await axios.get(`/user/playlist?uid=${context.getters.userID}`)
+			context.commit('setUserPlaylist', data.data.playlist)
+		}
 	},
 	plugins: [createLogger()]
 })

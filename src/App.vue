@@ -15,6 +15,9 @@ export default {
   components: {
     'app-audio': appAudio
   },
+  created () {
+    this.$store.dispatch('login')
+  }
 }
 </script>
 

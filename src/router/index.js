@@ -56,6 +56,11 @@ const Player = (reslove) => {
     reslove(module)
   })
 }
+const userInfo = (reslove) => {
+  import('@/components/user-info/user-info').then((module) => {
+    reslove(module)
+  })
+}
 
 Vue.use(Router)
 
@@ -64,6 +69,10 @@ export default new Router({
     {
       path: '/',
       redirect: '/home/recommend'
+    },
+    {
+      path:'/userInfo',
+      component: userInfo
     },
     {
       path: '/home',

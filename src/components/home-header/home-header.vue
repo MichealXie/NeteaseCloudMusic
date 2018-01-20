@@ -1,7 +1,7 @@
 <template>
   <div class="home-header">
     <div class="btn">
-      <i class="fa fa-microphone" aria-hidden="true"></i>
+      <router-link to="/userInfo"><i class="fa fa-user-circle-o" aria-hidden="true"></i></router-link>
     </div>
     <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
