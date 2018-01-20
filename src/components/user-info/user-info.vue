@@ -7,7 +7,7 @@
 			</router-link>
 			<div class="avatar"><img :src="userInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{userInfo.profile.nickname}}</div>
-			<router-link to="/login" class="logout" @click="logout()">退出登录</router-link>
+			<div to="/login" class="logout" @click="logout()">退出登录</div>
 		</div>
 		<div class="my-list">
 			<ul class="lists">
@@ -51,6 +51,9 @@ export default {
 		},
 		logout(){
 			localStorage.removeItem('userInfo')
+			this.$store.commit('setIsLogin', false)
+			console.log(localStorage)
+			this.$router.push('/login')
 		},
 	},
 	created () {

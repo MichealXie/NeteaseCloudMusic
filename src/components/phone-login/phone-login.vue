@@ -5,9 +5,10 @@
 			<div class="back" @click="goback()"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 			<span class="title">手机号登录</span>
 		</div>
-		<input v-model="phoneNumber" class="phone" type="text" placeholder="请输入手机号" required>
-		<input v-model="password" class="password" type="text" placeholder="请输入密码" required @keypress.enter="login()">
+		<input v-model="phoneNumber" class="phone" type="text" placeholder="请输入手机号" required="required" @keypress.enter="login()">
+		<input v-model="password" class="password" type="password" placeholder="请输入密码" required="required" @keypress.enter="login()">
 		<div class="login-btn" @click="login()">登录</div>
+		<div class="error" v-if="(loginCode !== 0) & (loginCode !== 200)">{{errorInfo}}</div>
 	</div>
 </template>
 
@@ -20,14 +21,21 @@ export default {
 	},
 	data () {
 		return {
-			isLoading: false,
 			phoneNumber: '',
 			password: '',
 		}
 	},
 	computed: {
-		loginState(){
-			return this.$store.state.userInfo.code
+		isLoading(){
+			return this.$store.state.isLoading
+		},
+		loginCode(){
+			return this.$store.state.loginCode
+		},
+		errorInfo(){
+			if(this.loginCode === 502) return '密码不正确'
+			else if( this.loginCode === 999 ) return '账号或密码未输入'
+			else return '账号不存在'
 		}
 	},
 	methods: {
@@ -35,19 +43,23 @@ export default {
 			this.$router.go(-1)
 		},
 		login(){
-			this.isLoading = true
-			let info = {
-				account: this.phoneNumber,
-				password: this.password
+			if(this.phoneNumber && this.password){
+				this.$store.commit('setIsLoading', true)
+				let info = {
+					account: this.phoneNumber,
+					password: this.password
+				}
+				this.$store.dispatch('login', info)
 			}
-			this.$store.dispatch('login', info)
-			console.log(localStorage.userInfo)
+			else{
+				this.$store.commit('setLoginCode', 999)
+			}
 		}
 	},
 	watch: {
-		loginState(newV, oldV){
+		loginCode(newV, oldV){
 			if(newV === 200){
-				this.$router.push('home/recommend')
+				this.$router.push('/home/recommend')
 			}
 		}
 	}
@@ -81,17 +93,23 @@ export default {
 			padding 5px 0
 			outline none
 		.phone
-			top 10%
+			top 15%
 		.password
-			top 20%
+			top 25%
 		.login-btn
 			position absolute
 			width 85%
 			middleX()
-			top 30%
+			top 35%
 			padding 10px 0
 			text-align center 
 			border-radius 32px
 			color white
 			background-color $color-background
+		.error
+			position absolute
+			top 10%
+			middleX()
+			flex-center()
+			color $color-background
 </style>

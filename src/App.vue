@@ -20,19 +20,17 @@ export default {
   methods: {
   },
   created () {
-
+    if(localStorage.userInfo){
+      let info = JSON.parse(localStorage.userInfo)
+      this.$store.commit('setIsLogin', true)
+      this.$store.dispatch('login', info)
+      this.$router.push('/home/recommend')
+    }
+    else{
+      this.$router.push('/login')
+    }
   },
   mounted () {
-     if(localStorage.userInfo){
-       let info = JSON.parse(localStorage.userInfo)
-       this.$store.commit('setLogin', true)
-       this.$store.dispatch('login', info)
-       this.$router.push('/home/recommend')
-     }
-     else{
-       this.$router.push('/login')
-     }
-
 
     // 快捷键绑定
     window.addEventListener('keypress', (e) => {

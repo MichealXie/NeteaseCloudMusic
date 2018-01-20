@@ -41,6 +41,7 @@
 			</div>
 		</div>
 		<div class="background" v-if="playingList[currentSongIndex]" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
+		<div class="fake-bg" v-if="!playingList[currentSongIndex]" ></div>
 	</div>
 </template>
 
@@ -160,6 +161,18 @@ export default {
 			filter: blur(20px) brightness(80%)
 			transition 1s all linear
 			gradient-cover()
+		.fake-bg
+			position fixed
+			top 0 
+			left 0
+			width 375px
+			height 100vh
+			z-index -2
+			overflow hidden
+			background-size cover
+			background-position 50%
+			gradient-cover()
+			background-image url('./background.png')
 		.header
 			height 48px
 			width 100%

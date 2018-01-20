@@ -11,6 +11,8 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
 	state: {
 		isLogin: false,
+		loginCode: 0,
+		isLoading: false,
 		banners:[],
 		topLists:[],
 		playlist: {},
@@ -23,7 +25,6 @@ export const store = new Vuex.Store({
 		originalSongRank: {},
 		rapidSongRank: {},
 		songListDetail: {},
-		isLoading: true,
 		type: '',
 		searchResult:{},
 		isSearching: false,
@@ -69,14 +70,17 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		setLogin(state, payload){
+		setIsLoading(state, payload){
+			state.isLoading = payload
+		},
+		setIsLogin(state, payload){
 			state.isLogin = payload
+		},
+		setLoginCode(state, payload){
+			state.loginCode = payload
 		},
 		setSongListDetail(state, payload){
 			state.songListDetail = payload
-		},
-		setIsLoading(state, payload){
-			state.isLoading = payload
 		},
 		setSearch(state, payload){
 			state.searchResult[payload.name] = payload.data.data.result[payload.name]
@@ -242,12 +246,13 @@ export const store = new Vuex.Store({
 		// 以下是个人资料
 		async login(context, payload){
 			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
-			console.log(data)
-			if (data.data.code === 200){
+			context.commit('setLoginCode', data.data.code)
+			context.commit('setIsLoading', false)
+			if (context.state.loginCode === 200){
 				context.commit('setUserInfo', data.data)
 				let info = JSON.stringify(payload)
 				localStorage.userInfo = info
-				context.commit('setLogin', true)
+				context.commit('setIsLogin', true)
 			}
 			
 		},
