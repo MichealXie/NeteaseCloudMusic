@@ -5,7 +5,7 @@
         <router-view/>
       </keep-alive>
     </transition>
-    <app-audio></app-audio>
+    <app-audio ref="player"></app-audio>
   </div>
 </template>
 
@@ -19,6 +19,24 @@ export default {
   },
   created () {
     this.$store.dispatch('login')
+  },
+  mounted () {
+    window.addEventListener('keypress', (e) => {
+      if(e.key === 'l' && e.ctrlKey){
+        this.$refs.player.nextSong()
+      }
+      if(e.key === 'j' && e.ctrlKey){
+        this.$refs.player.prevSong()
+      }
+      if(e.key === 'i' && e.ctrlKey){
+        this.$refs.player.addVolumn()
+      }
+      if(e.key === 'k' && e.ctrlKey){
+        this.$refs.player.reduceVolumn()
+      }
+      console.log(e);
+      
+    })
   }
 }
 </script>

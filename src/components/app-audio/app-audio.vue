@@ -20,10 +20,25 @@ export default {
 	},
 	methods: {
 		nextSong(){
+			this.$store.commit('setIsPlay', false)			
 			this.$store.commit('songIndexAddOne')
 			let id = this.playingList[this.currentSongIndex].id
 			this.$store.dispatch('getSongUrl', id)
+			this.$store.commit('setIsPlay', true)			
 		},
+		prevSong(){
+			this.$store.commit('setIsPlay', false)
+			this.$store.commit('songIndexReduceOne')
+			let id = this.playingList[this.currentSongIndex].id
+			this.$store.dispatch('getSongUrl', id)
+			this.$store.commit('setIsPlay', true)
+		},
+		addVolumn(){
+			this.$refs.player.volume += 0.1
+		},
+		reduceVolumn(){
+			this.$refs.player.volume -= 0.1
+		}
 	},
 	mounted () {
 		this.$refs.player.volume = 0.5

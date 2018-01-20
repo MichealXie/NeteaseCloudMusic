@@ -3,7 +3,7 @@
 		<loading v-show="!banners.length"></loading>
 		<div class="recommend-content">
 			<slider></slider>
-			<div class="top-list">
+			<div class="top-list" ref="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
 					<router-link :to="'/song-details/' + item.id" class="top-item" v-for="item in topLists" :key="item.id" @click="passAndGetList(item.id)">
@@ -115,8 +115,7 @@ export default {
 		this.$store.dispatch('getRecommendMV')
 		//获取推荐电台
 		this.$store.dispatch('getRecommendDJ')
-
-	}
+	},
 }
 </script>
 
