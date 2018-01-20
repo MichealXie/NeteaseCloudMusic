@@ -78,6 +78,7 @@ export default {
 		width 100%
 		background rgba(255, 255, 255, 0.9)
 		display flex
+		border-1px()
 		.img-ct
 			flex 0 0 56px
 			flex-center()
@@ -101,4 +102,6 @@ export default {
 			font-size 30px
 			flex-center()
 			color $not-important
+		.next-btn
+			font-size 24px
 </style>

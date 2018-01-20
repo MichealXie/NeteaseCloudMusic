@@ -5,8 +5,8 @@
 			<div class="back" @click="goback()"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 			<span class="title">手机号登录</span>
 		</div>
-		<input v-model="phoneNumber" class="phone" type="text" placeholder="请输入手机号">
-		<input v-model="password" class="password" type="text" placeholder="请输入密码">
+		<input v-model="phoneNumber" class="phone" type="text" placeholder="请输入手机号" required>
+		<input v-model="password" class="password" type="text" placeholder="请输入密码" required @keypress.enter="login()">
 		<div class="login-btn" @click="login()">登录</div>
 	</div>
 </template>
@@ -41,6 +41,7 @@ export default {
 				password: this.password
 			}
 			this.$store.dispatch('login', info)
+			console.log(localStorage.userInfo)
 		}
 	},
 	watch: {

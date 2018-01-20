@@ -1,14 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Rank from '@/components/rank/rank'
-// import Home from '@/components/home/home'
-// import Recommend from '@/components/recommend/recommend'
-// import SongLists from '@/components/song-lists/song-lists'
-// import Singer from '@/components/singer/singer'
-// import Search from '@/components/search/search'
-// import SongDetails from '@/components/song-list-detail/song-list-detail'
-// import Album from '@/components/album/album'
-// import Player from '@/components/player/player'
 
 // 代码分离, 不知能不能用 async 写( function 不大好加载  ) 其实差不多
 const Rank = (reslove) => {
@@ -77,11 +68,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      redirect: '/login'
-    },
-    {
-      path:'/userInfo',
+      path:'/user-info',
       component: userInfo
     },
     {

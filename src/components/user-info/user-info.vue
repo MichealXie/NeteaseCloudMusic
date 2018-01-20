@@ -2,11 +2,12 @@
 	<div class="user-info">
 		<div class="top" :style="'background-image:url(' +  userInfo.profile.backgroundUrl + ')'">
 			<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-			<router-link to="/home/recommend" class="home">
-				<i class="fa fa-home" aria-hidden="true"></i>
+			<router-link to="/player" class="player">
+				<i class="fa fa-headphones" aria-hidden="true"></i>
 			</router-link>
 			<div class="avatar"><img :src="userInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{userInfo.profile.nickname}}</div>
+			<router-link to="/login" class="logout" @click="logout()">退出登录</router-link>
 		</div>
 		<div class="my-list">
 			<ul class="lists">
@@ -47,7 +48,10 @@ export default {
 	methods: {
 		goBack(){
 			this.$router.go(-1)
-		}
+		},
+		logout(){
+			localStorage.removeItem('userInfo')
+		},
 	},
 	created () {
 		this.$store.dispatch('getUserPlaylist')
@@ -67,19 +71,18 @@ export default {
 			.back
 				position fixed
 				left 10px
-				top 5px
+				top 8px
 				font-size 30px
-			.home
+			.player
 				position fixed
 				right 10px
-				top 5px
+				top 10px
 				font-size 24px
 				color white
 			.avatar
 				position absolute
 				top 30%
-				left 50%
-				transform translateX(-50%)
+				middleX()
 				border-radius 50%
 				overflow hidden
 				width 70px
@@ -89,16 +92,22 @@ export default {
 			.name
 				position absolute
 				top 60%
-				left 50%
-				transform translateX(-50%)
+				middleX()
+			.logout
+				position absolute
+				top 70%
+				middleX()
+				border 1px solid rgba(255, 255, 255, 0.6)
+				padding 6px 14px
+				font-size 14px
 		.my-list
 			.lists
 				.title
-					height 20px
+					height 24px
 					font-size 12px
-					color black
+					color #555
 					padding 0 10px
-					background-color lightgrey
+					background-color #e6e9e8
 					display flex
 					align-items center
 				.item

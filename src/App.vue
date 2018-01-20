@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="fade">
+    <transition name="">
       <keep-alive>
         <router-view/>
       </keep-alive>
@@ -17,9 +17,24 @@ export default {
   components: {
     'app-audio': appAudio
   },
+  methods: {
+  },
   created () {
+
   },
   mounted () {
+     if(localStorage.userInfo){
+       let info = JSON.parse(localStorage.userInfo)
+       this.$store.commit('setLogin', true)
+       this.$store.dispatch('login', info)
+       this.$router.push('/home/recommend')
+     }
+     else{
+       this.$router.push('/login')
+     }
+
+
+    // 快捷键绑定
     window.addEventListener('keypress', (e) => {
       if(e.key === 'l' && e.ctrlKey){
         this.$refs.player.nextSong()
@@ -45,8 +60,8 @@ export default {
     color: $color-theme
     font-family: Microsoft Yahei, sans-serif
     font-size 16px
-  .fade-enter-active, .fade-leave-active 
-    transition: opacity .5s
-  .fade-enter, .fade-leave-to
-    opacity: 0
+    .fade-enter-active, .fade-leave-active 
+      transition: opacity .5s
+    .fade-enter, .fade-leave-to
+      opacity: 0
 </style>

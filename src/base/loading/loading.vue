@@ -1,6 +1,6 @@
 <template>
 	<div class="loading">
-		<i class="fa fa-cog fa-spin fa-3x fa-fw margin-bottom"></i>
+		<i class="fa fa-eercast fa-spin fa-3x fa-fw margin-bottom"></i>
 		<span>加载中</span>
 	</div>
 </template>

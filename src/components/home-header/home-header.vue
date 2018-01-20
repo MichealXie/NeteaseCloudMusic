@@ -1,7 +1,7 @@
 <template>
   <div class="home-header">
-    <div class="btn">
-      <router-link to="/userInfo"><i class="fa fa-user-circle-o" aria-hidden="true"></i></router-link>
+    <div class="btn" @click="goInfo()">
+      <i class="fa fa-user-circle-o" aria-hidden="true"></i>
     </div>
     <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
@@ -22,6 +22,10 @@ export default {
   methods: {
     showPlayer(){
       this.$store.commit('showPlayer')
+    },
+    goInfo(){
+      if(this.$store.state.isLogin) this.$router.push('/user-info')
+      else this.$router.push('/login')
     }
   }
 }
@@ -45,6 +49,7 @@ export default {
       flex 0 0 56px
       text-align center
       font-size 24px
+      color white
     .router-link
       flex 1
       input 

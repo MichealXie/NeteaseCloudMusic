@@ -8,9 +8,9 @@
 				<span class="song">{{song}}</span>
 				<span class="singer">{{singer}}</span>
 			</div>
-			<div class="share">
-				<i class="fa fa-share-alt" aria-hidden="true"></i>
-			</div>
+    <router-link to="/user-info" class="home">
+      <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+    </router-link>
 		</div>
 		<div class="music-center">
 			<img src="../../assets/play-controler.png" alt="" class="hook">
@@ -138,18 +138,13 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 	.player
-		position fixed
-		z-index 999
-		background white
-		top 0
 		height 100vh
 		width 100%
 		overflow hidden
-		background-image url('./background.png')
 		background-size cover
 		background-repeat no-repeat
 		.background
@@ -163,14 +158,15 @@ export default {
 			background-size cover
 			background-position 50%
 			filter: blur(20px) brightness(80%)
-			transition opacity .3s linear
+			transition 1s all linear
+			gradient-cover()
 		.header
 			height 48px
 			width 100%
 			display flex
 			border-1px()
 			color white
-			.goback, .share
+			.goback, .home
 				flex 0 0 48px
 				flex-center()
 				font-size 28px
@@ -188,7 +184,7 @@ export default {
 					no-wrap()
 					width 279px
 				.singer
-					color $not-important
+					color $light-border
 					font-weight 300
 					font-size 14px	
 					no-wrap()

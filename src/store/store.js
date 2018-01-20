@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 	state: {
+		isLogin: false,
 		banners:[],
 		topLists:[],
 		playlist: {},
@@ -68,6 +69,9 @@ export const store = new Vuex.Store({
 		}
 	},
 	mutations: {
+		setLogin(state, payload){
+			state.isLogin = payload
+		},
 		setSongListDetail(state, payload){
 			state.songListDetail = payload
 		},
@@ -236,13 +240,16 @@ export const store = new Vuex.Store({
 			context.commit('setCurrentSong', data.data.data[0].url)
 		},
 		// 以下是个人资料
-		async getMyInfo(context, payload){
-			
-		},
 		async login(context, payload){
 			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
 			console.log(data)
-			context.commit('setUserInfo', data.data)
+			if (data.data.code === 200){
+				context.commit('setUserInfo', data.data)
+				let info = JSON.stringify(payload)
+				localStorage.userInfo = info
+				context.commit('setLogin', true)
+			}
+			
 		},
 		async getUserPlaylist(context){
 			let data = await axios.get(`/user/playlist?uid=${context.getters.userID}`)
