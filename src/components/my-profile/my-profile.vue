@@ -14,7 +14,7 @@
 		</div>
 		<div class="my-list">
 			<ul class="lists">
-				<div class="title">我的歌单</div>
+				<comment-title>我的歌单</comment-title>
 				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === myId">
 					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
 					<div class="info">
@@ -22,7 +22,7 @@
 						<span class="count">{{item.trackCount}}首, 播放{{item.playCount}}次</span>
 					</div>
 				</router-link>
-				<div class="title">收藏的歌单</div>
+				<comment-title>收藏的歌单</comment-title>
 				<li class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== myId">
 					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
 					<div class="info">
@@ -36,7 +36,12 @@
 </template>
 
 <script>
+import commentTitle from '@/base/comment-title/comment-title'
+
 export default {
+	components: {
+		'comment-title': commentTitle,
+	},
 	computed: {
 		myId(){
 			return this.$store.getters.myId
@@ -77,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/mixin"
 	.my-info
 		.top
@@ -129,14 +134,6 @@ export default {
 				font-size 14px
 		.my-list
 			.lists
-				.title
-					height 24px
-					font-size 12px
-					color #555
-					padding 0 10px
-					background-color #e6e9e8
-					display flex
-					align-items center
 				.item
 					display flex
 					padding 0 10px

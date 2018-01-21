@@ -36,7 +36,9 @@ export const store = new Vuex.Store({
 		isPlayerShow: false,
 		myInfo:{},
 		myPlaylist: {},
-		comments: {}
+		comments: {},
+		// 0 单曲  1 顺序  2随机
+		playMode: 2
 	},
 	getters: {
 		partlyPrivate(state){
@@ -118,8 +120,22 @@ export const store = new Vuex.Store({
 		setIsPlay(state, payload){
 			state.isPlay = payload
 		},
-		songIndexAddOne(state){
-			state.currentSongIndex += 1
+		changeSongIndex(state){
+			switch (state.playMode){
+				case 0:
+					break
+				case 1:
+					state.currentSongIndex += 1
+					break
+				case 2:
+					state.currentSongIndex = Math.round(Math.random() * state.playingList.length)
+					break
+			}
+		},
+		changePlayMode(state){
+			if (state.playMode === 0) state.playMode = 1
+			else if (state.playMode === 1) state.playMode = 2
+			else if (state.playMode === 2) state.playMode = 0
 		},
 		songIndexReduceOne(state) {
 			state.currentSongIndex -= 1

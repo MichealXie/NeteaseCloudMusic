@@ -21,7 +21,7 @@ export default {
 	methods: {
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('songIndexAddOne')
+			this.$store.commit('changeSongIndex')
 			let id = this.playingList[this.currentSongIndex].id
 			this.$store.dispatch('getSongUrl', id)
 			this.$store.commit('setIsPlay', true)			
@@ -58,10 +58,11 @@ export default {
 		},
 		// 歌曲 url 改变, 马上播放
 		currentSong: function(newV,oldV) {
-				this.$nextTick( () => {
-					this.$refs.player.play()
-				})
-		}
+			this.$nextTick( () => {
+				this.$refs.player.play()
+			})
+		},
+		
 	},
 }
 </script>

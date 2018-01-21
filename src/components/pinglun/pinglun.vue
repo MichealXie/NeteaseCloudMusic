@@ -10,7 +10,7 @@
 		<ul class="all" v-if="comments">
 			<comment-title>最新评论({{comments.total}})</comment-title>
 			<comment-content v-for="item in comments.comments" :item="item" :key="item.commentId"></comment-content>
-		</ul>
+			<p class="no-comment" v-if="!comments.comments.length">暂无评论, 欢迎抢沙发</p>
 		</ul>
 	</div>
 </template>
@@ -39,7 +39,6 @@ export default {
 		}	
 	},
 	activated () {
-
 		let payload = {
 			type: this.$route.params.type,
 			id: this.$route.params.id
@@ -50,5 +49,17 @@ export default {
 </script>
 
 <style lang="stylus">
+  @import "../../common/stylus/variable"
+  @import "../../common/stylus/mixin"
 
+	.comment
+		min-height 100vh
+		background-color $list-background
+		.no-comment
+			position absolute
+			top 30%
+			text-align center
+			middleX()
+			font-size 14px
+			color $default-text
 </style>

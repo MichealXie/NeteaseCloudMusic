@@ -39,7 +39,7 @@ export default {
 			flex-direction column
 			padding-left 10px
 			.list-name
-				padding 3px
+				padding 5px 0
 			.nickname
 				font-size 12px
 				color $not-important

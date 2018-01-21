@@ -76,6 +76,9 @@ export default {
 	},
 	props:[],
 	computed: {
+		playMode(){
+			return this.$store.state.playMode
+		},
 		player(){
 			return document.getElementById("player")
 		},
@@ -94,6 +97,7 @@ export default {
 			this.$router.go(-1)
 		},
 		playSong(id, index, tracks){
+			if(index === 0 && this.playMode === 2) index = Math.round(Math.random() * tracks.length)
 			this.player.pause()
 			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)

@@ -245,6 +245,7 @@ export default {
 					color white
 					font-size $font-size-small-s
 					no-wrap()
+					width: 90%
 			.name
 				default-font()
 					

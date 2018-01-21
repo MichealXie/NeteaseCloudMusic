@@ -33,11 +33,25 @@
 				<span class="restTime">{{fullTime}}</span>
 			</div>
 			<div class="music-ctrl">
-				<i class="fa fa-random" aria-hidden="true"></i>
-				<i class="fa fa-step-backward" aria-hidden="true" @click="prevSong()"></i>
-				<i class="fa play-btn" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" @click="togglePlay()" aria-hidden="true"></i>
-				<i class="fa fa-step-forward" aria-hidden="true" @click="nextSong()"></i>
-				<i class="fa fa-list" aria-hidden="true"></i>
+				<div class="btn">
+					<i class="fa" @click="changePlayMode()" :class="{
+						'fa-registered': playMode === 0,
+						'fa-refresh': playMode === 1,
+						'fa-random' : playMode === 2,
+					}" aria-hidden="true" ></i>
+				</div>
+				<div class="btn">
+					<i class="fa fa-step-backward" aria-hidden="true" @click="prevSong()"></i>
+				</div>
+				<div class="btn">
+					<i class="fa play-btn" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" @click="togglePlay()" aria-hidden="true"></i>
+				</div>
+				<div class="btn">
+					<i class="fa fa-step-forward" aria-hidden="true" @click="nextSong()"></i>
+				</div>
+				<div class="btn">
+					<i class="fa fa-list" aria-hidden="true"></i>
+				</div>
 			</div>
 		</div>
 		<div class="background" v-if="playingList[currentSongIndex]" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
@@ -55,6 +69,9 @@ export default {
 		}
 	},
 	computed: {
+		playMode(){
+			return this.$store.state.playMode
+		},
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
 			else return 'oops'
@@ -90,9 +107,13 @@ export default {
 		},
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('songIndexAddOne')
-			let id = this.playingList[this.currentSongIndex].id
-			this.$store.dispatch('getSongUrl', id)
+			this.$store.commit('changeSongIndex')
+			// 单曲循环直接重新开始放
+			if(this.playMode === 0) this.player.currentTime = 0
+			else{
+				let id = this.playingList[this.currentSongIndex].id
+				this.$store.dispatch('getSongUrl', id)
+			}
 			this.$store.commit('setIsPlay', true)
 		},
 		prevSong(){
@@ -130,6 +151,9 @@ export default {
 			if(sec < 10) sec = '0' + sec
 			this.fullTime =  min + ':' + sec
 		},
+		changePlayMode(){
+			this.$store.commit('changePlayMode')
+		}
 	},
 	mounted () {
 		this.$nextTick( () => {
@@ -281,8 +305,12 @@ export default {
 					color $list-background
 			.music-ctrl
 				height 50px
-				.play-btn
-					font-size 50px
+				.btn
+					height 50px
+					width 20%
+					flex-center()
+					.play-btn
+						font-size 50px
 		
 			
 					

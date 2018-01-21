@@ -49,6 +49,9 @@ export default {
 		playingList(){
 			return this.$store.state.playingList
 		},
+		playMode(){
+			return this.$store.state.playMode
+		}
 	},
 	methods: {
 		togglePlay(){
@@ -58,7 +61,7 @@ export default {
 		},
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('songIndexAddOne')
+			this.$store.commit('changeSongIndex')
 			let id = this.playingList[this.currentSongIndex].id
 			this.$store.dispatch('getSongUrl', id)
 			this.$store.commit('setIsPlay', true)
