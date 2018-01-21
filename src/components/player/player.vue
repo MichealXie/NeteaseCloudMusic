@@ -73,7 +73,7 @@ export default {
 			return this.$store.state.playMode
 		},
 		id(){
-			return this.playingList[this.currentSongIndex].id
+			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
 		},
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
