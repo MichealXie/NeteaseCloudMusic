@@ -74,6 +74,7 @@ export default {
 		loading,
 		'mini-player': miniPlayer
 	},
+	props:[],
 	computed: {
 		player(){
 			return document.getElementById("player")
@@ -102,7 +103,7 @@ export default {
 		}
 	},
 	created () {
-		this.$store.dispatch('getSongListDetail', this.listId)
+		if(this.listId) this.$store.dispatch('getSongListDetail', this.listId)
 	},
 	watch: {
 		listId:function(newV,oldV){

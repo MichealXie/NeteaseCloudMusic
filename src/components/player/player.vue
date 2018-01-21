@@ -164,7 +164,7 @@ export default {
 			background-position 50%
 			filter: blur(10px) brightness(80%)
 			transition 1s all linear
-			gradient-cover()
+			deep-gradient-cover()
 		.fake-bg
 			position fixed
 			top 0 

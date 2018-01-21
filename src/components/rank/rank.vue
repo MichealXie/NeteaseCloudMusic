@@ -11,7 +11,7 @@
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in newTop3" :key="item.id">
-						{{index}}.{{item.name}} - {{item.ar[0].name}}
+						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in hotTop3" :key="item.id">
-						{{index}}.{{item.name}} - {{item.ar[0].name}}
+						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in originalTop3" :key="item.id">
-						{{index}}.{{item.name}} - {{item.ar[0].name}}
+						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in rapidTop3" :key="item.id">
-						{{index}}.{{item.name}} - {{item.ar[0].name}}
+						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
 			</div>
