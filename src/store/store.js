@@ -35,7 +35,8 @@ export const store = new Vuex.Store({
 		playingList: [],
 		isPlayerShow: false,
 		myInfo:{},
-		myPlaylist: {}
+		myPlaylist: {},
+		comments: {}
 	},
 	getters: {
 		partlyPrivate(state){
@@ -142,6 +143,9 @@ export const store = new Vuex.Store({
 		setMyPlaylist(state, payload){
 			state.myPlaylist = payload
 		},
+		setComments(state, payload){
+			state.comments = payload
+		}
 	},
 	actions:{
 		getTopLists(context){
@@ -251,6 +255,12 @@ export const store = new Vuex.Store({
 		async getMyPlaylist(context){
 			let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
 			context.commit('setMyPlaylist', data.data.playlist)
+		},
+		async getComments(context, payload){
+			let data = await axios.get(`/comment/playlist?id=${payload.id}`)
+			console.log(data.data)
+			context.commit('setComments', data.data)
+			context.commit('setIsLoading', false)
 		}
 	},
 	// plugins: [createLogger()]

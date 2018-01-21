@@ -32,10 +32,10 @@
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
 					<p>{{songListDetail.subscribedCount | playcount}}</p>
 				</div>
-				<div class="icon-ct">
+				<router-link :to="'/comments/' + listId" class="icon-ct" >
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
 					<p>{{songListDetail.commentCount | playcount}}</p>
-				</div>
+				</router-link>
 				<div class="icon-ct">
 					<i class="fa fa-share-square-o" aria-hidden="true"></i>
 					<p>{{songListDetail.shareCount | playcount}}</p>					
@@ -136,10 +136,9 @@ export default {
 					flex 1
 					text-align center
 				.icon
-					flex 0 0 24px
-					padding 10px
+					flex 0 0 58px
+					flex-center()
 					font-size 24px
-					color white
 			.detail-info
 				padding-top 48px
 				display flex

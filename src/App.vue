@@ -20,6 +20,7 @@ export default {
   methods: {
   },
   created () {
+    console.log(2)
     if(localStorage.myInfo){
       let info = JSON.parse(localStorage.myInfo)
       this.$store.commit('setIsLogin', true)

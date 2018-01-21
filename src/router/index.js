@@ -62,6 +62,17 @@ const phoneLogin = (reslove) => {
     reslove(module)
   })
 }
+const Comments = (reslove) => {
+  import('@/components/Comments/Comments').then((module) => {
+    reslove(module)
+  })
+}
+// comments 不热更新, hack 一下...妈的什么鸡巴 bug
+const Pinglun = (reslove) => {
+  import('@/components/pinglun/pinglun').then((module) => {
+    reslove(module)
+  })
+}
 
 Vue.use(Router)
 
@@ -112,7 +123,10 @@ export default new Router({
     {
       path: '/player',
       component: Player
+    },
+    {
+      path: '/comments/:id',
+      component: Pinglun
     }
   ],
-  mode: "history"
 })
