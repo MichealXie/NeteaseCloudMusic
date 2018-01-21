@@ -47,8 +47,8 @@ const Player = (reslove) => {
     reslove(module)
   })
 }
-const userInfo = (reslove) => {
-  import('@/components/user-info/user-info').then((module) => {
+const myProfile = (reslove) => {
+  import('@/components/my-profile/my-profile').then((module) => {
     reslove(module)
   })
 }
@@ -68,8 +68,8 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path:'/user-info',
-      component: userInfo
+      path:'/my-profile',
+      component: myProfile
     },
     {
       path:'/login',

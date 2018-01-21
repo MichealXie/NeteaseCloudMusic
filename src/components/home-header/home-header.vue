@@ -24,7 +24,7 @@ export default {
       this.$store.commit('showPlayer')
     },
     goInfo(){
-      if(this.$store.state.isLogin) this.$router.push('/user-info')
+      if(this.$store.state.isLogin) this.$router.push('/my-profile')
       else this.$router.push('/login')
     }
   }

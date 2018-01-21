@@ -4,7 +4,7 @@
 		<div class="search-header">
 			<i class="fa fa-microphone" aria-hidden="true"></i>
 			<router-link class="router-link" to="/search">
-				<input v-model.lazy="keywords" type="text" placeholder="搜索音乐,歌词,电台">
+				<input v-model.lazy="keywords" type="text" placeholder="搜索音乐,歌词,电台" ref="search-input">
 			</router-link>
 			<!-- TODO 变换层, 取消或搜索 -->
 			<div class="goback" @click="goback()">取消</div>
@@ -16,14 +16,19 @@
 			<div class="songlist" :class="{'active': type === 1000}" @click="selectType(1000,'playlists')">歌单</div>
 			<div class="user" :class="{'active': type === 1002}" @click="selectType(1002,'userprofiles')">用户</div>
 		</div>
-		<div class="suggestion" v-show="!keywords">
+		<div class="default" v-show="!keywords">
 			<span class="title"> 热门搜索 </span>
-			<ul>
-				<li class="item" v-for="song in recommend" @click="bingKeywords(song)">
+			<ul class="suggestion">
+				<li class="item" v-for="song in suggestion" @click="bingKeywords(song)">
 					{{song}}
 				</li>				
 			</ul>
-			<!-- TODO 可以加一个搜索历史(体力活) -->
+			<ul class="history" v-if="searchHistory">
+				<li class="item" v-for="item in searchHistory">
+					<span class="word" @click="bingKeywords(item)">{{item}}</span>
+					<span class="close" @click="deleteHistory(item)"><i class="fa fa-times" aria-hidden="true"></i></span>
+				</li>
+			</ul>
 		</div>
 		<div class="result" v-show="keywords">
 			<ul class="songs" v-show="type === 1">
@@ -105,7 +110,7 @@ export default {
 			type: 1,
 			keywords: '',
 			name: 'songs',
-			recommend: [
+			suggestion: [
 				'Ed sherran',
 				'男孩别哭',
 				'你被我写在歌里',
@@ -118,7 +123,8 @@ export default {
 				'窦靖童',
 				'Fun',
 				'谢春花'
-			]
+			],
+			searchHistory: JSON.parse(localStorage.searchHistory)
 		}
 	},
 	computed: {
@@ -155,11 +161,39 @@ export default {
 			this.$store.commit('setCurrentSongIndex',index)
 			this.$store.commit('setSearchSongs',tracks)
 			this.$store.commit('setIsPlay', true)
+		},
+		deleteHistory(item){
+			console.log(item);
+			
+			let searchHistory = this.searchHistory
+			let index = searchHistory.indexOf(item)
+			if(index >= 0){
+				searchHistory.splice(index, 1)
+				localStorage.searchHistory = JSON.stringify(searchHistory)
+			}
+		},
+		refreshHistory(){
+			this.searchHistory = JSON.parse(localStorage.searchHistory)
 		}
+	},
+	activated () {
+		this.keywords = ''
+		// this.$refs.searchInput.focus()
 	},
 	watch: {
 		keywords: function(newVal,oldVal){
-			if(newVal) this.selectType()
+			if(newVal){
+				// 搜索
+				this.selectType()
+				// 搜索历史
+				let searchHistory = this.searchHistory
+				// 如果还没有历史, 那么创造一个
+				if(!searchHistory) searchHistory = [newVal]
+				// 有历史, 且搜索是新的, 那就 push 
+				else if(!searchHistory.includes(newVal)) searchHistory.unshift(newVal)
+				// 最后再储存到 local 里
+				localStorage.searchHistory = JSON.stringify(searchHistory)
+			}
 		},
 	}
 }

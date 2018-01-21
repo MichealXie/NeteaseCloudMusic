@@ -34,8 +34,8 @@ export const store = new Vuex.Store({
 		currentSongIndex: 0,
 		playingList: [],
 		isPlayerShow: false,
-		userInfo:{},
-		userPlaylist: {}
+		myInfo:{},
+		myPlaylist: {}
 	},
 	getters: {
 		partlyPrivate(state){
@@ -64,8 +64,8 @@ export const store = new Vuex.Store({
 				return state.rapidSongRank.tracks.slice(0, 3)
 			}
 		},
-		userID(state){
-			if (state.userInfo.account) return state.userInfo.account.id
+		myId(state){
+			if (state.myInfo.account) return state.myInfo.account.id
 		}
 	},
 	mutations: {
@@ -136,11 +136,11 @@ export const store = new Vuex.Store({
 				})
 			}
 		},
-		setUserInfo(state, payload){
-			state.userInfo = payload
+		setMyInfo(state, payload){
+			state.myInfo = payload
 		},
-		setUserPlaylist(state, payload){
-			state.userPlaylist = payload
+		setMyPlaylist(state, payload){
+			state.myPlaylist = payload
 		},
 	},
 	actions:{
@@ -242,15 +242,15 @@ export const store = new Vuex.Store({
 			context.commit('setLoginCode', data.data.code)
 			context.commit('setIsLoading', false)
 			if (context.state.loginCode === 200){
-				context.commit('setUserInfo', data.data)
+				context.commit('setMyInfo', data.data)
 				let info = JSON.stringify(payload)
-				localStorage.userInfo = info
+				localStorage.myInfo = info
 				context.commit('setIsLogin', true)
 			}
 		},
-		async getUserPlaylist(context){
-			let data = await axios.get(`/user/playlist?uid=${context.getters.userID}`)
-			context.commit('setUserPlaylist', data.data.playlist)
+		async getMyPlaylist(context){
+			let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
+			context.commit('setMyPlaylist', data.data.playlist)
 		}
 	},
 	// plugins: [createLogger()]

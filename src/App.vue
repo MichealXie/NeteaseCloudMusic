@@ -20,8 +20,8 @@ export default {
   methods: {
   },
   created () {
-    if(localStorage.userInfo){
-      let info = JSON.parse(localStorage.userInfo)
+    if(localStorage.myInfo){
+      let info = JSON.parse(localStorage.myInfo)
       this.$store.commit('setIsLogin', true)
       this.$store.dispatch('login', info)
       this.$router.push('/home/recommend')

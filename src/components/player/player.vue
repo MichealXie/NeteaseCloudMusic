@@ -8,9 +8,9 @@
 				<span class="song">{{song}}</span>
 				<span class="singer">{{singer}}</span>
 			</div>
-    <router-link to="/user-info" class="home">
+    <div class="profile" @click="goInfo()">
       <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-    </router-link>
+    </div>
 		</div>
 		<div class="music-center">
 			<img src="../../assets/play-controler.png" alt="" class="hook">
@@ -81,8 +81,12 @@ export default {
 		},
 	},
 	methods:{
+    goInfo(){
+      if(this.$store.state.isLogin) this.$router.push('/my-profile')
+      else this.$router.push('/login')
+    },
 		togglePlay(){
-			this.$store.commit('togglePlay')
+			if(this.playingList.length) this.$store.commit('togglePlay')
 		},
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
@@ -158,7 +162,7 @@ export default {
 			overflow hidden
 			background-size cover
 			background-position 50%
-			filter: blur(20px) brightness(80%)
+			filter: blur(10px) brightness(80%)
 			transition 1s all linear
 			gradient-cover()
 		.fake-bg
@@ -179,7 +183,7 @@ export default {
 			display flex
 			border-1px()
 			color white
-			.goback, .home
+			.goback, .profile
 				flex 0 0 48px
 				flex-center()
 				font-size 28px

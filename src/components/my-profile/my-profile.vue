@@ -1,18 +1,21 @@
 <template>
-	<div class="user-info">
-		<div class="top" :style="'background-image:url(' +  userInfo.profile.backgroundUrl + ')'">
-			<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-			<router-link to="/player" class="player">
-				<i class="fa fa-headphones" aria-hidden="true"></i>
-			</router-link>
-			<div class="avatar"><img :src="userInfo.profile.avatarUrl" alt=""></div>
-			<div class="name">{{userInfo.profile.nickname}}</div>
+	<div class="my-info">
+		<div class="top" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
+			<div class="header">
+				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+				<div class="title">我的资料</div>
+				<router-link to="/player" class="player">
+					<i class="fa fa-headphones" aria-hidden="true"></i>
+				</router-link>
+			</div>
+			<div class="avatar"><img :src="myInfo.profile.avatarUrl" alt=""></div>
+			<div class="name">{{myInfo.profile.nickname}}</div>
 			<div to="/login" class="logout" @click="logout()">退出登录</div>
 		</div>
 		<div class="my-list">
 			<ul class="lists">
 				<div class="title">我的歌单</div>
-				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in userPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === userID">
+				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === myId">
 					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
@@ -20,7 +23,7 @@
 					</div>
 				</router-link>
 				<div class="title">收藏的歌单</div>
-				<li class="item" v-for="item in userPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== userID">
+				<li class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== myId">
 					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
@@ -35,14 +38,14 @@
 <script>
 export default {
 	computed: {
-		userID(){
-			return this.$store.getters.userID
+		myId(){
+			return this.$store.getters.myId
 		},
-		userInfo(){
-			return this.$store.state.userInfo
+		myInfo(){
+			return this.$store.state.myInfo
 		},
-		userPlaylist(){
-			return this.$store.state.userPlaylist
+		myPlaylist(){
+			return this.$store.state.myPlaylist
 		}
 	},
 	methods: {
@@ -50,38 +53,50 @@ export default {
 			this.$router.go(-1)
 		},
 		logout(){
-			localStorage.removeItem('userInfo')
+			localStorage.removeItem('myInfo')
 			this.$store.commit('setIsLogin', false)
 			console.log(localStorage)
 			this.$router.push('/login')
 		},
 	},
 	created () {
-		this.$store.dispatch('getUserPlaylist')
+		this.$store.dispatch('getMyPlaylist')
 	},
+	watch: {
+		
+	}
 }
 </script>
 
 <style lang="stylus">
   @import "../../common/stylus/mixin"
-	.user-info
+	.my-info
 		.top
 			height 300px
 			position relative
 			background-size cover
 			color white		
 			dark-cover()
-			.back
+			.header
 				position fixed
-				left 10px
-				top 8px
-				font-size 30px
-			.player
-				position fixed
-				right 10px
-				top 10px
-				font-size 24px
-				color white
+				top 0 
+				width 100%
+				height 48px
+				display flex
+				align-items center
+				background-color rgba(255, 255, 255, 0.1)
+				z-index 2
+				.back, .player
+					flex 0 0 56px
+					flex-center()
+					font-size 30px
+					color white
+				.player
+					font-size 24px
+				.title
+					flex  1
+					text-align center 
+					font-size 16px
 			.avatar
 				position absolute
 				top 30%

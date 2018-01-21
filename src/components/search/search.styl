@@ -42,13 +42,13 @@
 			.active
 				color: $color-background
 				border-bottom: 2px solid $color-background
-	.suggestion
+	.default
 		padding-top 52px
 		color #333		
 		.title
 			font-size: 10px
 			padding-left 20px
-		ul
+		.suggestion
 			display flex
 			flex-wrap wrap
 			padding 12px
@@ -60,6 +60,20 @@
 				padding 6px 8px
 				text-align: center
 				margin 8px
+		.history
+			.item
+				padding 15px 0
+				margin 0 20px
+				display flex
+				
+				border-1px()
+				font-size 14px
+				.word
+					flex 1
+					align-items: center
+				.close
+					flex 0 0 56px
+					flex-center()
 	.result
 		padding-top 88px
 		.songs
