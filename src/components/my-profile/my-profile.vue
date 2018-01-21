@@ -53,6 +53,12 @@ export default {
 			this.$router.go(-1)
 		},
 		logout(){
+			// 退出暂停歌曲
+			this.$store.commit('setIsPlay', {})
+			// 删除现在在播放的歌单
+			this.$store.commit('setPlayingList', {})
+			// 删除个人信息的歌单
+			this.$store.commit('setMyPlaylist', {})
 			localStorage.removeItem('myInfo')
 			this.$store.commit('setIsLogin', false)
 			console.log(localStorage)
@@ -62,8 +68,11 @@ export default {
 	created () {
 		this.$store.dispatch('getMyPlaylist')
 	},
+
 	watch: {
-		
+		myInfo(newVal,  oldVal){
+			this.$store.dispatch('getMyPlaylist')
+		}
 	}
 }
 </script>
