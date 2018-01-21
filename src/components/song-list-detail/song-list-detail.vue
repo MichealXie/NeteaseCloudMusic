@@ -32,7 +32,7 @@
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
 					<p>{{songListDetail.subscribedCount | playcount}}</p>
 				</div>
-				<router-link :to="'/comments/' + listId" class="icon-ct" >
+				<router-link :to="'/comments/playlist/' + listId" class="icon-ct" >
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
 					<p>{{songListDetail.commentCount | playcount}}</p>
 				</router-link>
@@ -44,14 +44,14 @@
 		</div>
 		<div class="detail-list" v-if="songListDetail">
 			<ul class="songs">
-				<div class="play-all" @click="playSong(songListDetail.trackIds[0].id,0, songListDetail.tracks)">
+				<div class="play-all" @click="playSong(songListDetail.trackIds, songListDetail.tracks)">
 					<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 					<div class="play">
 						播放全部
 						<span class="count">(共{{songListDetail.trackCount}}首)</span>
 					</div>
 				</div>
-				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
+				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playIndexSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
 					<div class="info">
 						<div class="name">{{item.name}}</div>
@@ -96,8 +96,21 @@ export default {
 		goback(){
 			this.$router.go(-1)
 		},
-		playSong(id, index, tracks){
-			if(index === 0 && this.playMode === 2) index = Math.round(Math.random() * tracks.length)
+		playSong(trackIds, tracks){
+			let id = trackIds[0].id,
+			index = 0
+			if(this.playMode === 2) {
+				index = Math.round(Math.random() * tracks.length)
+				id = tracks[index].id
+			}
+			this.player.pause()
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl',id)
+			this.$store.commit('setPlayingList',tracks)
+			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setIsPlay', true)
+		},
+		playIndexSong(id, index, tracks){
 			this.player.pause()
 			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)

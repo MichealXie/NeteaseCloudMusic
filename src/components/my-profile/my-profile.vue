@@ -1,5 +1,6 @@
 <template>
 	<div class="my-info">
+		<mini-player></mini-player>
 		<div class="top" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
@@ -37,10 +38,12 @@
 
 <script>
 import commentTitle from '@/base/comment-title/comment-title'
+import miniPlayer from '@/base/mini-player/mini-player'
 
 export default {
 	components: {
 		'comment-title': commentTitle,
+		'mini-player': miniPlayer,
 	},
 	computed: {
 		myId(){
@@ -133,6 +136,7 @@ export default {
 				padding 6px 14px
 				font-size 14px
 		.my-list
+			padding-bottom 48px
 			.lists
 				.item
 					display flex

@@ -125,7 +125,7 @@ export default new Router({
       component: Player
     },
     {
-      path: '/comments/:id',
+      path: '/comments/:type/:id',
       component: Pinglun
     }
   ],

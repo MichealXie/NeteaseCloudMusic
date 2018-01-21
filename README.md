@@ -34,7 +34,7 @@
 	3. 由于之前一直用的 vue-cli, 从未深入过 webpack 配置, 出了问题总是要查好久的资料
 	4. 使用了别人的库, 除了问题对我来说完全是黑盒, 许多库的文档写的很差劲, 我不知道如何修改, 心里除了难受, 还要找新的库来代替, 找来的库也不满意, 这样烦了我两天, 最后自己花了一个晚上解决了
 	5. 字体图标用的 font-awesome 实在太丑了....应该换icon-font的, 可惜重复劳动不值得
-	6. 没有做到足够的代码复用, 抽取的 components 不够细致, 导致劳动量大, 修改麻烦
+	6. 没有做到足够的代码复用, 抽取的 components 不够细致, 导致修改劳动量过大
 
 
 ### 我学到了什么:   
@@ -146,20 +146,5 @@
 18. - [x] 点击新歌曲时马上暂停
 
 19. - [ ] 自制的轮播细节太差了...
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+20. - [ ] 播放模式的实现过于简陋, 可修改为从getters获取 playlist, if(playMode === 2) return playingList.sort(....), 其实想想这样做更简单...

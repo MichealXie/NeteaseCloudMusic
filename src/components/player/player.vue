@@ -20,10 +20,10 @@
 		</div>
 		<div class="control-center">
 			<div class="music-info">
-				<i class="fa fa-heart-o" aria-hidden="true"></i>
-				<i class="fa fa-download" aria-hidden="true"></i>
-				<i class="fa fa-commenting-o" aria-hidden="true"></i>
-				<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+				<div class="btn"><i class="fa fa-heart-o" aria-hidden="true"></i></div>
+				<div class="btn"><i class="fa fa-download" aria-hidden="true"></i></div>
+				<router-link :to="'/comments/music/' + id" class="btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></router-link>
+				<div class="btn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
 			</div>
 			<div class="progress-bar">
 				<span class="playedTime">{{min}} : {{sec}}</span>
@@ -72,6 +72,9 @@ export default {
 		playMode(){
 			return this.$store.state.playMode
 		},
+		id(){
+			return this.playingList[this.currentSongIndex].id
+		},
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
 			else return 'oops'
@@ -111,8 +114,7 @@ export default {
 			// 单曲循环直接重新开始放
 			if(this.playMode === 0) this.player.currentTime = 0
 			else{
-				let id = this.playingList[this.currentSongIndex].id
-				this.$store.dispatch('getSongUrl', id)
+				this.$store.dispatch('getSongUrl', this.id)
 			}
 			this.$store.commit('setIsPlay', true)
 		},
@@ -272,7 +274,9 @@ export default {
 				font-size 24px
 			.music-info
 				height 35px
-				padding 0 15px
+				.btn
+					width 25%
+					flex-center()
 			.progress-bar
 				display flex
 				align-items center
