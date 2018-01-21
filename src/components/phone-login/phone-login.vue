@@ -33,8 +33,21 @@ export default {
 			return this.$store.state.loginCode
 		},
 		errorInfo(){
-			if(this.loginCode === 502) return '密码不正确'
-			else return '账号不存在'
+			let msg = ''
+			switch (true){
+				case (this.phoneNumber.length !== 11):
+					msg = '这位同志, 请严肃的对待你的手机号码'
+					break 
+				case (this.password.length < 6):
+					msg = '这位同志, 请严肃的对待你的密码'
+					break
+				case (this.loginCode === 502):
+					msg = '同志, 这个密码不对'
+					break
+				default:
+					msg = '同志, 账号不存在, 莫非你还未注册'
+			}
+			return msg
 		}
 	},
 	methods: {
@@ -50,9 +63,13 @@ export default {
 				}
 				this.$store.dispatch('login', info)
 			}
+			else{
+				this.$store.commit('setLoginCode', '密码或账号未填入')
+			}
 		}
 	},
 	activated () {
+		// 重置登录状态码, 否则退出登录后再登录状态码会失效, 无法推送路由
 		this.$store.commit('setLoginCode', 0)
 	},
 	watch: {
@@ -108,6 +125,7 @@ export default {
 		.error
 			position absolute
 			top 10%
+			width 80%
 			middleX()
 			flex-center()
 			color $color-background
