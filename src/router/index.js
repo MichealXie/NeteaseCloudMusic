@@ -52,6 +52,11 @@ const myProfile = (reslove) => {
     reslove(module)
   })
 }
+const userProfile = (reslove) => {
+  import('@/components/user-profile/user-profile').then((module) => {
+    reslove(module)
+  })
+}
 const Login = (reslove) => {
   import('@/components/login/login').then((module) => {
     reslove(module)
@@ -81,6 +86,10 @@ export default new Router({
     {
       path:'/my-profile',
       component: myProfile
+    },
+    {
+      path: '/user-profile/:id',
+      component: userProfile
     },
     {
       path:'/login',

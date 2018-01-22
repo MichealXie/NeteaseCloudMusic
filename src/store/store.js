@@ -34,11 +34,14 @@ export const store = new Vuex.Store({
 		currentSongIndex: 0,
 		playingList: [],
 		isPlayerShow: false,
+		// 储存在 local 里的登录信息
 		myInfo:{},
 		myPlaylist: {},
+		userProfile:{},
+		userPlaylist: {},
 		comments: {},
 		// 0 单曲  1 顺序  2随机
-		playMode: 2
+		playMode: 2,
 	},
 	getters: {
 		partlyPrivate(state){
@@ -73,6 +76,8 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		setIsLoading(state, payload){
+			console.log('loading')
+			console.log(payload)
 			state.isLoading = payload
 		},
 		setIsLogin(state, payload){
@@ -161,6 +166,12 @@ export const store = new Vuex.Store({
 		},
 		setComments(state, payload){
 			state.comments = payload
+		},
+		setUserProfile(state, payload){
+			state.userProfile = payload
+		},
+		setUserPlaylist(state, payload){
+			state.userPlaylist = payload
 		}
 	},
 	actions:{
@@ -258,6 +269,7 @@ export const store = new Vuex.Store({
 		},
 		// 以下是个人资料
 		async login(context, payload){
+			context.commit('setIsLoading', true)
 			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
 			context.commit('setLoginCode', data.data.code)
 			context.commit('setIsLoading', false)
@@ -273,11 +285,19 @@ export const store = new Vuex.Store({
 			context.commit('setMyPlaylist', data.data.playlist)
 		},
 		async getComments(context, payload){
+			context.commit('setIsLoading', true)
 			let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
-			console.log(data.data)
 			context.commit('setComments', data.data)
 			context.commit('setIsLoading', false)
-		}
+		},
+		async getUserProfile(context, id){
+			context.commit('setIsLoading', true)
+			let profile = await axios.get(`/user/detail?uid=${id}`)
+			context.commit('setUserProfile', profile.data)
+			let playlist = await axios.get(`/user/playlist?uid=${id}`)
+			context.commit('setUserPlaylist', playlist.data.playlist)
+			context.commit('setIsLoading', false)
+		},
 	},
 	// plugins: [createLogger()]
 })

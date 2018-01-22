@@ -1,23 +1,22 @@
 <template>
-	<div class="my-profile">
+	<div class="user-profile">
 		<loading v-show="isLoading"></loading>
 		<mini-player></mini-player>
-		<div class="top" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
+		<div class="top" v-if="userProfile.profile" :style="'background-image:url(' +  userProfile.profile.backgroundUrl + ')'">
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-				<div class="title">我的资料</div>
+				<div class="title">{{userProfile.profile.nickname}}的资料</div>
 				<router-link to="/player" class="player">
 					<i class="fa fa-headphones" aria-hidden="true"></i>
 				</router-link>
 			</div>
-			<div class="avatar"><img v-lazy="myInfo.profile.avatarUrl" alt=""></div>
-			<div class="name">{{myInfo.profile.nickname}}</div>
-			<div to="/login" class="logout" @click="logout()">退出登录</div>
+			<div class="avatar" v-if="userProfile.profile" ><img v-lazy="userProfile.profile.avatarUrl" alt=""></div>
+			<div class="name">{{userProfile.profile.nickname}}</div>
 		</div>
-		<div class="my-list">
+		<div class="user-list">
 			<ul class="lists">
-				<comment-title>我的歌单</comment-title>
-				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === myId">
+				<comment-title>他的歌单</comment-title>
+				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in userPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === userProfile.profile.userId">
 					<div class="cover"><img v-lazy="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
@@ -25,7 +24,7 @@
 					</div>
 				</router-link>
 				<comment-title>收藏的歌单</comment-title>
-				<li class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== myId">
+				<li class="item" v-for="item in userPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== userProfile.profile.userId">
 					<div class="cover"><img v-lazy="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
@@ -44,56 +43,35 @@ import loading from '@/base/loading/loading'
 
 export default {
 	components: {
-		loading,
 		'comment-title': commentTitle,
 		'mini-player': miniPlayer,
+		loading,
 	},
 	computed: {
 		isLoading(){
 			return this.$store.state.isLoading
 		},
-		myId(){
-			return this.$store.getters.myId
+		userProfile(){
+			return this.$store.state.userProfile
 		},
-		myInfo(){
-			return this.$store.state.myInfo
-		},
-		myPlaylist(){
-			return this.$store.state.myPlaylist
+		userPlaylist(){
+			return this.$store.state.userPlaylist
 		}
 	},
 	methods: {
 		goBack(){
 			this.$router.go(-1)
 		},
-		logout(){
-			// 退出暂停歌曲
-			this.$store.commit('setIsPlay', {})
-			// 删除现在在播放的歌单
-			this.$store.commit('setPlayingList', {})
-			// 删除个人信息的歌单
-			this.$store.commit('setMyPlaylist', {})
-			localStorage.removeItem('myInfo')
-			this.$store.commit('setIsLogin', false)
-			console.log(localStorage)
-			this.$router.push('/login')
-		},
 	},
-	created () {
-		this.$store.dispatch('getMyPlaylist')
+	activated () {
+		this.$store.dispatch('getUserProfile', this.$route.params.id)
 	},
-
-	watch: {
-		myInfo(newVal,  oldVal){
-			this.$store.dispatch('getMyPlaylist')
-		}
-	}
 }
 </script>
 
 <style lang="stylus" scoped>
   @import "../../common/stylus/mixin"
-	.my-profile
+	.user-profile
 		.top
 			height 300px
 			position relative
@@ -134,14 +112,7 @@ export default {
 				position absolute
 				top 60%
 				middleX()
-			.logout
-				position absolute
-				top 70%
-				middleX()
-				border 1px solid rgba(255, 255, 255, 0.6)
-				padding 6px 14px
-				font-size 14px
-		.my-list
+		.user-list
 			padding-bottom 48px
 			.lists
 				.item

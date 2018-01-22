@@ -82,7 +82,7 @@
 				</router-link>
 			</ul>
 			<ul class="userprofiles" v-show="type === 1002">
-				<li v-for="item in searchResult.userprofiles" :key="item.id">
+				<router-link class="item" :to="'/user-profile/' + item.userId" v-for="item in searchResult.userprofiles" :key="item.id">
 					<div class="cover">
 						<img v-lazy="item.avatarUrl" alt="">
 					</div>
@@ -92,7 +92,7 @@
 						</div>
 						<div class="signature">{{item.signature}}</div>
 					</div>
-				</li>
+				</router-link>
 			</ul>
 		</div>
 	</div>
@@ -163,8 +163,6 @@ export default {
 			this.$store.commit('setIsPlay', true)
 		},
 		deleteHistory(item){
-			console.log(item);
-			
 			let searchHistory = this.searchHistory
 			let index = searchHistory.indexOf(item)
 			if(index >= 0){
@@ -199,7 +197,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang='stylus' scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 	@import "./search.styl"

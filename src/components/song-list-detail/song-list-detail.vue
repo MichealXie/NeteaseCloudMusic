@@ -11,7 +11,7 @@
 					<i aria-hidden="true" class="fa fa-headphones"></i>
 				</router-link>
 			</div>
-			<div class="detail-info" v-if="songListDetail && songListDetail.creator">
+			<router-link :to="'/user-profile/' + songListDetail.creator.userId" class="detail-info" v-if="songListDetail && songListDetail.creator">
 				<div class="img-ct">
 					<div class="img"><img v-lazy="songListDetail.coverImgUrl"></div>
 					<span class="count">
@@ -26,7 +26,7 @@
 						<span class="nickname">{{songListDetail.creator.nickname}}</span>
 					</div>
 				</div>
-			</div>
+			</router-link>
 			<div class="list-data" v-if="songListDetail">
 				<div class="icon-ct">
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
@@ -130,7 +130,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang='stylus' scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 

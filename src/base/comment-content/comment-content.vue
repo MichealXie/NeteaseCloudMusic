@@ -1,8 +1,8 @@
 <template>
 	<li class="item">
 		<div class="top">
-			<div class="avatar"><img :src="item.user.avatarUrl" alt=""></div>
-			<div class="name">{{item.user.nickname}}</div>
+			<router-link :to="'/user-profile/' + item.user.userId" class="avatar"><img :src="item.user.avatarUrl" alt=""></router-link>
+			<router-link :to="'/user-profile/' + item.user.userId" class="name">{{item.user.nickname}}</router-link>
 			<div class="like">
 				<span class="like-count">{{item.likedCount}}</span>
 				<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 

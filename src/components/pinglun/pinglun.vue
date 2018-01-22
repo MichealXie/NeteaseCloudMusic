@@ -3,14 +3,14 @@
 		<loading v-show="isLoading"></loading>
 		<comment-header></comment-header>
 		<comment-info></comment-info>
-		<ul class="hot" v-if="comments.hotComments.length">
+		<ul class="hot" v-if="comments.hotComments[0]">
 			<comment-title>精彩评论</comment-title>
 			<comment-content v-for="item in comments.hotComments" :item="item" :key="item.commentId"></comment-content>
 		</ul>
 		<ul class="all" v-if="comments">
 			<comment-title>最新评论({{comments.total}})</comment-title>
 			<comment-content v-for="item in comments.comments" :item="item" :key="item.commentId"></comment-content>
-			<p class="no-comment" v-if="!comments.comments.length">暂无评论, 欢迎抢沙发</p>
+			<p class="no-comment" v-if="!comments.comments">暂无评论, 欢迎抢沙发</p>
 		</ul>
 	</div>
 </template>

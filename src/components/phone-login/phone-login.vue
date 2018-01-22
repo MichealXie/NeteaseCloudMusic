@@ -56,7 +56,6 @@ export default {
 		},
 		login(){
 			if(this.phoneNumber && this.password){
-				this.$store.commit('setIsLoading', true)
 				let info = {
 					account: this.phoneNumber,
 					password: this.password
@@ -82,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 
