@@ -4,7 +4,7 @@ import axios from 'axios'
 import createLogger from 'vuex/dist/logger'
 
 // axios.defaults.headers.common['xhrFields'] = { withCredentials: true }
-axios.defaults.timeout = 60000
+axios.defaults.timeout = 30000
 axios.defaults.baseURL = 'http://localhost:1810'
 
 Vue.use(Vuex)
@@ -41,10 +41,12 @@ export const store = new Vuex.Store({
 		userProfile:{},
 		userPlaylist: {},
 		comments: {},
+		currentCommentsId: null,
 		// 0 单曲  1 顺序  2随机
 		playMode: 2,
 		lovedListId: 0,
 		lovedSongs: [],
+		currentListId: null,
 	},
 	getters: {
 		partlyPrivate(state){
@@ -79,8 +81,8 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		setIsLoading(state, payload){
-			console.log('loading')
-			console.log(payload)
+			// console.log('loading')
+			// console.log(payload)
 			state.isLoading = payload
 		},
 		setIsLogin(state, payload){
@@ -123,6 +125,9 @@ export const store = new Vuex.Store({
 			state.playingList = payload
 		},
 		togglePlay(state){
+			let player = document.getElementById('player')
+			if (state.isPlay) player.pause()
+			else player.play()
 			state.isPlay = !state.isPlay
 		},
 		setIsPlay(state, payload){
@@ -194,11 +199,18 @@ export const store = new Vuex.Store({
 		setComments(state, payload){
 			state.comments = payload
 		},
+		setCurrentCommentsId(state, id){
+			state.currentCommentsId = id
+		},
 		setUserProfile(state, payload){
 			state.userProfile = payload
 		},
 		setUserPlaylist(state, payload){
 			state.userPlaylist = payload
+		},
+		setCurrentListId(state, id){
+			// console.log(id)
+			state.currentListId = id
 		}
 	},
 	actions:{
@@ -269,11 +281,17 @@ export const store = new Vuex.Store({
 					context.state.rapidSongRank = data.data.playlist
 				})
 		},
-		async getSongListDetail(context,payload){
-			context.commit('setIsLoading', true)
-			let data = await axios.get(`/playlist/detail?id=${payload}`)
-			context.commit('setSongListDetail', data.data.playlist)
-			context.commit('setIsLoading', false)			
+		async getSongListDetail(context,id){
+			// id 没改变就别发请求了
+			if (context.state.currentListId === id) return
+			else{
+				context.commit('setIsLoading', true)
+				let data = await axios.get(`/playlist/detail?id=${id}`)
+				// 设置当前播放列表 ID
+				context.commit('setCurrentListId', id)
+				context.commit('setSongListDetail', data.data.playlist)
+				context.commit('setIsLoading', false)		
+			}
 		},
 		async getSongSearch(context,payload){
 			if (context.state.isSearching) return 
@@ -293,6 +311,7 @@ export const store = new Vuex.Store({
 		async getSongUrl(context, payload){
 			let data = await axios.get(`/music/url?id=${payload}`)
 			context.commit('setCurrentSong', data.data.data[0].url)
+			context.state.isPlay = true
 		},
 		// 以下是个人资料
 		async login(context, payload){
@@ -315,7 +334,7 @@ export const store = new Vuex.Store({
 		},
 		async getlovedSongs(context, payload){
 			let data = await axios.get(`/playlist/detail?id=${payload}`)
-			console.log(data.data.privileges)
+			// console.log(data.data.privileges)
 			context.commit('setlovedSongs', data.data.privileges)
 		},
 		async getMyPlaylist(context){
@@ -326,12 +345,17 @@ export const store = new Vuex.Store({
 			context.commit('setIsLoading', false)
 		},
 		async getComments(context, payload){
-			context.commit('setIsLoading', true)
-			let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
-			context.commit('setComments', data.data)
-			setTimeout( () => {
-				context.commit('setIsLoading', false)
-			}, 0)
+			// 评论 id 一样的话, 就别发请求了
+			if (payload.id === context.state.currentCommentsId) return
+			else{
+				context.commit('setIsLoading', true)
+				let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
+				context.commit('setComments', data.data)
+				context.commit('setCurrentCommentsId', payload.id)
+				setTimeout(() => {
+					context.commit('setIsLoading', false)
+				}, 0)
+			}
 		},
 		async getUserProfile(context, id){
 			context.commit('setIsLoading', true)
@@ -343,8 +367,10 @@ export const store = new Vuex.Store({
 		},
 		async toggleLoved(context, payload){
 			context.commit('changelovedSongs')
+			// 增加日期防止 304....
+			let date = new Date().valueOf()
 			// 现在可以了! 但...我喜欢的音乐更新怎么办?
-			let data = await axios.get(`/like?id=${payload.id}&like=${!payload.isLoved}`, {withCredentials: true })
+			let data = await axios.get(`/like?id=${payload.id}&like=${!payload.isLoved}&date="${date}"`, {withCredentials: true })
 			// 成功即删除对应 ID 列表片段
 			if (data.data.code === 200 ){
 				context.commit('setSingleLoved', payload)

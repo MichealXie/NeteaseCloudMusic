@@ -16,7 +16,7 @@
 		</div>
 		<div class="my-list">
 			<ul class="lists">
-				<comment-title>我的歌单</comment-title>
+				<comment-title>创建的歌单</comment-title>
 				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === myId">
 					<div class="cover"><img v-lazy="item.coverImgUrl" alt=""></div>
 					<div class="info">

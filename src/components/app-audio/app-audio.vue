@@ -17,21 +17,34 @@ export default {
 		isPlay(){
 			return this.$store.state.isPlay
 		},
+		player(){
+			return document.getElementById('player')
+		}
 	},
 	methods: {
 		nextSong(){
-			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('changeSongIndex')
-			let id = this.playingList[this.currentSongIndex].id
-			this.$store.dispatch('getSongUrl', id)
-			this.$store.commit('setIsPlay', true)			
+			// 单曲循环直接重新开始放
+			if(this.playMode === 0){
+				this.player.currentTime = 0 
+				return
+			}
+			else{
+				// 先暂停...再决定下一个的 index 最后拿 url, 拿到歌曲后在 store 里设置 isPlay 为 true
+				this.player.pause()
+				// 时间归 0, 好看点
+				this.player.currentTime = 0 
+				this.$store.commit('changeSongIndex')
+				this.$store.commit('setIsPlay', false)
+				this.$store.dispatch('getSongUrl', this.id)
+			}
 		},
 		prevSong(){
-			this.$store.commit('setIsPlay', false)
+			this.player.pause()
+			// 时间归 0, 好看点
+			this.player.currentTime = 0 
 			this.$store.commit('songIndexReduceOne')
-			let id = this.playingList[this.currentSongIndex].id
-			this.$store.dispatch('getSongUrl', id)
-			this.$store.commit('setIsPlay', true)
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl', this.id)
 		},
 		addVolume(){
 			if(this.$refs.player.volume <= 0.9) this.$refs.player.volume += 0.1
@@ -44,18 +57,6 @@ export default {
 		this.$refs.player.volume = 0.5
 	},
 	watch: {
-		isPlay: function(newV, oldV){
-			if(newV === true){
-				this.$nextTick( () => {
-					this.$refs.player.play()
-					console.log(this.$refs.player.duration)
-					console.log(this.$refs.player.currentTime)
-				})
-			}
-			else{
-				this.$refs.player.pause()
-			}
-		},
 		// 歌曲 url 改变, 马上播放
 		currentSong: function(newV,oldV) {
 			this.$nextTick( () => {

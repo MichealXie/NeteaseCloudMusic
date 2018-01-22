@@ -21,8 +21,12 @@
 		<div class="control-center">
 			<div class="music-info">
 				<div class="btn" @click="toggleLoved()">
-					<i class="fa fa-heart-o" v-show="!isLoved" aria-hidden="true"></i>
-					<i class="fa fa-heart" v-show="isLoved" style="color: #f33" aria-hidden="true"></i>					
+					<i class="fa"
+					 :class="{
+						 'fa-heart-o':!isLoved,
+						 'fa-heart loved':isLoved,
+					 }"
+					 aria-hidden="true"></i>			
 				</div>
 				<div class="btn"><i class="fa fa-download" aria-hidden="true"></i></div>
 				<router-link :to="'/comments/music/' + id" class="btn comment">
@@ -63,7 +67,6 @@
 			</div>
 		</div>
 		<div class="background" v-if="playingList[currentSongIndex]" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
-		<div class="fake-bg" v-if="!playingList[currentSongIndex]" ></div>
 	</div>
 </template>
 
@@ -127,23 +130,28 @@ export default {
 			if(this.playingList.length) this.$store.commit('togglePlay')
 		},
 		nextSong(){
-			this.player.pause()
-			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('changeSongIndex')
 			// 单曲循环直接重新开始放
-			if(this.playMode === 0) this.player.currentTime = 0
+			if(this.playMode === 0){
+				this.player.currentTime = 0 
+				return
+			}
 			else{
+				// 先暂停...再决定下一个的 index 最后拿 url, 拿到歌曲后在 store 里设置 isPlay 为 true
+				this.player.pause()
+				// 时间归 0, 好看点
+				this.player.currentTime = 0 
+				this.$store.commit('changeSongIndex')
+				this.$store.commit('setIsPlay', false)
 				this.$store.dispatch('getSongUrl', this.id)
 			}
-			this.$store.commit('setIsPlay', true)
 		},
 		prevSong(){
 			this.player.pause()
-			this.$store.commit('setIsPlay', false)
+			// 时间归 0, 好看点
+			this.player.currentTime = 0 
 			this.$store.commit('songIndexReduceOne')
-			let id = this.playingList[this.currentSongIndex].id
-			this.$store.dispatch('getSongUrl', id)
-			this.$store.commit('setIsPlay', true)
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl', this.id)
 		},
 		goback(){
 			this.$router.go(-1)
@@ -155,7 +163,7 @@ export default {
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
 			this.$store.commit('setIsPlay',true)
 		},
-		 moveProgress(){
+		moveProgress(){
 			this.$refs.currentProgress.style.width = (this.player.currentTime / this.player.duration) * parseInt(this.progressBarLength) + "px"
 		},
 		setPlayedTime(){
@@ -174,7 +182,7 @@ export default {
 			this.$store.commit('changePlayMode')
 		},
 		getComments(){
-			// 手动获取评论...真滴无语
+			// 歌曲信息里没评论数量, 还得手动获取评论...真滴无语
 			let payload = {
 				type: 'music',
 				id: this.id,
@@ -220,27 +228,18 @@ export default {
 			position fixed
 			top 0 
 			left 0
-			width 375px
-			height 100vh
+			right 0 
+			bottom 0
+			min-width 375px
+			min-height 100vh
 			z-index -2
 			overflow hidden
 			background-size cover
 			background-position 50%
-			filter: blur(5px) brightness(80%)
+			filter: blur(20px) brightness(80%)
 			transition 1s all linear
-			deep-gradient-cover()
-		.fake-bg
-			position fixed
-			top 0 
-			left 0
-			width 375px
-			height 100vh
-			z-index -2
-			overflow hidden
-			background-size cover
-			background-position 50%
-			deep-gradient-cover()
-			background-image url('./background.png')
+			gradient-cover()
+			margin -30px
 		.header
 			height 48px
 			width 100%
@@ -314,10 +313,14 @@ export default {
 			.music-info
 				height 35px
 				.btn
+					position relative
 					width 25%
 					height 35px
 					flex-center()
-					position relative
+					.loved
+						color #f33
+					i 
+						transition .5s all linear
 					.count
 						position absolute
 						top 5px

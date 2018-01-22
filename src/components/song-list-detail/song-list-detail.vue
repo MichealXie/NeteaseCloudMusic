@@ -119,14 +119,9 @@ export default {
 			this.$store.commit('setIsPlay', true)
 		}
 	},
-	created () {
-		if(this.listId) this.$store.dispatch('getSongListDetail', this.listId)
+	activated () {
+		if(this.listId !== this.$store.state.currentListId ) this.$store.dispatch('getSongListDetail', this.listId)
 	},
-	watch: {
-		listId:function(newV,oldV){
-			this.$store.dispatch('getSongListDetail', this.listId)
-		}
-	}
 }
 </script>
 
@@ -173,6 +168,7 @@ export default {
 						position absolute
 						top 5px 
 						right 5px
+						font-size 12px
 				.list-creator
 					flex 2
 					margin-left 20px
