@@ -7,7 +7,7 @@
 		<div class="ranks" v-if="newSongRank.coverImgUrl">
 			<div class="new-song rank-item">
 				<div class="img-ct">
-					<img v-lazy="newSongRank.coverImgUrl" alt="">
+					<img :src="newSongRank.coverImgUrl" alt="">
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in newTop3" :key="item.id">
@@ -17,7 +17,7 @@
 			</div>
 			<div class="hot-song rank-item">
 				<div class="img-ct">
-					<img v-lazy="hotSongRank.coverImgUrl" alt="">
+					<img :src="hotSongRank.coverImgUrl" alt="">
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in hotTop3" :key="item.id">
@@ -27,7 +27,7 @@
 			</div>
 			<div class="original-song rank-item">
 				<div class="img-ct">
-					<img v-lazy="originalSongRank.coverImgUrl" alt="">
+					<img :src="originalSongRank.coverImgUrl" alt="">
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in originalTop3" :key="item.id">
@@ -37,7 +37,7 @@
 			</div>
 			<div class="rapid-song rank-item">
 				<div class="img-ct">
-					<img v-lazy="rapidSongRank.coverImgUrl" alt="">
+					<img :src="rapidSongRank.coverImgUrl" alt="">
 				</div>
 				<div class="mini-rank">
 					<li class="top3" v-for="(item, index) in rapidTop3" :key="item.id">

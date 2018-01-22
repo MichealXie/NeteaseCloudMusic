@@ -15,14 +15,19 @@
 		<div class="music-center">
 			<img src="../../assets/play-controler.png" alt="" class="hook">
 			<div class="black-circle" :class="{'spin': isPlay}">
-				<img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt="">
+				<img v-if="playingList[currentSongIndex]" v-lazy="playingList[currentSongIndex].al.picUrl" alt="">
 			</div>
 		</div>
 		<div class="control-center">
 			<div class="music-info">
 				<div class="btn"><i class="fa fa-heart-o" aria-hidden="true"></i></div>
 				<div class="btn"><i class="fa fa-download" aria-hidden="true"></i></div>
-				<router-link :to="'/comments/music/' + id" class="btn"><i class="fa fa-commenting-o" aria-hidden="true"></i></router-link>
+				<router-link :to="'/comments/music/' + id" class="btn comment">
+					<span class="count">
+						{{comments.total | commentCount}}
+					</span>
+					<i class="fa fa-commenting-o" aria-hidden="true"></i>
+				</router-link>
 				<div class="btn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
 			</div>
 			<div class="progress-bar">
@@ -65,13 +70,17 @@ export default {
 		return {
 			min:'0',
 			sec: '00',
-			fullTime: '0: 00'
+			fullTime: '0: 00',
+			commentCount: 0,
 		}
 	},
 	computed: {
 		playMode(){
 			return this.$store.state.playMode
 		},
+		comments(){
+			return this.$store.state.comments
+		}	,
 		id(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
 		},
@@ -155,6 +164,15 @@ export default {
 		},
 		changePlayMode(){
 			this.$store.commit('changePlayMode')
+		},
+		getComments(){
+			// 手动获取评论...真滴无语
+			let payload = {
+				type: 'music',
+				id: this.id,
+				limit: 1
+			}
+			this.$store.dispatch('getComments', payload)
 		}
 	},
 	mounted () {
@@ -165,6 +183,11 @@ export default {
 				this.setFulltTime()
 			})
 		})
+	},
+	watch: {
+		id: function(newVal){
+			this.getComments()
+		}
 	}
 }
 </script>
@@ -188,7 +211,7 @@ export default {
 			overflow hidden
 			background-size cover
 			background-position 50%
-			filter: blur(10px) brightness(80%)
+			filter: blur(5px) brightness(80%)
 			transition 1s all linear
 			deep-gradient-cover()
 		.fake-bg
@@ -201,7 +224,7 @@ export default {
 			overflow hidden
 			background-size cover
 			background-position 50%
-			gradient-cover()
+			deep-gradient-cover()
 			background-image url('./background.png')
 		.header
 			height 48px
@@ -224,6 +247,7 @@ export default {
 					color white
 					font-size $font-size-large-x
 					font-weight 300
+					line-height 1.2
 					no-wrap()
 					width 279px
 				.singer
@@ -261,7 +285,7 @@ export default {
 					width 65%
 					height 65%
 					border-radius 50%
-					// background-image url('../../assets/loading.png')
+					transition 1s all linear
 		.control-center
 			position absolute
 			bottom 20px
@@ -276,7 +300,14 @@ export default {
 				height 35px
 				.btn
 					width 25%
+					height 35px
 					flex-center()
+					position relative
+					.count
+						position absolute
+						top 5px
+						left 50%
+						font-size 12px
 			.progress-bar
 				display flex
 				align-items center

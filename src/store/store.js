@@ -273,7 +273,7 @@ export const store = new Vuex.Store({
 			context.commit('setMyPlaylist', data.data.playlist)
 		},
 		async getComments(context, payload){
-			let data = await axios.get(`/comment/${payload.type}?id=${payload.id}`)
+			let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
 			console.log(data.data)
 			context.commit('setComments', data.data)
 			context.commit('setIsLoading', false)

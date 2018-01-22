@@ -19,6 +19,14 @@ Vue.filter('playcount', (count) => {
   }
   else return count
 })
+
+Vue.filter('commentCount', (count) => {
+  if (count > 999) {
+    return '999+'
+  }
+  else return count
+})
+
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 /* eslint-disable no-new */

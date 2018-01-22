@@ -10,7 +10,7 @@
 			<ul>
 				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in songLists" :key="item.id">
 					<div class="img-ct">
-						<div class="img"><img :src="item.coverImgUrl"></div>
+						<div class="img"><img v-lazy="item.coverImgUrl"></div>
 						<div class="info">
 							<i aria-hidden="true" class="fa fa-music"></i>
 							<span class="count">{{item.playCount | playcount}}</span>

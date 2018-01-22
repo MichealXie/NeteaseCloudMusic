@@ -4,7 +4,7 @@
 		<ul class="hot" v-if="comments">
 			<comment-title>精彩评论</comment-title>
 			<li class="item" v-for="item in comments.hotComments">
-				<div class="avatar"><img :src="item.user.avatarUrl" alt=""></div>
+				<div class="avatar"><img v-lazy="item.user.avatarUrl" alt=""></div>
 				<div class="info">
 					<div class="name">{{item.user.nickname}}</div>
 					<div class="content">{{item.content}}</div>

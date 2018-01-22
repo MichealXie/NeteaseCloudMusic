@@ -7,7 +7,7 @@
 				<app-title>推荐歌单</app-title>
 				<ul>
 					<router-link :to="'/song-details/' + item.id" class="top-item" v-for="item in topLists" :key="item.id" @click="passAndGetList(item.id)">
-						<div class="img"><img :src="item.coverImgUrl"></div>
+						<div class="img"><img v-lazy="item.coverImgUrl"></div>
 						<span class="count">
 							<i class="fa fa-music" aria-hidden="true"></i>
 							{{ item.playCount | playcount}}</span>

@@ -41,14 +41,15 @@ export default {
 	activated () {
 		let payload = {
 			type: this.$route.params.type,
-			id: this.$route.params.id
+			id: this.$route.params.id,
+			limit: 100,
 		}
 		this.$store.dispatch('getComments', payload)
 	}
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import "../../common/stylus/variable"
   @import "../../common/stylus/mixin"
 

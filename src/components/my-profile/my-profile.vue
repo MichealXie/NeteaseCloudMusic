@@ -9,7 +9,7 @@
 					<i class="fa fa-headphones" aria-hidden="true"></i>
 				</router-link>
 			</div>
-			<div class="avatar"><img :src="myInfo.profile.avatarUrl" alt=""></div>
+			<div class="avatar"><img v-lazy="myInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{myInfo.profile.nickname}}</div>
 			<div to="/login" class="logout" @click="logout()">退出登录</div>
 		</div>
@@ -17,7 +17,7 @@
 			<ul class="lists">
 				<comment-title>我的歌单</comment-title>
 				<router-link :to="'/song-details/' + item.id" class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId === myId">
-					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
+					<div class="cover"><img v-lazy="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
 						<span class="count">{{item.trackCount}}首, 播放{{item.playCount}}次</span>
@@ -25,7 +25,7 @@
 				</router-link>
 				<comment-title>收藏的歌单</comment-title>
 				<li class="item" v-for="item in myPlaylist" :key="item.trackNumberUpdateTime" v-if="item.userId !== myId">
-					<div class="cover"><img :src="item.coverImgUrl" alt=""></div>
+					<div class="cover"><img v-lazy="item.coverImgUrl" alt=""></div>
 					<div class="info">
 						<span class="name">{{item.name}}</span>
 						<span class="count">{{item.trackCount}}首, 播放{{item.playCount}}次</span>

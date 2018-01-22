@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<div class="bottom">
-			<li class="word" v-for="word in comment">{{word}}</li>
+			<li class="word" v-for="word in comment" :key="word">{{word}}</li>
 		</div>
 	</li>
 </template>
@@ -59,13 +59,13 @@ export default {
 				.like-count
 					font-size 12px
 		.bottom
-			width 100%
-			padding 0px 10px 10px 58px
+			// width 100%
+			padding 0px 0px 10px 58px
 			font-size 13px
 			border-1px()
 			.word
 				padding 3px 0
 				line-height 1.2
-				width calc(100% - 48px - 30px)
+				width calc(100% - 68px)
 
 </style>

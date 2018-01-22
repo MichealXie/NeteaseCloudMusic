@@ -6,7 +6,7 @@
 		</div>
 		<ul class="list">
 			<li class="list-item" v-for="item in topLists" :key="item.key" @click="showPlayList(item.id)" >
-				<img :src="item.coverImgUrl">
+				<img v-lazy="item.coverImgUrl">
 				<span class="count">
 					<i class="fa fa-music" aria-hidden="true"></i>
 					{{ item.playCount }}</span>
