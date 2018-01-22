@@ -20,9 +20,9 @@
 		</div>
 		<div class="control-center">
 			<div class="music-info">
-				<div class="btn">
-					<i class="fa fa-heart-o" v-if="!isLoved" aria-hidden="true"></i>
-					<i class="fa fa-heart" v-if="isLoved" style="color: #f33" aria-hidden="true"></i>					
+				<div class="btn" @click="toggleLoved()">
+					<i class="fa fa-heart-o" v-show="!isLoved" aria-hidden="true"></i>
+					<i class="fa fa-heart" v-show="isLoved" style="color: #f33" aria-hidden="true"></i>					
 				</div>
 				<div class="btn"><i class="fa fa-download" aria-hidden="true"></i></div>
 				<router-link :to="'/comments/music/' + id" class="btn comment">
@@ -181,6 +181,13 @@ export default {
 				limit: 1
 			}
 			this.$store.dispatch('getComments', payload)
+		},
+		toggleLoved(){
+			let payload = {
+				isLoved: this.isLoved,
+				id: this.id
+			}
+			this.$store.dispatch('toggleLoved', payload)
 		}
 	},
 	mounted () {
