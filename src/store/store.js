@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createLogger from 'vuex/dist/logger'
 
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 20000
 axios.defaults.baseURL = 'http://localhost:1810'
 
 Vue.use(Vuex)
@@ -42,6 +42,8 @@ export const store = new Vuex.Store({
 		comments: {},
 		// 0 单曲  1 顺序  2随机
 		playMode: 2,
+		lovedSongsId: 0,
+		lovedSongs: [],
 	},
 	getters: {
 		partlyPrivate(state){
@@ -164,6 +166,16 @@ export const store = new Vuex.Store({
 		setMyPlaylist(state, payload){
 			state.myPlaylist = payload
 		},
+		setlovedSongsId(state, payload){
+			state.lovedSongsId = payload
+		},
+		setlovedSongs(state, payload){
+			let ret = []
+			for (let e of payload) {
+				ret.push(e.id)
+			}
+			state.lovedSongs = ret
+		},
 		setComments(state, payload){
 			state.comments = payload
 		},
@@ -273,22 +285,38 @@ export const store = new Vuex.Store({
 			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
 			context.commit('setLoginCode', data.data.code)
 			context.commit('setIsLoading', false)
+			// 登录成功
 			if (context.state.loginCode === 200){
+				// 设置我的信息
 				context.commit('setMyInfo', data.data)
 				let info = JSON.stringify(payload)
 				localStorage.myInfo = info
 				context.commit('setIsLogin', true)
+				// 获取我的歌曲列表
+				await context.dispatch('getMyPlaylist')
+				// 获取喜欢的歌曲
+				await context.dispatch('getlovedSongs', context.state.lovedSongsId)
 			}
 		},
+		async getlovedSongs(context, payload){
+			let data = await axios.get(`/playlist/detail?id=${payload}`)
+			console.log(data.data.privileges)
+			context.commit('setlovedSongs', data.data.privileges)
+		},
 		async getMyPlaylist(context){
+			context.commit('setIsLoading', true)
 			let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
 			context.commit('setMyPlaylist', data.data.playlist)
+			context.commit('setlovedSongsId', data.data.playlist[0].id)
+			context.commit('setIsLoading', false)
 		},
 		async getComments(context, payload){
 			context.commit('setIsLoading', true)
 			let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
 			context.commit('setComments', data.data)
-			context.commit('setIsLoading', false)
+			setTimeout( () => {
+				context.commit('setIsLoading', false)
+			}, 0)
 		},
 		async getUserProfile(context, id){
 			context.commit('setIsLoading', true)

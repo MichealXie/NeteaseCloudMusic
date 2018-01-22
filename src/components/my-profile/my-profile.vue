@@ -2,7 +2,7 @@
 	<div class="my-profile">
 		<loading v-show="isLoading"></loading>
 		<mini-player></mini-player>
-		<div class="top" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
+		<div class="top" v-if="myInfo.profile" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
 				<div class="title">我的资料</div>
@@ -79,15 +79,6 @@ export default {
 			this.$router.push('/login')
 		},
 	},
-	created () {
-		this.$store.dispatch('getMyPlaylist')
-	},
-
-	watch: {
-		myInfo(newVal,  oldVal){
-			this.$store.dispatch('getMyPlaylist')
-		}
-	}
 }
 </script>
 

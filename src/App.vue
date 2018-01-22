@@ -17,6 +17,11 @@ export default {
   components: {
     'app-audio': appAudio
   },
+  computed: {
+    lovedSongs(){
+      return this.$store.state.lovedSongs
+    }
+  },
   methods: {
   },
   created () {

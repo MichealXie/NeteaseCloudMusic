@@ -20,7 +20,10 @@
 		</div>
 		<div class="control-center">
 			<div class="music-info">
-				<div class="btn"><i class="fa fa-heart-o" aria-hidden="true"></i></div>
+				<div class="btn">
+					<i class="fa fa-heart-o" v-if="!isLoved" aria-hidden="true"></i>
+					<i class="fa fa-heart" v-if="isLoved" style="color: #f33" aria-hidden="true"></i>					
+				</div>
 				<div class="btn"><i class="fa fa-download" aria-hidden="true"></i></div>
 				<router-link :to="'/comments/music/' + id" class="btn comment">
 					<span class="count">
@@ -88,6 +91,12 @@ export default {
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
 			else return 'oops'
 		},
+    lovedSongs(){
+      return this.$store.state.lovedSongs
+		},
+		isLoved(){
+			return this.lovedSongs.includes(this.id)
+		},
 		singer(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
 			else return '当前无歌曲播放~'
@@ -118,6 +127,7 @@ export default {
 			if(this.playingList.length) this.$store.commit('togglePlay')
 		},
 		nextSong(){
+			this.player.pause()
 			this.$store.commit('setIsPlay', false)			
 			this.$store.commit('changeSongIndex')
 			// 单曲循环直接重新开始放
@@ -128,6 +138,7 @@ export default {
 			this.$store.commit('setIsPlay', true)
 		},
 		prevSong(){
+			this.player.pause()
 			this.$store.commit('setIsPlay', false)
 			this.$store.commit('songIndexReduceOne')
 			let id = this.playingList[this.currentSongIndex].id
@@ -140,10 +151,7 @@ export default {
 		setTime($event){
 			//点击进度条设置时间
 			let percentage = $event.offsetX / parseInt(this.progressBarLength)
-			console.log(percentage)
 			this.player.currentTime = percentage * this.player.duration
-			console.log(this.player.currentTime)
-			console.log(this.player.duration)
 			this.$refs.currentProgress.style.width = $event.offsetX + 'px'
 			this.$store.commit('setIsPlay',true)
 		},
