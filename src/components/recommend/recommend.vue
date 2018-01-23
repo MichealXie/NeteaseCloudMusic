@@ -132,6 +132,11 @@ export default {
 	},
 	created () {
 		this.$store.dispatch('getRecommend')
+		// 检测是否登录
+    if(localStorage.myInfo && !this.isLogin){
+      let info = JSON.parse(localStorage.myInfo)
+      this.$store.dispatch('login', info)
+    }
 	},
 }
 </script>

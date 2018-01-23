@@ -38,7 +38,7 @@
 					<i class="fa play-btn" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" @click="togglePlay()" aria-hidden="true"></i>
 				</div>
 				<div class="btn">
-					<i class="fa fa-step-forward" aria-hidden="true" @click="nextSong()"></i>
+					<i class="fa fa-step-forward" aria-hidden="true" @click="nextFM()"></i>
 				</div>
 				<router-link :to="'/comments/music/' + id" class="btn comment">
 					<span class="count">
@@ -101,7 +101,7 @@ export default {
 		togglePlay(){
 			this.$store.commit('togglePlay')
 		},
-		nextSong(){
+		nextFM(){
 			this.player.pause()
 			// 时间归 0, 好看点
 			this.player.currentTime = 0 

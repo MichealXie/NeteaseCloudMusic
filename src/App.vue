@@ -28,22 +28,14 @@ export default {
     isError(){
       return this.$store.state.isError
     },
+    isLogin(){
+      return this.$store.state.isLogin
+    },
     lovedSongs(){
       return this.$store.state.lovedSongs
     }
   },
-  methods: {
-  },
   created () {
-    if(localStorage.myInfo){
-      let info = JSON.parse(localStorage.myInfo)
-      this.$store.commit('setIsLogin', true)
-      this.$store.dispatch('login', info)
-      this.$router.push('/home/recommend')
-    }
-    else{
-      this.$router.push('/login')
-    }
   },
   mounted () {
     // 快捷键绑定

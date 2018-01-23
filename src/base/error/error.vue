@@ -22,6 +22,6 @@ export default {
 		text-align center 
 		border-radius 4px
 		color #f33
-		background-color rgba(55, 55, 55, 0.1)
+		background-color rgba(55, 55, 55, 0.3)
 		
 </style>

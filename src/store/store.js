@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createLogger from 'vuex/dist/logger'
+import router from "../router/index.js"
 
 axios.defaults.timeout = 30000
 axios.defaults.baseURL = 'http://localhost:1810'
@@ -49,6 +50,8 @@ export const store = new Vuex.Store({
 		lovedSongs: [],
 		currentListId: null,
 		FM: null,
+		// 1: 歌单模式, 2: FM 模式
+		playType: 1,
 	},
 	getters: {
 		partlyPrivate(state){
@@ -182,6 +185,9 @@ export const store = new Vuex.Store({
 		setFM(state, payload){
 			state.FM = payload
 		},
+		setPlayType(state, payload){
+			state.playType = payload
+		},
 		setComments(state, payload){
 			state.comments = payload
 		},
@@ -304,48 +310,54 @@ export const store = new Vuex.Store({
 		async getFM(context){
 			let time = new Date().valueOf()
 			let data = await axios.get(`/personal_fm?date=${time}`)
-			console.log(context)
-			console.log(data.data)
-			// 成功
-			if (data.data.code === 200){
+			console.log(data)
+			// 进入 FM 的时候发送请求, 发现未登录时直接去 login 界面
+			if (data.data.code === 405) {
+				context.commit('setIsLogin', false)
+				router.push('/login')
+			}
+			// 获取到歌曲 url
+			else if (data.data.code === 200){
 				context.commit('setFM', data.data.data[0])
-				//马上开始播放
+				// 获取歌曲的 mp3 文件
 				let url = await axios.get(`/music/url?id=${context.state.FM.id}`)
-				if (data.data.code === 200) context.commit('setCurrentSong', url.data.data[0].url)
+				if (data.data.code === 200) {
+					context.commit('setCurrentSong', url.data.data[0].url)
+					context.commit('setPlayType', 2)					
+					context.state.isPlay = true
+				}
+				// 获取不到 mp3 抛出错误
 				else {
 					context.commit('throwError')
 				}
-				context.state.isPlay = true
-				return
 			}
-			// 没登录就登录, 然后再获取一次
-			else if (data.data.code === 405 && localStorage.myInfo){
-				let info = JSON.parse(localStorage.myInfo)
-				await context.dispatch('login', info)
-				context.dispatch('getFM')
-			}
-			else context.commit('throwError')
 		},
 		// 以下是个人资料
 		async login(context, payload){
 			let time = new Date().valueOf()
-			console.log('login')
 			context.commit('setIsLoading', true)
 			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}&date=${time}`)
 			context.commit('setLoginCode', data.data.code)
 			context.commit('setIsLoading', false)
-			console.log('login-code: ' + context.state.loginCode)
+			console.log('登录码: ' + data.data.code)
 			// 登录成功
 			if (context.state.loginCode === 200){
 				// 设置我的信息
 				context.commit('setMyInfo', data.data)
+				// 储存在 localStorage 里
 				let info = JSON.stringify(payload)
 				localStorage.myInfo = info
 				context.commit('setIsLogin', true)
-				// 获取我的歌曲列表
-				await context.dispatch('getMyPlaylist')
-				// 获取喜欢的歌曲
-				await context.dispatch('getlovedSongs', context.state.lovedListId)
+				// 假如是真的第一次...
+				if (!context.state.myPlaylist){
+					// 获取我的歌曲列表
+					await context.dispatch('getMyPlaylist')
+					// 获取喜欢的歌曲
+					await context.dispatch('getlovedSongs', context.state.lovedListId)
+				}
+			}
+			else{
+				router.push('/login')
 			}
 		},
 		async getlovedSongs(context, payload){

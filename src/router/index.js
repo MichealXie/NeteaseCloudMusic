@@ -89,6 +89,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      redirect: '/home/recommend'
+    },
+    {
       path:'/my-profile',
       component: myProfile
     },
