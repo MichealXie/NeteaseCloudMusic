@@ -66,7 +66,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="background" v-if="playingList[currentSongIndex]" :style="'background-image:url(' +  playingList[currentSongIndex].al.picUrl + ')'"></div>
+		<div class="background"><img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt=""></div>
 	</div>
 </template>
 
@@ -236,10 +236,16 @@ export default {
 			overflow hidden
 			background-size cover
 			background-position 50%
+			background-color #555
 			filter: blur(20px) brightness(80%)
 			transition 1s all linear
 			gradient-cover()
 			margin -30px
+			// 没有歌曲时的背景
+			background: url('./background.png')
+			img
+				height 100%
+				width 100%
 		.header
 			height 48px
 			width 100%
@@ -290,11 +296,15 @@ export default {
 				background-repeat no-repeat
 				width 300px
 				height 300px
+				border-radius 50%
+				border 8px solid rgba(255,255,255, 0.2)
 				overflow hidden
 				margin 0 auto
 				flex-center()
+				animation fa-spin 20s infinite linear
+				animation-play-state paused
 				&.spin
-					animation fa-spin 20s infinite linear
+					animation-play-state running
 				img 
 					width 65%
 					height 65%
@@ -346,11 +356,11 @@ export default {
 							right 0
 							top 0
 							transform translate(30%, -40%)
-							border 4px solid white
+							border 5px solid white
 							border-radius 50%
 							background $color-background
-							width 5px
-							height 5px
+							width 4px
+							height 4px
 				.playedTime, .restTime
 					flex 0 0 60px
 					flex-center()

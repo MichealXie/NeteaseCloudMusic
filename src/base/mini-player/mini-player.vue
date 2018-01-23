@@ -7,6 +7,9 @@
 			<span class="song">{{song}}</span>
 			<span class="singer">{{singer}}</span>
 		</router-link>
+		<div class="btn" @click="toggleLoved()">
+			<i class="fa" :class="{ 'fa-heart-o':!isLoved, 'fa-heart loved':isLoved, }" aria-hidden="true"></i>			
+		</div>
 		<div class="play-btn" @click="togglePlay()">
 			<i class="fa" :class="{'fa-play-circle-o': !isPlay,'fa-pause-circle-o': isPlay}" aria-hidden="true"></i>
 		</div>
@@ -19,6 +22,21 @@
 <script>
 export default {
 	computed: {
+		isLoved(){
+			return this.lovedSongs.includes(this.id)
+		},
+		id(){
+			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
+		},
+		currentSongIndex(){
+			return this.$store.state.currentSongIndex
+		},
+		playingList(){
+			return this.$store.state.playingList
+		},
+    lovedSongs(){
+      return this.$store.state.lovedSongs
+		},
 		img(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].al.picUrl
 			else{
@@ -54,10 +72,15 @@ export default {
 		}
 	},
 	methods: {
+		toggleLoved(){
+			let payload = {
+				isLoved: this.isLoved,
+				id: this.id
+			}
+			this.$store.dispatch('toggleLoved', payload)
+		},
 		togglePlay(){
-			this.$store.commit('togglePlay')
-			if(this.isPlay) this.player.pause()
-			if(!this.isPlay) this.player.play()
+			if(this.playingList.length) this.$store.commit('togglePlay')
 		},
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
@@ -100,11 +123,15 @@ export default {
 				padding 0
 			.singer
 				default-singer()
-		.play-btn, .next-btn
+		.play-btn, .next-btn, .btn
 			flex 0 0 56px
 			font-size 30px
 			flex-center()
 			color $not-important
-		.next-btn
+		.next-btn, .btn
 			font-size 24px
+			i 
+				transition .5s all linear
+			.loved
+				color #f33
 </style>

@@ -34,8 +34,9 @@ export default {
 		},
 		errorInfo(){
 			let msg = ''
+			let regExp = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/g
 			switch (true){
-				case (this.phoneNumber.length !== 11):
+				case (!regExp.test(this.phoneNumber)):
 					msg = '这位同志, 请严肃的对待你的手机号码'
 					break 
 				case (this.password.length < 6):
@@ -107,6 +108,8 @@ export default {
 			width 90%
 			padding 5px 0
 			outline none
+			height 30px
+			font-size 20px
 		.phone
 			top 15%
 		.password

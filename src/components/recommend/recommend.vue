@@ -212,7 +212,7 @@ export default {
 					no-wrap()
 				.singer
 					color: $not-important
-					padding 0 8px
+					padding 4px 8px
 				.mv-info
 					position absolute
 					top 5px
@@ -248,6 +248,7 @@ export default {
 					width: 90%
 			.name
 				default-font()
+				no-wrap()
 					
 
 

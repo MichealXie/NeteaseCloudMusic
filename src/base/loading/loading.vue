@@ -1,13 +1,25 @@
 <template>
 	<div class="loading">
-		<i class="fa fa-eercast fa-spin fa-3x fa-fw margin-bottom"></i>
-		<span>加载中</span>
+		<img src="../../assets/waiting.gif" alt="">
 	</div>
 </template>
 
 <script>
 export default {
-
+	data () {
+		return {
+			timeOut: null
+		}
+	},
+	activated () {
+		this.timeOut = setTimeout( () => {
+			this.$store.commit('setIsLoading', false)
+		}, 30000)
+	},
+	deactivated () {
+		console.log(this.timeOut)
+		clearTimeout(this.timeOut)
+	}
 }
 </script>
 
@@ -23,11 +35,10 @@ export default {
 		justify-content space-around
 		align-items center
 		flex-direction column
-		width 91px
-		height 104px
+		width 150px
 		background rgba(17, 17, 17, 0.7)
 		color white
 		z-index 999
-		span 
-			font-size 14px
+		img 
+			width 100%
 </style>

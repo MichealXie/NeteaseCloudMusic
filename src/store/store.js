@@ -43,7 +43,7 @@ export const store = new Vuex.Store({
 		comments: {},
 		currentCommentsId: null,
 		// 0 单曲  1 顺序  2随机
-		playMode: 2,
+		playMode: 1,
 		lovedListId: 0,
 		lovedSongs: [],
 		currentListId: null,
