@@ -3,6 +3,32 @@
 		<loading v-show="isLoading"></loading>
 		<div class="recommend-content">
 			<slider></slider>
+			<div class="personal">
+				<router-link to="/personal-fm" class="item">
+					<div class="icon fa-stack">
+						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+					</div>
+					<div class="title">私人 FM</div>
+				</router-link>
+				<div class="item">
+					<div class="icon fa-stack">
+						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+					</div>
+					<div class="title">私人 FM</div>
+				</div>
+				<div class="item">
+					<div class="icon fa-stack">
+						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+					</div>
+					<div class="title">私人 FM</div>
+				</div>
+				<div class="item">
+					<div class="icon fa-stack">
+						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+					</div>
+					<div class="title">私人 FM</div>
+				</div>
+			</div>
 			<div class="top-list" ref="top-list">
 				<app-title>推荐歌单</app-title>
 				<ul>
@@ -117,10 +143,25 @@ export default {
 	padding-bottom 48px
 	min-height calc(100vh - 48px)
 	background $list-background
-	.slider-img
-		width 375px
-	.slider-wrapper
-		padding-top 88px
+	.personal
+		display flex
+		height 80px
+		.item
+			width 25%
+			display flex
+			flex-direction column
+			justify-content space-around
+			align-items center
+			font-size 20px
+			.icon
+				color $color-background
+				flex-center()
+				border 1px solid 
+				border-radius 50%
+				width 2em
+			.title
+				font-size 12px
+				text-align center
 	.top-list
 		ul
 			display flex

@@ -48,6 +48,7 @@ export const store = new Vuex.Store({
 		lovedListId: 0,
 		lovedSongs: [],
 		currentListId: null,
+		FM: null,
 	},
 	getters: {
 		partlyPrivate(state){
@@ -178,6 +179,9 @@ export const store = new Vuex.Store({
 			let index = state.lovedSongs.indexOf(payload)
 			state.lovedSongs.splice(index, 1)
 		},
+		setFM(state, payload){
+			state.FM = payload
+		},
 		setComments(state, payload){
 			state.comments = payload
 		},
@@ -297,12 +301,40 @@ export const store = new Vuex.Store({
 			}
 			context.state.isPlay = true
 		},
+		async getFM(context){
+			let time = new Date().valueOf()
+			let data = await axios.get(`/personal_fm?date=${time}`)
+			console.log(context)
+			console.log(data.data)
+			// 成功
+			if (data.data.code === 200){
+				context.commit('setFM', data.data.data[0])
+				//马上开始播放
+				let url = await axios.get(`/music/url?id=${context.state.FM.id}`)
+				if (data.data.code === 200) context.commit('setCurrentSong', url.data.data[0].url)
+				else {
+					context.commit('throwError')
+				}
+				context.state.isPlay = true
+				return
+			}
+			// 没登录就登录, 然后再获取一次
+			else if (data.data.code === 405 && localStorage.myInfo){
+				let info = JSON.parse(localStorage.myInfo)
+				await context.dispatch('login', info)
+				context.dispatch('getFM')
+			}
+			else context.commit('throwError')
+		},
 		// 以下是个人资料
 		async login(context, payload){
+			let time = new Date().valueOf()
+			console.log('login')
 			context.commit('setIsLoading', true)
-			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}`)
+			let data = await axios.get(`/login/cellphone?phone=${payload.account}&password=${payload.password}&date=${time}`)
 			context.commit('setLoginCode', data.data.code)
 			context.commit('setIsLoading', false)
+			console.log('login-code: ' + context.state.loginCode)
 			// 登录成功
 			if (context.state.loginCode === 200){
 				// 设置我的信息

@@ -172,3 +172,5 @@
 28. - [x] isLoading 实在太乱了.... 已统一管理
 
 29. - [x] songListDetail 可优化setIsPlay  => 并不能
+
+30. - [ ] lovedSong 可以放在本地储存...同步修改就好了

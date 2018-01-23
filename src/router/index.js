@@ -78,6 +78,11 @@ const Pinglun = (reslove) => {
     reslove(module)
   })
 }
+const personalFM = (reslove) => {
+  import('@/components/personal-fm/personal-fm').then((module) => {
+    reslove(module)
+  })
+}
 
 Vue.use(Router)
 
@@ -132,6 +137,10 @@ export default new Router({
     {
       path: '/player',
       component: Player
+    },
+    {
+      path: '/personal-fm',
+      component: personalFM
     },
     {
       path: '/comments/:type/:id',
