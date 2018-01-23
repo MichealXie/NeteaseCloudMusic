@@ -162,10 +162,13 @@
 
 25. - [x] 点击播放的逻辑可以优化
 
-26. - [ ] 哈哈哈哈, rank 原来有 limit 选项, 明天加上
+26. - [x] 哈哈哈哈, rank 原来有 limit 选项, 明天加上 => 并没有, 但精简了代码
 
-27. - [ ] css 优化
+27. - [x] css 优化
 	+ min-content 解决 title/name/singer
 	+ player 的背景改为图片...这样才能有动画而且可以在外层加默认样式
-	+ 动画...
-	+ 
+	+ 简单动画...
+
+28. - [x] isLoading 实在太乱了.... 已统一管理
+
+29. - [x] songListDetail 可优化setIsPlay  => 并不能

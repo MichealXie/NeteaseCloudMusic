@@ -80,13 +80,14 @@ export default {
 			this.$store.dispatch('toggleLoved', payload)
 		},
 		togglePlay(){
+			console.log(this.player.src)
+			if(this.player.src === 'http://localhost:8080/') this.$store.dispatch('getSongUrl', this.id)
 			if(this.playingList.length) this.$store.commit('togglePlay')
 		},
 		nextSong(){
 			this.$store.commit('setIsPlay', false)			
 			this.$store.commit('changeSongIndex')
-			let id = this.playingList[this.currentSongIndex].id
-			this.$store.dispatch('getSongUrl', id)
+			this.$store.dispatch('getSongUrl', this.id)
 			this.$store.commit('setIsPlay', true)
 		},
 	}

@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createLogger from 'vuex/dist/logger'
 
-// axios.defaults.headers.common['xhrFields'] = { withCredentials: true }
 axios.defaults.timeout = 30000
 axios.defaults.baseURL = 'http://localhost:1810'
 
@@ -14,6 +13,7 @@ export const store = new Vuex.Store({
 		isLogin: false,
 		loginCode: 0,
 		isLoading: false,
+		isError: false,
 		topLists:[],
 		playlist: {},
 		privateContent: [],
@@ -30,6 +30,7 @@ export const store = new Vuex.Store({
 		isSearching: false,
 		albumSongs: [],
 		albumInfo:{},
+		// 控制播放按钮/ 唱片转动
 		isPlay: false,
 		currentSong: '',
 		currentSongIndex: 0,
@@ -52,38 +53,19 @@ export const store = new Vuex.Store({
 		partlyPrivate(state){
 			if (state.privateContent) return state.privateContent.slice(1,3)
 		},
-		partlyDJ(state){
-			return state.recommendDJ.slice(0,6)
-		},
-		newTop3(state){
-			if (state.newSongRank.tracks){
-				return state.newSongRank.tracks.slice(0, 3)
-			}
-		},
-		hotTop3(state) {
-			if (state.hotSongRank.tracks){
-				return state.hotSongRank.tracks.slice(0, 3)
-			}
-		},
-		originalTop3(state) {
-			if (state.originalSongRank.tracks){
-				return state.originalSongRank.tracks.slice(0, 3)
-			}
-		},
-		rapidTop3(state) {
-			if (state.rapidSongRank.tracks){
-				return state.rapidSongRank.tracks.slice(0, 3)
-			}
-		},
 		myId(state){
 			if (state.myInfo.account) return state.myInfo.account.id
 		}
 	},
 	mutations: {
 		setIsLoading(state, payload){
-			// console.log('loading')
-			// console.log(payload)
 			state.isLoading = payload
+		},
+		throwError(state, payload){
+			state.isError = true
+			setTimeout( () => {
+				state.isError = false
+			}, 2000)
 		},
 		setIsLogin(state, payload){
 			state.isLogin = payload
@@ -209,30 +191,29 @@ export const store = new Vuex.Store({
 			state.userPlaylist = payload
 		},
 		setCurrentListId(state, id){
-			// console.log(id)
 			state.currentListId = id
 		}
 	},
 	actions:{
-		getTopLists(context){
-			axios.get('/top/playlist?limit=6')
+		async getRecommend(context){
+			context.commit('setIsLoading', true)
+			//获取推荐歌单
+			await axios.get('/top/playlist?limit=6')
 				.then((data) => {
 					context.state.topLists = data.data.playlists
 				})
-		},
-		getPrivateContent(context){
+			context.commit('setIsLoading', false)
+			//获取独家放送
 			axios.get('/personalized/privatecontent')
 				.then((data) => {
 					context.state.privateContent = data.data.result
 				})
-		},
-		getRecommendMV(context){
+				//获取推荐 MV
 			axios.get('/personalized/mv')
 				.then((data) => {
 					context.state.recommendMV = data.data.result
 				})
-		},
-		getRecommendDJ(context){
+			//获取推荐电台
 			axios.get('/personalized/djprogram')
 				.then((data) => {
 					context.state.recommendDJ = data.data.result
@@ -310,7 +291,10 @@ export const store = new Vuex.Store({
 		},
 		async getSongUrl(context, payload){
 			let data = await axios.get(`/music/url?id=${payload}`)
-			context.commit('setCurrentSong', data.data.data[0].url)
+			if(data.data.code === 200 )context.commit('setCurrentSong', data.data.data[0].url)
+			else{
+				context.commit('throwError')
+			}
 			context.state.isPlay = true
 		},
 		// 以下是个人资料
@@ -334,7 +318,9 @@ export const store = new Vuex.Store({
 		},
 		async getlovedSongs(context, payload){
 			let data = await axios.get(`/playlist/detail?id=${payload}`)
-			// console.log(data.data.privileges)
+			// 默认登录后正在播放的是我喜欢歌曲
+			context.commit('setPlayingList', data.data.playlist.tracks)
+			// 一个数组, 储存 id, 检测是否喜欢
 			context.commit('setlovedSongs', data.data.privileges)
 		},
 		async getMyPlaylist(context){

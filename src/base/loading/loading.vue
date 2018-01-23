@@ -14,10 +14,10 @@ export default {
 	activated () {
 		this.timeOut = setTimeout( () => {
 			this.$store.commit('setIsLoading', false)
+			this.$store.commit('throwError')
 		}, 30000)
 	},
 	deactivated () {
-		console.log(this.timeOut)
 		clearTimeout(this.timeOut)
 	}
 }
@@ -28,9 +28,8 @@ export default {
 
 	.loading
 		position: fixed
-		top: 50%
-		left 50%
-		transform translate(-50%,-100%)
+		top: 35%
+		middleX()
 		display flex
 		justify-content space-around
 		align-items center

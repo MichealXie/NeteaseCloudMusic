@@ -209,7 +209,9 @@ export default {
 	},
 	watch: {
 		id: function(newVal){
-			this.getComments()
+			this.$nextTick( () => {
+				this.getComments()
+			})
 		}
 	}
 }

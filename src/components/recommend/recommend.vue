@@ -1,6 +1,6 @@
 <template>
 	<div class="recommend">
-		<loading v-show="!topLists.length"></loading>
+		<loading v-show="isLoading"></loading>
 		<div class="recommend-content">
 			<slider></slider>
 			<div class="top-list" ref="top-list">
@@ -76,6 +76,9 @@ export default {
 		}
 	},
 	computed: {
+		isLoading(){
+			return this.$store.state.isLoading
+		},
 		topLists(){
 			return this.$store.state.topLists
 		},
@@ -102,14 +105,7 @@ export default {
 		}
 	},
 	created () {
-		//获取推荐歌单
-		this.$store.dispatch('getTopLists')
-		//获取独家放送
-		this.$store.dispatch('getPrivateContent')
-		//获取推荐 MV
-		this.$store.dispatch('getRecommendMV')
-		//获取推荐电台
-		this.$store.dispatch('getRecommendDJ')
+		this.$store.dispatch('getRecommend')
 	},
 }
 </script>
@@ -119,12 +115,13 @@ export default {
   @import "../../common/stylus/mixin"
 .recommend
 	padding-bottom 48px
+	min-height calc(100vh - 48px)
+	background $list-background
 	.slider-img
 		width 375px
 	.slider-wrapper
 		padding-top 88px
 	.top-list
-		background $list-background
 		ul
 			display flex
 			flex-wrap wrap
@@ -152,7 +149,6 @@ export default {
 					default-font()
 					no-wrap()
 	.private-content
-		background $list-background
 		.partly-private
 			display flex
 			.private-item
@@ -187,7 +183,6 @@ export default {
 			p
 				default-font()
 	.recommend-mv
-		background $list-background
 		.mvs
 			display flex
 			flex-wrap wrap
@@ -219,7 +214,6 @@ export default {
 					right 5px
 					color white
 	.djs
-		background $list-background
 		display flex
 		flex-wrap wrap
 		.dj

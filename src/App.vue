@@ -1,30 +1,40 @@
 <template>
   <div id="app">
-    <transition name="">
+    <transition name="fade">
       <keep-alive>
         <router-view/>
       </keep-alive>
     </transition>
     <app-audio ref="player"></app-audio>
+    <transition name="slide-fade">
+      <keep-alive>
+        <error v-show="isError"></error>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
 <script>
 import appAudio from '@/components/app-audio/app-audio'
+import error from '@/base/error/error'
 
 export default {
   name: 'app',
   components: {
-    'app-audio': appAudio
+    'app-audio': appAudio,
+    error,
   },
   computed: {
+    isError(){
+      return this.$store.state.isError
+    },
     lovedSongs(){
       return this.$store.state.lovedSongs
     }
   },
   methods: {
   },
-  created () {
+  activated () {
     if(localStorage.myInfo){
       let info = JSON.parse(localStorage.myInfo)
       this.$store.commit('setIsLogin', true)
@@ -66,6 +76,17 @@ export default {
       transition: opacity .5s
     .fade-enter, .fade-leave-to
       opacity: 0
+
+    .slide-fade-enter-active 
+      transition: all .3s ease;
+
+    .slide-fade-leave-active 
+      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+    .slide-fade-enter, .slide-fade-leave-to
+      transform: translateX(-5px);
+      opacity: 0;
+
     // chrome 自动填充input 会变黄, 很讨厌啊
     input:-webkit-autofill 
       -webkit-box-shadow: 0 0 0px 1000px white inset;
