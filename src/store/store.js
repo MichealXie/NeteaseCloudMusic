@@ -158,7 +158,7 @@ export const store = new Vuex.Store({
 		setMyPlaylist(state, payload){
 			state.myPlaylist = payload
 		},
-		setlovedListId(state, payload){
+		setLovedListId(state, payload){
 			state.lovedListId = payload
 		},
 		setSingleLoved(state, payload){
@@ -333,6 +333,7 @@ export const store = new Vuex.Store({
 			}
 		},
 		// 以下是个人资料
+		// 登陆后获取我的信息, 第一个列表 ID (我喜欢的音乐) => 获取该 ID 的歌曲
 		async login(context, payload){
 			let time = new Date().valueOf()
 			context.commit('setIsLoading', true)
@@ -349,18 +350,18 @@ export const store = new Vuex.Store({
 				localStorage.myInfo = info
 				context.commit('setIsLogin', true)
 				// 假如是真的第一次...
-				if (!context.state.myPlaylist){
+				if (!Object.keys(context.state.myPlaylist).length){
 					// 获取我的歌曲列表
 					await context.dispatch('getMyPlaylist')
 					// 获取喜欢的歌曲
-					await context.dispatch('getlovedSongs', context.state.lovedListId)
+					await context.dispatch('getLovedSongs', context.state.lovedListId)
 				}
 			}
 			else{
 				router.push('/login')
 			}
 		},
-		async getlovedSongs(context, payload){
+		async getLovedSongs(context, payload){
 			let data = await axios.get(`/playlist/detail?id=${payload}`)
 			// 默认登录后正在播放的是我喜欢歌曲
 			context.commit('setPlayingList', data.data.playlist.tracks)
@@ -368,11 +369,24 @@ export const store = new Vuex.Store({
 			context.commit('setlovedSongs', data.data.privileges)
 		},
 		async getMyPlaylist(context){
-			context.commit('setIsLoading', true)
-			let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
-			context.commit('setMyPlaylist', data.data.playlist)
-			context.commit('setlovedListId', data.data.playlist[0].id)
-			context.commit('setIsLoading', false)
+			// 检查local 里有没有喜欢的歌曲
+			let myPlaylist
+			if (!localStorage.myPlaylist){
+				console.log('获取我lovedListID')
+				let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
+				myPlaylist = data.data.playlist
+				// 获取成功 => 储存到 local
+				if (data.data.code === 200) {
+					myPlaylist = JSON.stringify(data.data.playlist)
+					localStorage.myPlaylist = myPlaylist
+				}
+			}
+			else{
+				console.log('从 local 里拿myPlaylist')
+				myPlaylist = JSON.parse(localStorage.myPlaylist)
+			}
+			context.commit('setMyPlaylist', myPlaylist)
+			context.commit('setLovedListId', myPlaylist[0].id)
 		},
 		async getComments(context, payload){
 			// 评论 id 一样的话, 就别发请求了

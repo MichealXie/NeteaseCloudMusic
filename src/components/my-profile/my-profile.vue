@@ -73,6 +73,8 @@ export default {
 			this.$store.commit('setPlayingList', {})
 			// 删除个人信息的歌单
 			this.$store.commit('setMyPlaylist', {})
+			// 删除我喜欢的歌单
+			localStorage.removeItem('myPlaylist')			
 			localStorage.removeItem('myInfo')
 			this.$store.commit('setIsLogin', false)
 			console.log(localStorage)
