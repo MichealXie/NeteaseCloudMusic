@@ -1,6 +1,6 @@
 <template>
-	<div class="slider" ref='slider'>
-		<ul class = "images" ref="images" @touchstart="touchstart($event)" @touchend="touchend($event)" @touchmove="touchmove($event)">
+	<div class="slider">
+		<ul class = "images" id="slider" @touchstart="touchstart($event)" @touchend="touchend($event)" @touchmove="touchmove($event)">
 			<li><img src="http://p3.music.126.net/s25q2x5QyqsAzilCurD-2w==/7973658325212564.jpg" alt=""></li>
 			<li><img src="http://p4.music.126.net/V9-MXz6b2MNhEKjutoDWIg==/7937374441542745.jpg" alt=""></li>
 			<li><img src="http://p4.music.126.net/CTU5B9R9y3XyYBZXJUXzTg==/2897213141428023.jpg" alt=""></li>
@@ -29,61 +29,73 @@ export default {
 			startX: 0,
 			endX: 0,
 			autoPlay: '',
-
+			imageNumber: 0
 		}
 	},
 	computed: {
-
+		slider(){
+			return document.getElementById('slider')
+		}
 	},
 	methods: {
 		nextPic(){
 			if(Math.abs(this.position - 375) < this.fullWidth){
 				this.index -= 1
 				this.position = 375*this.index
-				this.$refs.images.style.transform = `translateX(${this.position}px)`
 			}
+			else{
+				this.index = 0
+				this.position = 0
+			}
+			this.slider.style.transform = `translateX(${this.position}px)`
 		},
 		lastPic(){
 			if( this.position < 0){
 				this.index += 1
 				this.position = 375*this.index
-				this.$refs.images.style.transform = `translateX(${this.position}px)`
+				this.slider.style.transform = `translateX(${this.position}px)`
+			}
+			else{
+				this.index = -(this.imageNumber - 1)
+				this.position = 375*this.index
+				this.slider.style.transform = `translateX(${this.position}px)`
 			}
 		},
 		moveTo(index){
 			this.index = index
 			this.position = 375*this.index
-			this.$refs.images.style.transform = `translateX(${this.position}px)`
+			this.slider.style.transform = `translateX(${this.position}px)`
 		},
 		touchstart(e){
 			this.startX = e.touches[0].pageX
-			console.log(this.startX)
-			// clearInterval(this.autoPlay)			
+			clearInterval(this.autoPlay)			
 		},
 		touchend(e){
 			this.endX = e.changedTouches[0].pageX
-			console.log(this.endX)
-			
 			if(this.endX > this.startX) this.lastPic()
 			if(this.endX < this.startX) this.nextPic()
-			// this.autoPlay = setInterval( () =>{
-			// 	this.nextPic()
-			// }, 5000)
+			this.autoPlay = setInterval( () =>{
+				this.nextPic()
+			}, 1000)
 		},
 		touchmove(e){
-			let distance = this.startX - e.changedTouches[0].pageX
-			// this.$refs.images.style.transform = `translateX(${this.position + distance}px)`
-			// console.log(this.startX - e.changedTouches[0].pageX)
+			// let distance =  this.position - this.startX + e.changedTouches[0].pageX		
+			// console.log(distance)
+			// if( (this.index === 0 && (distance > 0)) || (this.index === (this.imageNumber - 1) && (distance < 0))){
+			// 	return
+			// }
+			// else{
+			// 	this.slider.style.transform = `translateX(${distance}px)`
+			// }
 		}
 	},
   mounted() {
-		let imageNumber = this.$refs.images.children.length,
-				fullWidth = imageNumber * 375
-				this.fullWidth = imageNumber * 375
-		this.$refs.images.style.width = fullWidth + 'px'
-		// this.autoPlay = setInterval( () =>{
-		// 	this.nextPic()
-		// }, 5000)
+		this.imageNumber = this.slider.children.length
+		this.fullWidth = this.imageNumber * 375
+		this.slider.style.width = this.fullWidth + 'px'
+		this.autoPlay = setInterval( () =>{
+			this.nextPic()
+		}, 5000)
   }
 };
 </script>
@@ -122,13 +134,13 @@ export default {
     text-align: center;
   }
   ul.bullets li{
-    width: 35px;
-    height: 7px;
-    border-radius: 4px;
-    border:1px solid white;
-    margin-left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+		background-color: lightgrey;
+    margin-left: 10px;
   }
   ul.bullets li.active{
-    background-color: white;
+    background-color: #f33;
   }
 </style>

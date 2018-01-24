@@ -51,6 +51,7 @@ export const store = new Vuex.Store({
 		FM: null,
 		// 1: 歌单模式, 2: FM 模式
 		playType: 1,
+		dailyRecommend: []
 	},
 	getters: {
 		partlyPrivate(state){
@@ -219,7 +220,10 @@ export const store = new Vuex.Store({
 		},
 		setCurrentListId(state, id){
 			state.currentListId = id
-		}
+		},
+		setDailyRecommend(state, payload){
+			state.dailyRecommend = payload
+		}	
 	},
 	actions:{
 		async getRecommend(context){
@@ -439,6 +443,12 @@ export const store = new Vuex.Store({
 			// 成功即删除对应 ID 列表片段
 			if (data.data.code === 200 ){
 				context.commit('setSingleLoved', payload)
+			}
+		},
+		async getDailyRecommend(context){
+			let data = await axios.get(`/recommend/songs`, { withCredentials: true })
+			if (data.data.code === 200){
+				context.commit('setDailyRecommend', data.data.recommend)
 			}
 		}
 	},

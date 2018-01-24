@@ -178,6 +178,7 @@ export default {
 	},
 	activated () {
 		this.keywords = ''
+		this.$refs['search-input'].focus()
 	},
 	watch: {
 		keywords: function(newVal,oldVal){

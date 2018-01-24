@@ -10,24 +10,24 @@
 					</div>
 					<div class="title">私人 FM</div>
 				</router-link>
-				<div class="item">
+				<router-link to="/daily-recommend" class="item">
 					<div class="icon fa-stack">
-						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+						<i class="fa fa-calendar-o" aria-hidden="true"></i>
 					</div>
-					<div class="title">私人 FM</div>
-				</div>
+					<div class="title">每日推荐</div>
+				</router-link>
 				<div class="item">
-					<div class="icon fa-stack">
-						<i class="fa fa-heartbeat" aria-hidden="true"></i>
-					</div>
-					<div class="title">私人 FM</div>
+					<router-link to="/daily-recommend" class="icon fa-stack">
+						<i class="fa fa-list-ul" aria-hidden="true"></i>
+					</router-link>
+					<div class="title">推荐歌单</div>
 				</div>
-				<div class="item">
+				<router-link to="/daily-recommend" class="item">
 					<div class="icon fa-stack">
-						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+						<i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
 					</div>
-					<div class="title">私人 FM</div>
-				</div>
+					<div class="title">排行榜</div>
+				</router-link>
 			</div>
 			<div class="top-list" ref="top-list">
 				<app-title>推荐歌单</app-title>
@@ -102,6 +102,9 @@ export default {
 		}
 	},
 	computed: {
+		isLogin(){
+			return this.$store.state.isLogin
+		},
 		isLoading(){
 			return this.$store.state.isLoading
 		},
@@ -151,13 +154,15 @@ export default {
 	.personal
 		display flex
 		height 80px
+		border-1px()
 		.item
 			width 25%
 			display flex
 			flex-direction column
-			justify-content space-around
+			justify-content center 
 			align-items center
 			font-size 20px
+			color black
 			.icon
 				color $color-background
 				flex-center()
@@ -166,6 +171,7 @@ export default {
 				width 2em
 			.title
 				font-size 12px
+				padding-top 10px
 				text-align center
 	.top-list
 		ul

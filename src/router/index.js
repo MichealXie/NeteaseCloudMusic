@@ -67,19 +67,18 @@ const phoneLogin = (reslove) => {
     reslove(module)
   })
 }
-// const Comments = (reslove) => {
-//   import('@/components/Comments/Comments').then((module) => {
-//     reslove(module)
-//   })
-// }
-// comments 不热更新, hack 一下...妈的什么鸡巴 bug
-const Pinglun = (reslove) => {
-  import('@/components/pinglun/pinglun').then((module) => {
+const Comments = (reslove) => {
+  import('@/components/comments/pinglun').then((module) => {
     reslove(module)
   })
 }
 const personalFM = (reslove) => {
   import('@/components/personal-fm/personal-fm').then((module) => {
+    reslove(module)
+  })
+}
+const dailyRecommend = (reslove) => {
+  import('@/components/daily-recommend/daily-recommend').then((module) => {
     reslove(module)
   })
 }
@@ -148,7 +147,11 @@ export default new Router({
     },
     {
       path: '/comments/:type/:id',
-      component: Pinglun
-    }
+      component: Comments
+    },
+    {
+      path: '/daily-recommend',
+      component: dailyRecommend
+    },
   ],
 })
