@@ -14,6 +14,9 @@ export default {
 		currentSongIndex(){
 			return this.$store.state.currentSongIndex
 		},
+		id(){
+			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
+		},
 		isPlay(){
 			return this.$store.state.isPlay
 		},
