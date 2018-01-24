@@ -7,9 +7,9 @@
 					<i class="fa fa-chevron-left" aria-hidden="true"></i>
 				</div>
 				<p class="title">歌单</p>
-				<router-link to="/player" class="icon">
+				<div class="icon" @click="goPlayer()">
 					<i aria-hidden="true" class="fa fa-headphones"></i>
-				</router-link>
+				</div>
 			</div>
 			<router-link :to="'/user-profile/' + songListDetail.creator.userId" class="detail-info" v-if="songListDetail && songListDetail.creator">
 				<div class="img-ct">
@@ -102,6 +102,10 @@ export default {
 		goback(){
 			this.$router.go(-1)
 		},
+    goPlayer(){
+      if(this.playType === 1) this.$router.push('/player')
+      else if(this.playType === 2)  this.$router.push('/personal-fm')
+    },
 		playSong(trackIds, tracks){
 			let id = trackIds[0].id,
 			index = 0

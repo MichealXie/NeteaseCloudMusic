@@ -5,9 +5,9 @@
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
 				<div class="title">我的资料</div>
-				<router-link to="/player" class="player">
+				<div class="player" @click="goPlayer()">
 					<i class="fa fa-headphones" aria-hidden="true"></i>
-				</router-link>
+				</div>
 			</div>
 			<div class="avatar"><img v-lazy="myInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{myInfo.profile.nickname}}</div>
@@ -72,6 +72,10 @@ export default {
 		goBack(){
 			this.$router.go(-1)
 		},
+    goPlayer(){
+      if(this.playType === 1) this.$router.push('/player')
+      else if(this.playType === 2)  this.$router.push('/personal-fm')
+    },
 		logout(){
 			// 退出暂停歌曲
 			this.$store.commit('setIsPlay', {})

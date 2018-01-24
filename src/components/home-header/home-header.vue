@@ -6,9 +6,9 @@
     <router-link class="router-link" to="/search">
       <input type="text" placeholder="搜索音乐,歌词,电台">
     </router-link>
-    <router-link to="/player" class="btn">
+    <div class="btn" @click="goPlayer()">
       <i class="fa fa-headphones" aria-hidden="true"></i>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
       
     }
   },
+  computed: {
+		playType(){
+			return this.$store.state.playType
+		},
+  },
   methods: {
     showPlayer(){
       this.$store.commit('showPlayer')
@@ -26,7 +31,8 @@ export default {
     goInfo(){
       if(this.$store.state.isLogin) this.$router.push('/my-profile')
       else this.$router.push('/login')
-    }
+    },
+
   }
 }
 </script>

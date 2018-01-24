@@ -5,9 +5,9 @@
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
 				<div class="title">{{userProfile.profile.nickname}}的资料</div>
-				<router-link to="/player" class="player">
+				<div class="player" @click="goPlayer()">
 					<i class="fa fa-headphones" aria-hidden="true"></i>
-				</router-link>
+				</div>
 			</div>
 			<div class="avatar" v-if="userProfile.profile" ><img v-lazy="userProfile.profile.avatarUrl" alt=""></div>
 			<div class="name">{{userProfile.profile.nickname}}</div>
@@ -50,6 +50,11 @@ export default {
 		'mini-FM': miniFM,
 		loading,
 	},
+	data () {
+		return {
+			userID: this.$route.params.id
+		}
+	},
 	computed: {
 		playType(){
 			return this.$store.state.playType
@@ -68,9 +73,16 @@ export default {
 		goBack(){
 			this.$router.go(-1)
 		},
+    goPlayer(){
+      if(this.playType === 1) this.$router.push('/player')
+      else if(this.playType === 2)  this.$router.push('/personal-fm')
+    }
 	},
 	activated () {
-		this.$store.dispatch('getUserProfile', this.$route.params.id)
+		if(this.$route.params.id !== this.userID){
+			this.userID = this.$route.params.id
+			this.$store.dispatch('getUserProfile', this.$route.params.id)
+		}
 	},
 }
 </script>

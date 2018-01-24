@@ -63,6 +63,9 @@ export default {
 		}
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		comments(){
 			return this.$store.state.comments
 		}	,
@@ -149,8 +152,10 @@ export default {
 			this.$store.dispatch('toggleLoved', payload)
 		}
 	},
-	mounted () {
-		this.$store.dispatch('getFM')
+	activated () {
+		// getFM 会设置playType为2
+		if(this.playType === 1) this.$store.dispatch('getFM')
+		
 		this.$nextTick( () => {
 			this.player.addEventListener('timeupdate', () => {
 				this.moveProgress()
