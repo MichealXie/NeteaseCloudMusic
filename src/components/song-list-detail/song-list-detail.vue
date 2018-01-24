@@ -61,21 +61,27 @@
 				</li>
 			</ul>
 		</div>
-		<mini-player></mini-player>
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>		
 	</div>
 </template>
 
 <script>
 import loading from '@/base/loading/loading'
 import miniPlayer from '@/base/mini-player/mini-player'
+import miniFM from '@/base/mini-FM/mini-FM'
 
 export default {
 	components:{
 		loading,
-		'mini-player': miniPlayer
+		'mini-player': miniPlayer,
+		'mini-FM': miniFM		
 	},
 	props:[],
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		playMode(){
 			return this.$store.state.playMode
 		},
@@ -103,6 +109,8 @@ export default {
 				index = Math.round(Math.random() * tracks.length)
 				id = tracks[index].id
 			}
+			// 设置为歌单模式
+			this.$store.commit('setPlayType', 1)	
 			this.player.pause()
 			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)
@@ -112,6 +120,8 @@ export default {
 		},
 		playIndexSong(id, index, tracks){
 			this.player.pause()
+			// 设置为歌单模式
+			this.$store.commit('setPlayType', 1)
 			this.$store.commit('setIsPlay', false)
 			this.$store.dispatch('getSongUrl',id)
 			this.$store.commit('setPlayingList',tracks)

@@ -124,7 +124,9 @@ export const store = new Vuex.Store({
 				case 0:
 					break
 				case 1:
-					state.currentSongIndex += 1
+					// 边界处理
+					if (state.currentSongIndex === state.playingList.length -1) state.currentSongIndex = 0
+					else state.currentSongIndex += 1
 					break
 				case 2:
 					state.currentSongIndex = Math.round(Math.random() * state.playingList.length)
@@ -137,7 +139,9 @@ export const store = new Vuex.Store({
 			else if (state.playMode === 2) state.playMode = 0
 		},
 		songIndexReduceOne(state) {
-			state.currentSongIndex -= 1
+			// 边界处理
+			if (state.currentSongIndex === 0) state.currentSongIndex = state.playingList.length - 1
+			else state.currentSongIndex -= 1
 		},
 		setSearchSongs(state, payload){
 			state.playingList = []
@@ -354,7 +358,7 @@ export const store = new Vuex.Store({
 					// 获取我的歌曲列表
 					await context.dispatch('getMyPlaylist')
 					// 获取喜欢的歌曲
-					await context.dispatch('getLovedSongs', context.state.lovedListId)
+					await context.dispatch('getLovedSongs', context.state.lovedListId)				
 				}
 			}
 			else{

@@ -1,7 +1,6 @@
 <template>
 	<div class="my-profile">
 		<loading v-show="isLoading"></loading>
-		<mini-player></mini-player>
 		<div class="top" v-if="myInfo.profile" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
 			<div class="header">
 				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
@@ -34,12 +33,15 @@
 				</li>
 			</ul>
 		</div>
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>		
 	</div>
 </template>
 
 <script>
 import commentTitle from '@/base/comment-title/comment-title'
 import miniPlayer from '@/base/mini-player/mini-player'
+import miniFM from '@/base/mini-FM/mini-FM'
 import loading from '@/base/loading/loading'
 
 export default {
@@ -47,8 +49,12 @@ export default {
 		loading,
 		'comment-title': commentTitle,
 		'mini-player': miniPlayer,
+		'mini-FM': miniFM,
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		isLoading(){
 			return this.$store.state.isLoading
 		},

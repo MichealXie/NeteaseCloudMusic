@@ -81,7 +81,7 @@ export default {
 		},
 		singer(){
 			if(this.FM) return this.FM.artists[0].name
-			else return '当前无歌曲播放~'
+			else return '当前无 FM 播放~'
 		},
 		player(){
 			return document.getElementById('player')

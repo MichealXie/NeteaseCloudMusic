@@ -198,7 +198,8 @@ export default {
 			this.$store.dispatch('toggleLoved', payload)
 		}
 	},
-	mounted () {
+	activated () {
+		console.log('activated')
 		this.$nextTick( () => {
 			this.player.addEventListener('timeupdate', () => {
 				this.moveProgress()
@@ -335,8 +336,8 @@ export default {
 						transition .5s all linear
 					.count
 						position absolute
-						top 5px
-						left 50%
+						top 2px
+						left 55%
 						font-size 12px
 			.progress-bar
 				display flex

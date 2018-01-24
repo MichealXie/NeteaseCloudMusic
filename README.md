@@ -174,3 +174,5 @@
 29. - [x] songListDetail 可优化setIsPlay  => 并不能
 
 30. - [ ] lovedSong 可以放在本地储存...同步修改就好了
+
+31. - [ ] 感觉没必要有那么多的 loading 提示, 比如切换歌曲就没必要

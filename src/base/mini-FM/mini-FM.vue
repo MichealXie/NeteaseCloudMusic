@@ -1,9 +1,9 @@
 <template>
-	<div class="mini-player">
-		<router-link to="/player" class="img-ct">
+	<div class="mini-FM">
+		<router-link to="/personal-fm" class="img-ct">
 			<img class="cover" :src="img">
 		</router-link>
-		<router-link to="/player" class="info">
+		<router-link to="/personal-fm" class="info">
 			<span class="song">{{song}}</span>
 			<span class="singer">{{singer}}</span>
 		</router-link>
@@ -22,50 +22,34 @@
 <script>
 export default {
 	computed: {
-		isLoved(){
-			return this.lovedSongs.includes(this.id)
-		},
 		id(){
-			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
+			if(this.FM) return this.FM.id
 		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
+		FM(){
+			return this.$store.state.FM
 		},
-		playingList(){
-			return this.$store.state.playingList
+		song(){
+			if(this.FM) return this.FM.name
+			else return 'oops'
+		},
+		singer(){
+			if(this.FM) return this.FM.artists[0].name
+			else return '当前无 FM 播放~'
 		},
     lovedSongs(){
       return this.$store.state.lovedSongs
 		},
+		isLoved(){
+			return this.lovedSongs.includes(this.id)
+		},
 		img(){
-			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].al.picUrl
-			else{
-				return null
-			}
-		},
-		song(){
-			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
-			else{
-				return "oops!"
-			}
-		},
-		singer(){
-			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
-			else{
-				return '当前无歌曲播放~'
-			}
+			if(this.FM) return this.FM.album.picUrl
 		},
 		player(){
 			return document.getElementById('player')
 		},
 		isPlay(){
 			return this.$store.state.isPlay
-		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
-		},
-		playingList(){
-			return this.$store.state.playingList
 		},
 	},
 	methods: {
@@ -77,15 +61,10 @@ export default {
 			this.$store.dispatch('toggleLoved', payload)
 		},
 		togglePlay(){
-			console.log(this.player.src)
-			if(this.player.src === 'http://localhost:8080/') this.$store.dispatch('getSongUrl', this.id)
-			if(this.playingList.length) this.$store.commit('togglePlay')
+			this.$store.commit('togglePlay')
 		},
 		nextSong(){
-			this.$store.commit('setIsPlay', false)			
-			this.$store.commit('changeSongIndex')
-			this.$store.dispatch('getSongUrl', this.id)
-			this.$store.commit('setIsPlay', true)
+			this.$store.dispatch('getFM')
 		},
 	}
 }
@@ -94,7 +73,7 @@ export default {
 <style lang="stylus" scoped>
   @import "../../common/stylus/mixin"
 
-	.mini-player
+	.mini-FM
 		position fixed
 		bottom 0
 		z-index 100

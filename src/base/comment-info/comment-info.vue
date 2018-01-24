@@ -8,10 +8,10 @@
 			</div>
 		</div>
 		<div class="comment-info" v-if="this.$route.params.type === 'music'">
-			<div class="img"><img v-lazy="playingList[currentSongIndex].al.picUrl"></div>
+			<div class="img"><img v-lazy="img"></div>
 			<div class="info">
-				<div class="list-name">{{playingList[currentSongIndex].name}}</div>
-				<div class="nickname">{{playingList[currentSongIndex].ar[0].name}}</div>
+				<div class="list-name">{{song}}</div>
+				<div class="nickname">{{singer}}</div>
 			</div>
 		</div>
 	</div>
@@ -20,6 +20,12 @@
 <script>
 export default {
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
+		FM(){
+			return this.$store.state.FM
+		},
 		currentSongIndex(){
 			return this.$store.state.currentSongIndex
 		},
@@ -29,6 +35,18 @@ export default {
 		songListDetail(){
 			return this.$store.state.songListDetail
 		},
+		singer(){
+			if(this.playType === 2) return this.FM.artists[0].name
+			else return this.playingList[this.currentSongIndex].ar[0].name
+		},
+		song(){
+			if(this.playType === 2) return this.FM.name
+			else return this.playingList[this.currentSongIndex].name
+		},
+		img(){
+			if(this.playType === 2) return this.FM.album.picUrl
+			else return this.playingList[this.currentSongIndex].al.picUrl
+		}
 	}
 }
 </script>
