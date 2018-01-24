@@ -5,7 +5,7 @@
 			网易云官方榜
 		</app-title>
 		<div class="ranks" v-if="newSongRank.coverImgUrl">
-			<div class="new-song rank-item">
+			<router-link :to="'/song-details/' + newSongRank.id" class="new-song rank-item">
 				<div class="img-ct">
 					<img :src="newSongRank.coverImgUrl" alt="">
 				</div>
@@ -14,8 +14,8 @@
 						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>
 				</div>
-			</div>
-			<div class="hot-song rank-item">
+			</router-link>
+			<router-link :to="'/song-details/' + hotSongRank.id" class="hot-song rank-item">
 				<div class="img-ct">
 					<img :src="hotSongRank.coverImgUrl" alt="">
 				</div>
@@ -24,8 +24,8 @@
 						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
-			</div>
-			<div class="original-song rank-item">
+			</router-link>
+			<router-link :to="'/song-details/' + originalSongRank.id" class="original-song rank-item">
 				<div class="img-ct">
 					<img :src="originalSongRank.coverImgUrl" alt="">
 				</div>
@@ -34,8 +34,8 @@
 						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
-			</div>
-			<div class="rapid-song rank-item">
+			</router-link>
+			<router-link :to="'/song-details/' + rapidSongRank.id" class="rapid-song rank-item">
 				<div class="img-ct">
 					<img :src="rapidSongRank.coverImgUrl" alt="">
 				</div>
@@ -44,7 +44,7 @@
 						{{index + 1}}.{{item.name}} - {{item.ar[0].name}}
 					</li>				
 				</div>
-			</div>
+			</router-link>
 		</div>
 
 	</div>
