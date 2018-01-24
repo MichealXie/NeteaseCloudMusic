@@ -107,8 +107,8 @@ export default {
 	},
 	data () {
 		return {
-			type: 1,
 			keywords: '',
+			type: 1,
 			name: 'songs',
 			suggestion: [
 				'Ed sherran',

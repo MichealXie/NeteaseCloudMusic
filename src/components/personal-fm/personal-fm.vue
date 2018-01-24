@@ -236,6 +236,8 @@ export default {
 			.song, .singer
 				position absolute
 				middleX()
+				width 80%
+				text-align center
 			.song
 				top 88%
 				color white

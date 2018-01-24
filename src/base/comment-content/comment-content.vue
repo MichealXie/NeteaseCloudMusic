@@ -1,7 +1,7 @@
 <template>
 	<li class="item">
 		<div class="top">
-			<router-link :to="'/user-profile/' + item.user.userId" class="avatar"><img :src="item.user.avatarUrl" alt=""></router-link>
+			<router-link :to="'/user-profile/' + item.user.userId" class="avatar"><img v-lazy="item.user.avatarUrl" alt=""></router-link>
 			<router-link :to="'/user-profile/' + item.user.userId" class="name">{{item.user.nickname}}</router-link>
 			<div class="like">
 				<span class="like-count">{{item.likedCount}}</span>

@@ -26,7 +26,6 @@ export const store = new Vuex.Store({
 		originalSongRank: {},
 		rapidSongRank: {},
 		songListDetail: {},
-		type: '',
 		searchResult:{},
 		isSearching: false,
 		albumSongs: [],
@@ -71,7 +70,7 @@ export const store = new Vuex.Store({
 			}
 		},
 		originalTop3(state) {
-			if (state.originalSongRank) {
+			if (state.originalSongRank.tracks) {
 				return state.originalSongRank.tracks.slice(0, 3)
 			}
 		},
@@ -120,12 +119,6 @@ export const store = new Vuex.Store({
 		},
 		setCurrentSongIndex(state, payload){
 			state.currentSongIndex = payload
-		},
-		showPlayer(state){
-			state.isPlayerShow = true
-		},
-		hidePlayer(state) {
-			state.isPlayerShow = false
 		},
 		setPlayingList(state, payload){
 			state.playingList = payload
@@ -415,14 +408,18 @@ export const store = new Vuex.Store({
 		async getComments(context, payload){
 			// 评论 id 一样的话, 就别发请求了
 			if (payload.id === context.state.currentCommentsId) return
-			else{
-				context.commit('setIsLoading', true)
+			// 预设加载1个评论时, 就别 loading 了
+			else if (payload.limit ===1){
 				let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
 				context.commit('setComments', data.data)
 				context.commit('setCurrentCommentsId', payload.id)
-				setTimeout(() => {
-					context.commit('setIsLoading', false)
-				}, 0)
+			}
+			else{
+				context.commit('setIsLoading', true)
+				let data = await axios.get(`/comment/${payload.type}?id=${payload.id}&limit=${payload.limit}`)
+				context.commit('setIsLoading', false)
+				context.commit('setComments', data.data)
+				context.commit('setCurrentCommentsId', payload.id)
 			}
 		},
 		async getUserProfile(context, id){
