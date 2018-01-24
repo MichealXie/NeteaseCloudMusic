@@ -2,15 +2,7 @@
 	<div class="song-list-detail">
 		<loading v-show="isLoading"></loading>
 		<div class="detail-header">
-			<div class="top">
-				<div class="icon" @click="goback()">
-					<i class="fa fa-chevron-left" aria-hidden="true"></i>
-				</div>
-				<p class="title">歌单</p>
-				<div class="icon" @click="goPlayer()">
-					<i aria-hidden="true" class="fa fa-headphones"></i>
-				</div>
-			</div>
+			<common-header>歌单</common-header>
 			<router-link :to="'/user-profile/' + songListDetail.creator.userId" class="detail-info" v-if="songListDetail && songListDetail.creator">
 				<div class="img-ct">
 					<div class="img"><img v-lazy="songListDetail.coverImgUrl"></div>
@@ -68,14 +60,16 @@
 
 <script>
 import loading from '@/base/loading/loading'
+import commonHeader from '@/base/common-header/common-header'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 
 export default {
 	components:{
 		loading,
+		'common-header': commonHeader,
 		'mini-player': miniPlayer,
-		'mini-FM': miniFM		
+		'mini-FM': miniFM,
 	},
 	props:[],
 	computed: {
@@ -99,13 +93,6 @@ export default {
 		}
 	},
 	methods:{
-		goback(){
-			this.$router.go(-1)
-		},
-    goPlayer(){
-      if(this.playType === 1) this.$router.push('/player')
-      else if(this.playType === 2)  this.$router.push('/personal-fm')
-    },
 		playSong(trackIds, tracks){
 			let id = trackIds[0].id,
 			index = 0
@@ -147,24 +134,8 @@ export default {
 		padding-bottom 48px
 		.detail-header
 			color rgba(255,255,255,0.9)
-			background-image url('./background.png')
+			background-image url('../../assets/background.png')
 			background-size cover
-			.top
-				display flex
-				align-items center
-				height 48px
-				width 100%
-				background url('./background.png')
-				background-size cover				
-				position fixed
-				z-index 2
-				.title
-					flex 1
-					text-align center
-				.icon
-					flex 0 0 58px
-					flex-center()
-					font-size 24px
 			.detail-info
 				padding-top 48px
 				display flex

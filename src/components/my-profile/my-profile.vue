@@ -2,13 +2,7 @@
 	<div class="my-profile">
 		<loading v-show="isLoading"></loading>
 		<div class="top" v-if="myInfo.profile" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
-			<div class="header">
-				<div class="back" @click="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-				<div class="title">我的资料</div>
-				<div class="player" @click="goPlayer()">
-					<i class="fa fa-headphones" aria-hidden="true"></i>
-				</div>
-			</div>
+			<common-header>我的资料</common-header>
 			<div class="avatar"><img v-lazy="myInfo.profile.avatarUrl" alt=""></div>
 			<div class="name">{{myInfo.profile.nickname}}</div>
 			<div to="/login" class="logout" @click="logout()">退出登录</div>
@@ -43,11 +37,13 @@ import commentTitle from '@/base/comment-title/comment-title'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 import loading from '@/base/loading/loading'
+import commonHeader from '@/base/common-header/common-header'
 
 export default {
 	components: {
 		loading,
 		'comment-title': commentTitle,
+		'common-header': commonHeader,
 		'mini-player': miniPlayer,
 		'mini-FM': miniFM,
 	},
@@ -69,13 +65,6 @@ export default {
 		}
 	},
 	methods: {
-		goBack(){
-			this.$router.go(-1)
-		},
-    goPlayer(){
-      if(this.playType === 1) this.$router.push('/player')
-      else if(this.playType === 2)  this.$router.push('/personal-fm')
-    },
 		logout(){
 			// 退出暂停歌曲
 			this.$store.commit('setIsPlay', {})
@@ -103,26 +92,6 @@ export default {
 			background-size cover
 			color white		
 			dark-cover()
-			.header
-				position fixed
-				top 0 
-				width 100%
-				height 48px
-				display flex
-				align-items center
-				background-color rgba(255, 255, 255, 0.1)
-				z-index 2
-				.back, .player
-					flex 0 0 56px
-					flex-center()
-					font-size 30px
-					color white
-				.player
-					font-size 24px
-				.title
-					flex  1
-					text-align center 
-					font-size 16px
 			.avatar
 				position absolute
 				top 30%
