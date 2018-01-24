@@ -124,7 +124,6 @@ export default {
 				'Fun',
 				'谢春花'
 			],
-			searchHistory: JSON.parse(localStorage.searchHistory)
 		}
 	},
 	computed: {
@@ -141,6 +140,9 @@ export default {
 		isSearching(){
 			return this.$store.state.isSearching
 		},
+		searchHistory(){
+			if(localStorage.searchHistory) return JSON.parse(localStorage.searchHistory)
+		}
 	},
 	methods: {
 		goback(){
@@ -176,7 +178,6 @@ export default {
 	},
 	activated () {
 		this.keywords = ''
-		// this.$refs.searchInput.focus()
 	},
 	watch: {
 		keywords: function(newVal,oldVal){
