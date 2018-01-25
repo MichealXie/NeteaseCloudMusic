@@ -444,12 +444,15 @@ export const store = new Vuex.Store({
 			if (data.data.code === 200 ){
 				context.commit('setSingleLoved', payload)
 			}
+			else context.commit('throwError')
 		},
 		async getDailyRecommend(context){
 			let data = await axios.get(`/recommend/songs`, { withCredentials: true })
+			console.log(data)
 			if (data.data.code === 200){
 				context.commit('setDailyRecommend', data.data.recommend)
 			}
+			else context.commit('throwError')
 		}
 	},
 	// plugins: [createLogger()]

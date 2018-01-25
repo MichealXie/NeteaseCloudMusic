@@ -17,8 +17,8 @@ export default {
 			this.$router.go(-1)
 		},
     goPlayer(){
-      if(this.playType === 1) this.$router.push('/player')
-      else if(this.playType === 2)  this.$router.push('/personal-fm')
+      if(this.playType === 2) this.$router.push('/personal-fm')
+      else this.$router.push('/player')
     },
 	}
 }

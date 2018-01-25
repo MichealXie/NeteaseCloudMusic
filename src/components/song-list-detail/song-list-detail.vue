@@ -36,13 +36,7 @@
 		</div>
 		<div class="detail-list" v-if="songListDetail">
 			<ul class="songs">
-				<div class="play-all" @click="playSong(songListDetail.trackIds, songListDetail.tracks)">
-					<i class="fa fa-play-circle-o" aria-hidden="true"></i>
-					<div class="play">
-						播放全部
-						<span class="count">(共{{songListDetail.trackCount}}首)</span>
-					</div>
-				</div>
+				<play-all :songListDetail="songListDetail"></play-all>
 				<li class="song" v-for="(item, index) in songListDetail.tracks" :key="item.id" @click="playIndexSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 					<span class="index">{{index + 1}}</span>
 					<div class="info">
@@ -63,6 +57,7 @@ import loading from '@/base/loading/loading'
 import commonHeader from '@/base/common-header/common-header'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
+import playAll from '@/base/play-all/play-all'
 
 export default {
 	components:{
@@ -70,6 +65,7 @@ export default {
 		'common-header': commonHeader,
 		'mini-player': miniPlayer,
 		'mini-FM': miniFM,
+		'play-all': playAll,
 	},
 	props:[],
 	computed: {
@@ -184,22 +180,6 @@ export default {
 		.detail-list
 			background $list-background
 			.songs
-				.play-all
-					display flex
-					.fa
-						flex 0 0 40px
-						height 50px
-						font-size 24px
-						color $not-important
-						flex-center()
-					.play
-						flex 1
-						width calc(100% - 80px)
-						border-1px()
-						display flex
-						align-items center
-						.count
-							default-singer()
 				.song
 					display flex
 					no-wrap()

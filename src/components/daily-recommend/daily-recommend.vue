@@ -1,15 +1,12 @@
 <template>
 	<div class="daily-recommend">
-		<common-header>每日推荐</common-header>
-		<div class="play-all" @click="playSong(songListDetail.trackIds, songListDetail.tracks)">
-			<i class="fa fa-play-circle-o" aria-hidden="true"></i>
-			<div class="play">
-				播放全部
-				<span class="count">(共20首)</span>
-			</div>
+		<common-header>每日歌曲推荐</common-header>
+		<div class="banner">
+			<img v-if="recommendMV[0]" :src="recommendMV[0].picUrl" alt="">
 		</div>
-		<ul v-if="dailyRecommend.length">
-			<li class="item" v-for="item in dailyRecommend" :key="item.id">
+		<play-all :songListDetail="songListDetail"></play-all>
+		<ul v-if="dailyRecommend.length" class="daily-list">
+			<li class="item" v-for="(item, index) in dailyRecommend" :key="item.id"  @click="playIndexSong(songListDetail.trackIds[index].id,index, songListDetail.tracks)">
 				<div class="cover">
 					<img v-lazy="item.album.picUrl" alt="">
 				</div>
@@ -24,32 +21,63 @@
 				</div>
 			</li>
 		</ul>
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>		
 	</div>
 </template>
 
 <script>
 import commonHeader from '@/base/common-header/common-header'
+import miniPlayer from '@/base/mini-player/mini-player'
+import miniFM from '@/base/mini-FM/mini-FM'
+import playAll from '@/base/play-all/play-all'
 
 export default {
 	components: {
 		'common-header': commonHeader,
+		'mini-player': miniPlayer,
+		'mini-FM': miniFM,
+		'play-all': playAll,
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		isLogin(){
 			return this.$store.state.isLogin
+		},
+		player(){
+			return document.getElementById("player")
+		},
+		// 偷图片
+		recommendMV(){
+			return this.$store.state.recommendMV
 		},
 		dailyRecommend(){
 			return this.$store.state.dailyRecommend
 		},
-		// 妈的数据格式不一样...
+		// 妈的数据格式不一样... 手动转换...
 		songListDetail(){
 			if(this.dailyRecommend){
 				let trackIds = []
 				for(let i of this.dailyRecommend){
 					trackIds.push({id: i.id})
 				}
+				let tracks = []
+				for(let j of this.dailyRecommend){
+					tracks.push({
+						al: {
+							picUrl: j.album.picUrl
+						},
+						ar: [
+							{name: j.artists[0].name}
+						],
+						name: j.name,
+						id: j.id
+					}) 
+				}
 				return {
-					tracks:this.dailyRecommend,
+					tracks: tracks,
 					trackIds: trackIds
 				}
 			}
@@ -72,29 +100,54 @@ export default {
 			this.$store.commit('setCurrentSongIndex',index)
 			this.$store.commit('setIsPlay', true)
 		},
+		playIndexSong(id, index, tracks){
+			this.player.pause()
+			// 设置为歌单模式
+			this.$store.commit('setPlayType', 1)
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl',id)
+			this.$store.commit('setPlayingList',tracks)
+			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setIsPlay', true)
+		}
 	},
-	created () {
+	activated () {
 		if(this.$store.state.isLogin) this.$store.dispatch('getDailyRecommend')
+		else if(this.dailyRecommend) return
 		else this.$router.push('login')
 	}
 }
 </script>
 
 <style lang="stylus">
-				.play-all
-					display flex
-					.fa
-						flex 0 0 40px
-						height 50px
-						font-size 24px
-						color $not-important
-						flex-center()
-					.play
-						flex 1
-						width calc(100% - 80px)
-						border-1px()
-						display flex
-						align-items center
-						.count
-							default-singer()
+  @import "../../common/stylus/mixin"
+
+	.daily-recommend
+		background-color $list-background
+		min-height 100vh
+		color white
+		.banner
+			img 
+				width 100%
+		.daily-list
+			padding-bottom 48px
+			.item
+				display flex
+				padding 0 10px
+				.cover
+					flex 0 0 50px
+					height 50px
+					margin-bottom: 4px
+					img 
+						width 100%
+						height 100%
+				.info
+					flex 1
+					margin-left 10px
+					padding-top 5px
+					border-1px()
+					.name
+						song-name()
+					.singer
+						default-singer()
 </style>
