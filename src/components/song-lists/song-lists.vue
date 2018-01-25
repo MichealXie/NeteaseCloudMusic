@@ -1,6 +1,7 @@
 <template>
 	<div class="song-lists">
 		<loading v-show="!Object.keys(songLists).length">ԅ(¯﹃¯ԅ)</loading>
+		<common-header class="common-header">精品歌单</common-header>
 		<div class="lists-tab">
 			<div class="lists-item" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
 			<div class="lists-item" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>
@@ -20,15 +21,23 @@
 				</router-link>
 			</ul>
 		</div>
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>	
 	</div>
 </template>
 
 <script>
 import loading from '@/base/loading/loading'
+import commonHeader from '@/base/common-header/common-header'
+import miniPlayer from '@/base/mini-player/mini-player'
+import miniFM from '@/base/mini-FM/mini-FM'
 
 export default {
 	components:{
 		loading,
+		'common-header': commonHeader,
+		'mini-player': miniPlayer,
+		'mini-FM': miniFM,
 	},
 	data () {
 		return {
@@ -36,6 +45,9 @@ export default {
 		}
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		songLists(){
 			return this.$store.state.songLists
 		}
@@ -70,9 +82,12 @@ export default {
 		background $list-background
 		min-height 100vh
 		padding-bottom 48px
+		.common-header
+			background-color #f33
+			color white
 		.lists-tab
 			position fixed
-			top 88px
+			top 48px
 			// 被迫 hack 居中
 			right 50%
 			transform translateX(50%)
@@ -101,7 +116,7 @@ export default {
 				background $color-background
 				color white
 		.duet-lists
-			padding-top 140px
+			padding-top 100px
 			background $list-background
 			ul
 				display flex

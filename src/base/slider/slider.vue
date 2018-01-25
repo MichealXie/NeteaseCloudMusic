@@ -29,7 +29,8 @@ export default {
 			startX: 0,
 			endX: 0,
 			autoPlay: '',
-			imageNumber: 0
+			imageNumber: 0,
+			screenWidth: 0
 		}
 	},
 	computed: {
@@ -39,9 +40,9 @@ export default {
 	},
 	methods: {
 		nextPic(){
-			if(Math.abs(this.position - 375) < this.fullWidth){
+			if(Math.abs(this.position - this.screenWidth) < this.fullWidth){
 				this.index -= 1
-				this.position = 375*this.index
+				this.position = this.screenWidth*this.index
 			}
 			else{
 				this.index = 0
@@ -52,18 +53,18 @@ export default {
 		lastPic(){
 			if( this.position < 0){
 				this.index += 1
-				this.position = 375*this.index
+				this.position = this.screenWidth*this.index
 				this.slider.style.transform = `translateX(${this.position}px)`
 			}
 			else{
 				this.index = -(this.imageNumber - 1)
-				this.position = 375*this.index
+				this.position = this.screenWidth*this.index
 				this.slider.style.transform = `translateX(${this.position}px)`
 			}
 		},
 		moveTo(index){
 			this.index = index
-			this.position = 375*this.index
+			this.position = this.screenWidth*this.index
 			this.slider.style.transform = `translateX(${this.position}px)`
 		},
 		touchstart(e){
@@ -90,8 +91,9 @@ export default {
 		}
 	},
   mounted() {
+		this.screenWidth = document.body.clientWidth
 		this.imageNumber = this.slider.children.length
-		this.fullWidth = this.imageNumber * 375
+		this.fullWidth = this.imageNumber * this.screenWidth
 		this.slider.style.width = this.fullWidth + 'px'
 		this.autoPlay = setInterval( () =>{
 			this.nextPic()
@@ -107,7 +109,7 @@ export default {
 		height: 148px;
     overflow: hidden;
     border-radius: 6px;
-		padding-top: 88px;
+		padding-top: 48px;
   }
   div.slider ul.images{
     position: absolute;

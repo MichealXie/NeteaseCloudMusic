@@ -12,11 +12,6 @@ const Home = (reslove) => {
     reslove(module)
   })
 }
-const Recommend = (reslove) => {
-  import('@/components/recommend/recommend').then((module) => {
-    reslove(module)
-  })
-}
 const SongLists = (reslove) => {
   import('@/components/song-lists/song-lists').then((module) => {
     reslove(module)
@@ -89,7 +84,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home/recommend'
+      redirect: '/home'
     },
     {
       path:'/my-profile',
@@ -110,20 +105,14 @@ export default new Router({
     {
       path: '/home',
       component: Home,
-      children:[
-        {
-          path: 'recommend',
-          component: Recommend
-        },
-        {
-          path: 'song-lists',
-          component: SongLists
-        },
-        {
-          path: 'rank',
-          component: Rank
-        }
-      ]
+    },
+    {
+      path: '/song-lists',
+      component: SongLists
+    },
+    {
+      path: '/rank',
+      component: Rank
     },
     {
       path: '/search',

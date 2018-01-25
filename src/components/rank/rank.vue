@@ -1,6 +1,7 @@
 <template>
 	<div class="rank">
 		<loading v-show="!Object.keys(newSongRank).length">٩( ö̆ ) و</loading>
+		<common-header class="common-header">精品歌单</common-header>
 		<app-title>
 			网易云官方榜
 		</app-title>
@@ -46,20 +47,30 @@
 				</div>
 			</router-link>
 		</div>
-
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>
 	</div>
 </template>
 
 <script>
 import appTitle from '@/components/app-title/app-title'
 import loading from '@/base/loading/loading'
+import commonHeader from '@/base/common-header/common-header'
+import miniPlayer from '@/base/mini-player/mini-player'
+import miniFM from '@/base/mini-FM/mini-FM'
 
 export default {
 	components: {
 		'app-title': appTitle,
 		loading,
+		'common-header': commonHeader,
+		'mini-player': miniPlayer,
+		'mini-FM': miniFM,
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		newSongRank(){
 			return this.$store.state.newSongRank
 		},
@@ -96,10 +107,13 @@ export default {
   @import "../../common/stylus/mixin"
 
 	.rank
-		padding-top 88px
+		padding-top 48px
 		padding-bottom 48px
 		background $list-background
 		min-height calc(100vh - 88px)
+		.common-header
+			background-color #f33
+			color white
 		.rank-item
 			display flex
 			width 100%
