@@ -331,7 +331,7 @@ export default {
 					height 35px
 					flex-center()
 					.loved
-						color #f33
+						color $color-background
 					i 
 						transition .5s all linear
 					.count

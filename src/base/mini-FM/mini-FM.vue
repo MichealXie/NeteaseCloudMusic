@@ -72,6 +72,7 @@ export default {
 
 <style lang="stylus" scoped>
   @import "../../common/stylus/mixin"
+  @import "../../common/stylus/variable"
 
 	.mini-FM
 		position fixed
@@ -110,5 +111,5 @@ export default {
 			i 
 				transition .5s all linear
 			.loved
-				color #f33
+				color $color-background
 </style>

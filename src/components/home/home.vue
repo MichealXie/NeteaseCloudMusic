@@ -161,6 +161,9 @@ export default {
       this.$store.dispatch('login', info)
     }
 	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
+	}
 }
 </script>
 

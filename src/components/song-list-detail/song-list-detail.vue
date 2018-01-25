@@ -119,6 +119,9 @@ export default {
 	activated () {
 		if(this.listId !== this.$store.state.currentListId ) this.$store.dispatch('getSongListDetail', this.listId)
 	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
+	}
 }
 </script>
 

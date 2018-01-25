@@ -112,7 +112,7 @@ export default {
 		background $list-background
 		min-height calc(100vh - 88px)
 		.common-header
-			background-color #f33
+			background-color $color-background
 			color white
 		.rank-item
 			display flex

@@ -1,5 +1,6 @@
 <template>
 	<div class="daily-recommend">
+		<loading v-show="!Object.keys(songLists).length">ԅ(¯﹃¯ԅ)</loading>
 		<common-header>每日歌曲推荐</common-header>
 		<div class="banner">
 			<img v-if="recommendMV[0]" :src="recommendMV[0].picUrl" alt="">
@@ -31,6 +32,7 @@ import commonHeader from '@/base/common-header/common-header'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 import playAll from '@/base/play-all/play-all'
+import loading from '@/base/loading/loading'
 
 export default {
 	components: {
@@ -38,10 +40,14 @@ export default {
 		'mini-player': miniPlayer,
 		'mini-FM': miniFM,
 		'play-all': playAll,
+		loading,
 	},
 	computed: {
 		playType(){
 			return this.$store.state.playType
+		},
+		isLoading(){
+			return this.$store.state.isLoading
 		},
 		isLogin(){
 			return this.$store.state.isLogin
@@ -115,6 +121,9 @@ export default {
 		if(this.$store.state.isLogin) this.$store.dispatch('getDailyRecommend')
 		else if(this.dailyRecommend) return
 		else this.$router.push('login')
+	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
 	}
 }
 </script>

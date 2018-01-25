@@ -5,8 +5,7 @@
 				<i class="fa fa-angle-left" aria-hidden="true"></i>
 			</div>
 			<div class="info">
-				<i class="fa fa-heartbeat" aria-hidden="true"></i>
-				<div class="name">私人FM</div>
+				Welcome to your own FM
 			</div>
 		</div>
 		<div class="music-center">
@@ -219,16 +218,16 @@ export default {
 			.info
 				flex 1
 				display flex
-				align-items center
-				font-size 20px
-				&>*
-					padding-left 20px
+				align-items center 
+				padding-left 15px
+				font-weight 300
+				font-size 18px
 		.music-center
 			position relative
 			overflow hidden
 			height 450px
 			.img
-				padding-top 50px
+				padding-top 30px
 				flex-center()
 				img 
 					width 90%
@@ -247,7 +246,7 @@ export default {
 				font-size 14px
 		.control-center
 			position absolute
-			bottom 50px
+			bottom 20px
 			width 100%
 			.progress-bar
 				display flex
@@ -296,7 +295,7 @@ export default {
 					i 
 						transition .5s all linear
 					.loved
-						color #f33
+						color $color-background
 					.count
 						position absolute
 						top 5px

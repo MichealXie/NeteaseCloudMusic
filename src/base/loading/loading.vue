@@ -35,10 +35,10 @@ export default {
 		justify-content space-around
 		align-items center
 		flex-direction column
-		width 100px
+		width 130px
 		height 150px
 		border-radius 8px
-		padding 10px
+		padding 10px 0
 		background rgba(17, 17, 17, 0.7)
 		color white
 		z-index 999

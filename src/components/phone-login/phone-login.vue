@@ -75,7 +75,7 @@ export default {
 	watch: {
 		loginCode(newV, oldV){
 			if(newV === 200){
-				this.$router.push('/home/recommend')
+				this.$router.push('/home')
 			}
 		}
 	}

@@ -70,6 +70,9 @@ export default {
 	},
 	created () {
 		this.$store.dispatch('getRecommendLists')
+	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
 	}
 }
 </script>
@@ -83,7 +86,7 @@ export default {
 		min-height 100vh
 		padding-bottom 48px
 		.common-header
-			background-color #f33
+			background-color $color-background
 			color white
 		.lists-tab
 			position fixed

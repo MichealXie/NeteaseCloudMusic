@@ -80,6 +80,9 @@ export default {
 			this.$router.push('/login')
 		},
 	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
+	}
 }
 </script>
 

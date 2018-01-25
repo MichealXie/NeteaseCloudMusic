@@ -1,12 +1,12 @@
 <template>
 	<div class="slider">
 		<ul class = "images" id="slider" @touchstart="touchstart($event)" @touchend="touchend($event)" @touchmove="touchmove($event)">
-			<li><img src="http://p3.music.126.net/s25q2x5QyqsAzilCurD-2w==/7973658325212564.jpg" alt=""></li>
-			<li><img src="http://p4.music.126.net/V9-MXz6b2MNhEKjutoDWIg==/7937374441542745.jpg" alt=""></li>
-			<li><img src="http://p4.music.126.net/CTU5B9R9y3XyYBZXJUXzTg==/2897213141428023.jpg" alt=""></li>
-			<li><img src="http://p4.music.126.net/tGPljf-IMOCyPvumoWLOTg==/7987951976374270.jpg" alt=""></li>
-			<li><img src="http://p4.music.126.net/mp2Y2n4ueZzIj6JSnUOdtw==/7875801790676538.jpg" alt=""></li>
-			<li><img src="http://p3.music.126.net/e0gGadEhjur2UuUpDF9hPg==/7788940372125389.jpg" alt=""></li>	
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p3.music.126.net/s25q2x5QyqsAzilCurD-2w==/7973658325212564.jpg" alt=""></a>
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p4.music.126.net/V9-MXz6b2MNhEKjutoDWIg==/7937374441542745.jpg" alt=""></a>
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p4.music.126.net/CTU5B9R9y3XyYBZXJUXzTg==/2897213141428023.jpg" alt=""></a>
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p4.music.126.net/tGPljf-IMOCyPvumoWLOTg==/7987951976374270.jpg" alt=""></a>
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p4.music.126.net/mp2Y2n4ueZzIj6JSnUOdtw==/7875801790676538.jpg" alt=""></a>
+			<a href="https://music.163.com/nact/year2017_9"><img src="http://p3.music.126.net/e0gGadEhjur2UuUpDF9hPg==/7788940372125389.jpg" alt=""></a>	
 		</ul>
 		<ul class = "bullets">
 			<li :class ="{'active': index === 0}" @click="moveTo(0)"></li>
@@ -120,11 +120,11 @@ export default {
     clear: both;
     display: block;
   }
-  div.slider li{
+  div.slider a{
     float:left;
     width: 375px;
   }
-  div.slider li img{
+  div.slider a img{
     width: 375px;
   }
   ul.bullets{
@@ -143,6 +143,6 @@ export default {
     margin-left: 10px;
   }
   ul.bullets li.active{
-    background-color: #f33;
+    background-color: #d43c33;
   }
 </style>

@@ -11,6 +11,7 @@ export default {
 
 <style lang="stylus">
   @import "../../common/stylus/mixin"
+  @import "../../common/stylus/variable"
 
 	.error
 		position fixed
@@ -21,7 +22,7 @@ export default {
 		width 70%
 		text-align center 
 		border-radius 4px
-		color #f33
+		color $color-background
 		background-color rgba(55, 55, 55, 0.3)
 		
 </style>

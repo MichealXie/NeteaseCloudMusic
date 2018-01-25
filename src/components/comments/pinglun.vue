@@ -45,6 +45,9 @@ export default {
 			limit: 100,
 		}
 		this.$store.dispatch('getComments', payload)
+	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
 	}
 }
 </script>

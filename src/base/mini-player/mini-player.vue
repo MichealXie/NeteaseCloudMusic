@@ -25,6 +25,9 @@ export default {
 		isLoved(){
 			return this.lovedSongs.includes(this.id)
 		},
+		isLogin(){
+			return this.$store.state.isLogin
+		},
 		id(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
 		},
@@ -45,15 +48,13 @@ export default {
 		},
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
-			else{
-				return "oops!"
-			}
+			else if(this.isLogin) return '已登录'
+			else	return "oops!"
 		},
 		singer(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
-			else{
-				return '当前无歌曲播放~'
-			}
+			else if(this.isLogin) return '正在努力加载我喜欢的歌曲'
+			else  return '当前无歌曲播放~'
 		},
 		player(){
 			return document.getElementById('player')
@@ -93,6 +94,7 @@ export default {
 
 <style lang="stylus" scoped>
   @import "../../common/stylus/mixin"
+  @import "../../common/stylus/variable"
 
 	.mini-player
 		position fixed
@@ -131,5 +133,5 @@ export default {
 			i 
 				transition .5s all linear
 			.loved
-				color #f33
+				color $color-background
 </style>

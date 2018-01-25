@@ -68,6 +68,10 @@ export default {
 	methods: {
 		
 	},
+	mounted () {
+		// 第一次进入用户详情不发送请求, 打个补丁
+		this.$store.dispatch('getUserProfile', this.$route.params.id)		
+	},
 	activated () {
 		console.log(' 这里是用户信息');
 		console.log(this.$route.params.id);
@@ -77,6 +81,9 @@ export default {
 			this.$store.dispatch('getUserProfile', this.$route.params.id)
 		}
 	},
+	deactivated () {
+		this.$store.commit('setIsLoading', false)
+	}
 }
 </script>
 
