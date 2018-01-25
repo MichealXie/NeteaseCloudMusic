@@ -131,6 +131,9 @@ export const store = new Vuex.Store({
 			state.isPlay = !state.isPlay
 		},
 		setIsPlay(state, payload){
+			let player = document.getElementById('player')
+			if (payload === false) player.pause()
+			else if (payload === true) player.play()
 			state.isPlay = payload
 		},
 		changeSongIndex(state){

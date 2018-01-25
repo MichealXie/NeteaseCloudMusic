@@ -1,6 +1,6 @@
 <template>
 	<div class="comment">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">ψ(｀∇´)ψ</loading>
 		<comment-header></comment-header>
 		<comment-info></comment-info>
 		<ul class="hot" v-if="comments.hotComments">

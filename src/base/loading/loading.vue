@@ -1,6 +1,7 @@
 <template>
 	<div class="loading">
-		<img src="../../assets/waiting.gif" alt="">
+		<i class="fa fa-spinner fa-spin fa-3x" aria-hidden="true"></i>
+		<p class="word"><slot></slot></p>
 	</div>
 </template>
 
@@ -34,10 +35,12 @@ export default {
 		justify-content space-around
 		align-items center
 		flex-direction column
-		width 150px
+		width 100px
+		height 150px
+		border-radius 8px
+		padding 10px
 		background rgba(17, 17, 17, 0.7)
 		color white
 		z-index 999
-		img 
-			width 100%
+
 </style>

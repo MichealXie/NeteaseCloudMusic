@@ -1,6 +1,6 @@
 <template>
 	<div class="song-list-detail">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">∠( ᐛ 」∠)＿</loading>
 		<div class="detail-header">
 			<common-header>歌单</common-header>
 			<router-link :to="'/user-profile/' + songListDetail.creator.userId" class="detail-info" v-if="songListDetail && songListDetail.creator">

@@ -1,6 +1,6 @@
 <template>
 	<div class="rank">
-		<loading v-show="!Object.keys(newSongRank).length"></loading>
+		<loading v-show="!Object.keys(newSongRank).length">٩( ö̆ ) و</loading>
 		<app-title>
 			网易云官方榜
 		</app-title>

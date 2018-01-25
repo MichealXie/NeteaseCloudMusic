@@ -1,6 +1,6 @@
 <template>
 	<div class="search">
-		<loading v-show="isSearching"></loading>
+		<loading v-show="isSearching">(ง ˙o˙)ว</loading>
 		<div class="search-header">
 			<i class="fa fa-microphone" aria-hidden="true"></i>
 			<router-link class="router-link" to="/search">

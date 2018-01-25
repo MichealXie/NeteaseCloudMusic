@@ -1,6 +1,6 @@
 <template>
 	<div class="user-profile">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">(๑•̀ㅂ•́)و</loading>
 		<div class="top" v-if="userProfile.profile" :style="'background-image:url(' +  userProfile.profile.backgroundUrl + ')'">
 			<common-header>{{userProfile.profile.nickname}}的资料</common-header>
 			<div class="avatar" v-if="userProfile.profile" ><img v-lazy="userProfile.profile.avatarUrl" alt=""></div>
@@ -69,6 +69,9 @@ export default {
 		
 	},
 	activated () {
+		console.log(' 这里是用户信息');
+		console.log(this.$route.params.id);
+		console.log(this.userID);
 		if(this.$route.params.id !== this.userID){
 			this.userID = this.$route.params.id
 			this.$store.dispatch('getUserProfile', this.$route.params.id)

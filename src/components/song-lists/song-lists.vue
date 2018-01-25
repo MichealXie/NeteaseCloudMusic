@@ -1,6 +1,6 @@
 <template>
 	<div class="song-lists">
-		<loading v-show="!Object.keys(songLists).length"></loading>
+		<loading v-show="!Object.keys(songLists).length">ԅ(¯﹃¯ԅ)</loading>
 		<div class="lists-tab">
 			<div class="lists-item" :class="{active: status === 'recommend'}" @click="switchStatus('recommend')">精品</div>
 			<div class="lists-item" :class="{active: status === 'latest'}" @click="switchStatus('latest')">最新</div>

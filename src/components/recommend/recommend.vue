@@ -1,6 +1,6 @@
 <template>
 	<div class="recommend">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">(⁄ ⁄•⁄ω⁄•⁄ ⁄)</loading>
 		<div class="recommend-content">
 			<slider></slider>
 			<div class="personal">

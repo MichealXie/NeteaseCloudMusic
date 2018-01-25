@@ -1,6 +1,6 @@
 <template>
 	<div class="phone-login">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">(/ω＼)害羞</loading>
 		<div class="header">
 			<div class="back" @click="goback()"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 			<span class="title">手机号登录</span>

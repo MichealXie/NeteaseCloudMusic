@@ -1,6 +1,6 @@
 <template>
 	<div class="my-profile">
-		<loading v-show="isLoading"></loading>
+		<loading v-show="isLoading">梦想涌动的声音</loading>
 		<div class="top" v-if="myInfo.profile" :style="'background-image:url(' +  myInfo.profile.backgroundUrl + ')'">
 			<common-header>我的资料</common-header>
 			<div class="avatar"><img v-lazy="myInfo.profile.avatarUrl" alt=""></div>
