@@ -386,11 +386,15 @@ export const store = new Vuex.Store({
 			}
 		},
 		async getLovedSongs(context, payload){
+			if (!payload) return
 			let data = await axios.get(`/playlist/detail?id=${payload}`)
 			// 默认登录后正在播放的是我喜欢歌曲
-			context.commit('setPlayingList', data.data.playlist.tracks)
-			// 一个数组, 储存 id, 检测是否喜欢
-			context.commit('setlovedSongs', data.data.privileges)
+			if (data.data.code === 200) {
+				context.commit('setPlayingList', data.data.playlist.tracks)
+				// 一个数组, 储存 id, 检测是否喜欢
+				context.commit('setlovedSongs', data.data.privileges)
+			}
+			else context.commit('throwError')
 		},
 		async getMyPlaylist(context){
 			// 检查local 里有没有喜欢的歌曲

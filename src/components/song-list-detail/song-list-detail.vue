@@ -89,24 +89,7 @@ export default {
 		}
 	},
 	methods:{
-		playSong(trackIds, tracks){
-			let id = trackIds[0].id,
-			index = 0
-			if(this.playMode === 2) {
-				index = Math.round(Math.random() * tracks.length)
-				id = tracks[index].id
-			}
-			// 设置为歌单模式
-			this.$store.commit('setPlayType', 1)	
-			this.player.pause()
-			this.$store.commit('setIsPlay', false)
-			this.$store.dispatch('getSongUrl',id)
-			this.$store.commit('setPlayingList',tracks)
-			this.$store.commit('setCurrentSongIndex',index)
-			this.$store.commit('setIsPlay', true)
-		},
 		playIndexSong(id, index, tracks){
-			this.player.pause()
 			// 设置为歌单模式
 			this.$store.commit('setPlayType', 1)
 			this.$store.commit('setIsPlay', false)

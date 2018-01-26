@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<div class="bottom">
-			<li class="word" v-for="word in comment" :key="word">{{word}}</li>
+			<li class="word" v-for="(word, index) in comment" :key="index">{{word}}</li>
 		</div>
 	</li>
 </template>

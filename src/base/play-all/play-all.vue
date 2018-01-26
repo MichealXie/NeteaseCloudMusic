@@ -3,7 +3,7 @@
 		<i class="fa fa-play-circle-o" aria-hidden="true"></i>
 		<div class="play">
 			播放全部
-			<span class="count">(共{{songListDetail.trackIds.length}}首)</span>
+			<span class="count" v-if="songListDetail.trackIds">(共{{songListDetail.trackIds.length}}首)</span>
 		</div>
 	</div>
 </template>
@@ -12,6 +12,23 @@
 export default {
 	props: {
 		songListDetail: Object
+	},
+	methods: {
+		playSong(trackIds, tracks){
+			let id = trackIds[0].id,
+			index = 0
+			if(this.playMode === 2) {
+				index = Math.round(Math.random() * tracks.length)
+				id = tracks[index].id
+			}
+			// 设置为歌单模式
+			this.$store.commit('setPlayType', 1)	
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl',id)
+			this.$store.commit('setPlayingList',tracks)
+			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setIsPlay', true)
+		},
 	}
 }
 </script>

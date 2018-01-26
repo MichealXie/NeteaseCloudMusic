@@ -15,7 +15,7 @@
 		<div class="music-center">
 			<img src="../../assets/play-controler.png" alt="" class="hook">
 			<div class="black-circle" :class="{'spin': isPlay}">
-				<img v-if="playingList[currentSongIndex]" v-lazy="playingList[currentSongIndex].al.picUrl" alt="">
+				<img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt="">
 			</div>
 		</div>
 		<div class="control-center">
@@ -42,7 +42,7 @@
 				<div class="full-progress" @click="setTime($event)" id="progressBar">
 					<div class="current-progress" ref="currentProgress"></div>
 				</div>
-				<span class="restTime">{{fullTime}}</span>
+				<span class="restTime">{{fullTime.min}} : {{fullTime.sec}}</span>
 			</div>
 			<div class="music-ctrl">
 				<div class="btn">
@@ -176,7 +176,10 @@ export default {
 			let min = Math.floor(this.player.duration / 60)
 			let sec = Math.floor(this.player.duration % 60)
 			if(sec < 10) sec = '0' + sec
-			this.fullTime =  min + ':' + sec
+			this.fullTime =  {
+				min: min || '0',
+				sec: sec || '00',
+			}
 		},
 		changePlayMode(){
 			this.$store.commit('changePlayMode')

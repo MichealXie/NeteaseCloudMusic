@@ -2,42 +2,34 @@
 	<div class="album">
 		<loading v-show="!albumSongs.length"></loading>
 		<div class="detail-header">
-			<div class="top">
-				<div class="icon" @click="goback()">
-					<i class="fa fa-chevron-left" aria-hidden="true"></i>
-				</div>
-				<p class="title">专辑</p>
-				<div class="icon">
-					<i aria-hidden="true" class="fa fa-headphones"></i>
-				</div>
-			</div>
+			<common-header>专辑</common-header>
 			<div class="detail-info">
 				<div class="img-ct">
-					<img :src="albumInfo.blurPicUrl">
+					<img v-if="albumInfo" :src="albumInfo.blurPicUrl">
 				</div>
 				<div class="list-creator">
-						<span class="name" >{{albumInfo.name}}</span>
-						<span class="singer">歌手: {{albumSongs[0].ar[0].name}}</span>
+						<span class="name" v-if="albumInfo">{{albumInfo.name}}</span>
+						<span class="singer" v-if="albumSongs[0]">歌手: {{albumSongs[0].ar[0].name}}</span>
 				</div>
 			</div>
 			<div class="list-data">
 				<div class="icon-ct">
 					<i class="fa fa-plus-square-o" aria-hidden="true"></i>
-					<p>{{albumInfo.info.resourceId | playcount}}</p>
+					<p v-if="albumInfo.info">{{albumInfo.info.resourceId | playcount}}</p>
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-commenting-o" aria-hidden="true"></i>
-					<p>{{albumInfo.info.commentCount | playcount}}</p>
+					<p v-if="albumInfo.info">{{albumInfo.info.commentCount | playcount}}</p>
 				</div>
 				<div class="icon-ct">
 					<i class="fa fa-share-square-o" aria-hidden="true"></i>
-					<p>{{albumInfo.info.shareCount | playcount}}</p>					
+					<p v-if="albumInfo.info">{{albumInfo.info.shareCount | playcount}}</p>					
 				</div>
 			</div>
 		</div>
 		<div class="detail-list">
 			<ul class="songs">
-				<li class="song" v-for="(item, index) in albumSongs" :key="item.id">
+				<li class="song" v-for="(item, index) in albumSongs" :key="item.id" @click="playIndexSong(albumSongs[index].id,index, albumSongs)">
 					<span class="index">{{index + 1}}</span>
 					<div class="info">
 						<div class="name">{{item.name}}</div>
@@ -47,15 +39,23 @@
 				</li>
 			</ul>
 		</div>
+		<mini-player v-show="playType === 1"></mini-player>
+		<mini-FM v-show="playType === 2"></mini-FM>		
 	</div>
 </template>
 
 <script>
 import loading from '@/base/loading/loading'
+import commonHeader from '@/base/common-header/common-header'
+import miniFM from '@/base/mini-FM/mini-FM'
+import miniPlayer from '@/base/mini-player/mini-player'
 
 export default {
 	components:{
 		loading,
+		'common-header': commonHeader,
+		'mini-player': miniPlayer,
+		'mini-FM': miniFM,
 	},
 	methods: {
 		goback(){
@@ -63,11 +63,28 @@ export default {
 		}
 	},
 	computed: {
+		playType(){
+			return this.$store.state.playType
+		},
 		albumSongs(){
 			return this.$store.state.albumSongs
 		},
 		albumInfo(){
 			return this.$store.state.albumInfo			
+		},
+		player(){
+			return document.getElementById("player")
+		},
+	},
+	methods: {
+		playIndexSong(id, index, tracks){
+			// 设置为歌单模式
+			this.$store.commit('setPlayType', 1)
+			this.$store.commit('setIsPlay', false)
+			this.$store.dispatch('getSongUrl',id)
+			this.$store.commit('setPlayingList',tracks)
+			this.$store.commit('setCurrentSongIndex',index)
+			this.$store.commit('setIsPlay', true)
 		}
 	},
 	activated () {
@@ -83,21 +100,8 @@ export default {
 	.album
 		.detail-header
 			color rgba(255,255,255,0.9)
-			background url('./background.png')
-			.top
-				display flex
-				align-items center
-				height 48px
-				width 100%
-				background url('./background.png') no-repeat
-				position fixed
-				z-index 2
-				.title
-					flex 1
-					text-align center
-				.icon
-					flex 0 0 24px
-					padding 10px
+			background url('../../assets/background.png')
+			background-size cover
 			.detail-info
 				display flex
 				padding-top 48px
@@ -137,6 +141,7 @@ export default {
 						padding 8px 0
 		.detail-list
 			.songs
+				padding-bottom 48px			
 				.song
 					display flex
 					no-wrap()

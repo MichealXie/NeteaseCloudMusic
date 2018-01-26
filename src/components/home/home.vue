@@ -30,7 +30,7 @@
 						<router-link to="/song-lists" class="icon fa-stack">
 							<i class="fa fa-list-ul" aria-hidden="true"></i>
 						</router-link>
-						<div class="title">精品歌单</div>
+						<div class="title">歌单</div>
 					</div>
 					<router-link to="/rank" class="item">
 						<div class="icon fa-stack">
@@ -210,6 +210,7 @@ export default {
 						border 1px solid 
 						border-radius 50%
 						width 2em
+						height 2em
 					.title
 						font-size 12px
 						padding-top 10px

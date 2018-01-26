@@ -49,7 +49,7 @@ export default {
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
 			else if(this.isLogin) return '已登录'
-			else	return "oops!"
+			else	return "还没有登录哦"
 		},
 		singer(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name

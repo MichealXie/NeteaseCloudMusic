@@ -77,7 +77,7 @@ export default {
 			if(this.endX < this.startX) this.nextPic()
 			this.autoPlay = setInterval( () =>{
 				this.nextPic()
-			}, 1000)
+			}, 3000)
 		},
 		touchmove(e){
 			// let distance =  this.position - this.startX + e.changedTouches[0].pageX		

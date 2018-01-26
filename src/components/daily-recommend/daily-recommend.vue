@@ -1,6 +1,6 @@
 <template>
 	<div class="daily-recommend">
-		<loading v-show="!Object.keys(songLists).length">ԅ(¯﹃¯ԅ)</loading>
+		<loading v-show="!Object.keys(dailyRecommend).length">ԅ(¯﹃¯ԅ)</loading>
 		<common-header>每日歌曲推荐</common-header>
 		<div class="banner">
 			<img v-if="recommendMV[0]" :src="recommendMV[0].picUrl" alt="">
@@ -117,7 +117,7 @@ export default {
 			this.$store.commit('setIsPlay', true)
 		}
 	},
-	activated () {
+	mounted () {
 		if(this.$store.state.isLogin) this.$store.dispatch('getDailyRecommend')
 		else if(this.dailyRecommend) return
 		else this.$router.push('login')
