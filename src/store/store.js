@@ -375,6 +375,7 @@ export const store = new Vuex.Store({
 				context.commit('setIsLogin', true)
 				// 假如是真的第一次...
 				if (!Object.keys(context.state.myPlaylist).length){
+					console.log('没有myPlaylist')
 					// 获取我的歌曲列表
 					await context.dispatch('getMyPlaylist')
 					// 获取喜欢的歌曲
@@ -400,13 +401,14 @@ export const store = new Vuex.Store({
 			// 检查local 里有没有喜欢的歌曲
 			let myPlaylist
 			if (!localStorage.myPlaylist){
-				console.log('获取我lovedListID')
 				let data = await axios.get(`/user/playlist?uid=${context.getters.myId}`)
 				myPlaylist = data.data.playlist
 				// 获取成功 => 储存到 local
 				if (data.data.code === 200) {
+					// 把我的歌单储存在local 里~
 					myPlaylist = JSON.stringify(data.data.playlist)
 					localStorage.myPlaylist = myPlaylist
+					myPlaylist = JSON.parse(localStorage.myPlaylist)
 				}
 			}
 			else{

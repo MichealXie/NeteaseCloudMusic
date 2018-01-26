@@ -74,6 +74,7 @@ export default {
 			this.$store.commit('setMyPlaylist', {})
 			// 删除我喜欢的歌单
 			localStorage.removeItem('myPlaylist')
+			// 删除登录标记
 			localStorage.removeItem('myInfo')
 			localStorage.removeItem('lovedListID')
 			// 暂停

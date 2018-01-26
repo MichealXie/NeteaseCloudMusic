@@ -38,9 +38,6 @@ export default {
   created () {
   },
   mounted () {
-    // 我们去哪?
-    if(this.isLogin) this.$router.push('/home')
-    else this.$router.push('/login')
     // 快捷键绑定
     window.addEventListener('keypress', (e) => {
       if(e.key === 'l' && e.ctrlKey){
