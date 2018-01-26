@@ -324,17 +324,12 @@ export const store = new Vuex.Store({
 			context.commit('setAlbumInfo', data.data.album)			
 		},
 		async getSongUrl(context, payload){
-			let data = await axios.get(`/music/url?id=${payload}`)
-			if(data.data.code === 200 )context.commit('setCurrentSong', data.data.data[0].url)
-			else{
-				context.commit('throwError')
-			}
+			context.commit('setCurrentSong', `http://music.163.com/song/media/outer/url?id=${payload}.mp3`)
 			context.state.isPlay = true
 		},
 		async getFM(context){
 			let time = new Date().valueOf()
 			let data = await axios.get(`/personal_fm?date=${time}`)
-			console.log(data)
 			// 进入 FM 的时候发送请求, 发现未登录时直接去 login 界面
 			if (data.data.code === 405) {
 				context.commit('setIsLogin', false)
@@ -344,16 +339,9 @@ export const store = new Vuex.Store({
 			else if (data.data.code === 200){
 				context.commit('setFM', data.data.data[0])
 				// 获取歌曲的 mp3 文件
-				let url = await axios.get(`/music/url?id=${context.state.FM.id}`)
-				if (data.data.code === 200) {
-					context.commit('setCurrentSong', url.data.data[0].url)
-					context.commit('setPlayType', 2)					
-					context.state.isPlay = true
-				}
-				// 获取不到 mp3 抛出错误
-				else {
-					context.commit('throwError')
-				}
+				context.commit('setCurrentSong', `http://music.163.com/song/media/outer/url?id=${context.state.FM.id}.mp3`)
+				context.commit('setPlayType', 2)
+				context.state.isPlay = true
 			}
 		},
 		// 以下是个人资料
