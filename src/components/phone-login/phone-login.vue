@@ -14,6 +14,7 @@
 
 <script>
 import loading from '@/base/loading/loading'
+import {mapState} from 'vuex'
 
 export default {
 	components:{
@@ -26,12 +27,10 @@ export default {
 		}
 	},
 	computed: {
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		loginCode(){
-			return this.$store.state.loginCode
-		},
+		...mapState([
+			'isLoading',
+			'loginCode',
+		]),
 		errorInfo(){
 			let msg = ''
 			let regExp = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/g

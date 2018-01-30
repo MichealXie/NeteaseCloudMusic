@@ -105,6 +105,7 @@ import appTitle from '@/components/app-title/app-title'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 
+import {mapState} from 'vuex'
 
 export default {
 	components: {
@@ -115,33 +116,17 @@ export default {
 		'mini-FM': miniFM		
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		isLogin(){
-			return this.$store.state.isLogin
-		},
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		topLists(){
-			return this.$store.state.topLists
-		},
-		privateContent(){
-			return this.$store.state.privateContent
-		},
-		partlyPrivate(){
-			return this.$store.getters.partlyPrivate
-		},
-		privateAd(){
-			return this.$store.getters.privateAd
-		},
-		recommendMV(){
-			return this.$store.state.recommendMV
-		},
-		recommendDJ(){
-			return this.$store.state.recommendDJ
-		}
+		...mapState([
+			'playType',
+			'isLogin',
+			'isLoading',
+			'topLists',
+			'privateContent',
+			'partlyPrivate',
+			'privateAd',
+			'recommendMV',
+			'recommendDJ',
+		]),
 	},
   methods: {
     goInfo(){

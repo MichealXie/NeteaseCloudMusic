@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
 	data () {
 		return {
@@ -81,40 +83,34 @@ export default {
 		}
 	},
 	computed: {
-		playMode(){
-			return this.$store.state.playMode
-		},
-		comments(){
-			return this.$store.state.comments
-		}	,
+		...mapState([
+			'playMode',
+			'comments',
+			'lovedSongs',
+			'isPlay',
+			'currentSongIndex',
+			'playingList',
+			'isPlay',
+			'isLogin',
+		]),
 		id(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
 		},
 		song(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].name
-			else return 'oops'
-		},
-    lovedSongs(){
-      return this.$store.state.lovedSongs
+			else if(this.isLogin) return '已登录'
+			else	return "还没有登录哦"
 		},
 		isLoved(){
 			return this.lovedSongs.includes(this.id)
 		},
 		singer(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].ar[0].name
-			else return '当前无歌曲播放~'
+			else if(this.isLogin) return '正在努力加载我喜欢的歌曲'
+			else  return '当前无歌曲播放~'
 		},
 		player(){
 			return document.getElementById('player')
-		},
-		isPlay(){
-			return this.$store.state.isPlay
-		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
-		},
-		playingList(){
-			return this.$store.state.playingList
 		},
 		progressBarLength(){
 			let progressBar = document.getElementById('progressBar')

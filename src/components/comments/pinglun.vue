@@ -22,6 +22,8 @@ import commentHeader from '@/base/comment-header/comment-header'
 import commentTitle from '@/base/comment-title/comment-title'
 import commentContent from '@/base/comment-content/comment-content'
 
+import {mapState} from 'vuex'
+
 export default {
 	components:{
 		loading,
@@ -31,12 +33,10 @@ export default {
 		'comment-content': commentContent,
 	},
 	computed: {
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		comments(){
-			return this.$store.state.comments
-		}	
+		...mapState([
+			'isLoading',
+			'comments',
+		]),
 	},
 	activated () {
 		let payload = {

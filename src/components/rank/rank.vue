@@ -58,6 +58,7 @@ import loading from '@/base/loading/loading'
 import commonHeader from '@/base/common-header/common-header'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
+import {mapState, mapGetters} from 'vuex'
 
 export default {
 	components: {
@@ -68,33 +69,19 @@ export default {
 		'mini-FM': miniFM,
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		newSongRank(){
-			return this.$store.state.newSongRank
-		},
-		hotSongRank(){
-			return this.$store.state.hotSongRank
-		},
-		originalSongRank(){
-			return this.$store.state.originalSongRank
-		},
-		rapidSongRank(){
-			return this.$store.state.rapidSongRank
-		},
-		newTop3(){
-			return this.$store.getters.newTop3
-		},
-		hotTop3(){
-			return this.$store.getters.hotTop3
-		},
-		originalTop3(){
-			return this.$store.getters.originalTop3
-		},
-		rapidTop3(){
-			return this.$store.getters.rapidTop3
-		}
+		...mapState([
+			'playType',
+			'newSongRank',
+			'hotSongRank',
+			'originalSongRank',
+			'rapidSongRank',
+		]),
+		...mapGetters([
+			'newTop3',
+			'hotTop3',
+			'originalTop3',
+			'rapidTop3',
+		]),
 	},
 	created(){
 		this.$store.dispatch('getRank')

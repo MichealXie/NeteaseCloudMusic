@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
 	data () {
 		return {
@@ -62,21 +64,21 @@ export default {
 		}
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		comments(){
-			return this.$store.state.comments
-		}	,
+		...mapState([
+			'playType',
+			'comments',
+			'lovedSongs',
+			'isPlay',
+			'FM',
+			'playType',
+			'playType',
+		]),
 		id(){
 			if(this.FM) return this.FM.id
 		},
 		song(){
 			if(this.FM) return this.FM.name
 			else return 'oops'
-		},
-    lovedSongs(){
-      return this.$store.state.lovedSongs
 		},
 		isLoved(){
 			return this.lovedSongs.includes(this.id)
@@ -87,12 +89,6 @@ export default {
 		},
 		player(){
 			return document.getElementById('player')
-		},
-		isPlay(){
-			return this.$store.state.isPlay
-		},
-		FM(){
-			return this.$store.state.FM
 		},
 		progressBarLength(){
 			let progressBar = document.getElementById('progressBar')

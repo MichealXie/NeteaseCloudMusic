@@ -20,25 +20,22 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
 	computed: {
+		...mapState([
+			'isLogin',
+			'currentSongIndex',
+			'playingList',
+			'lovedSongs',
+			'isPlay',
+		]),
 		isLoved(){
 			return this.lovedSongs.includes(this.id)
 		},
-		isLogin(){
-			return this.$store.state.isLogin
-		},
 		id(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
-		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
-		},
-		playingList(){
-			return this.$store.state.playingList
-		},
-    lovedSongs(){
-      return this.$store.state.lovedSongs
 		},
 		img(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].al.picUrl
@@ -58,15 +55,6 @@ export default {
 		},
 		player(){
 			return document.getElementById('player')
-		},
-		isPlay(){
-			return this.$store.state.isPlay
-		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
-		},
-		playingList(){
-			return this.$store.state.playingList
 		},
 	},
 	methods: {

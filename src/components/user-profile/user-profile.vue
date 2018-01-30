@@ -38,6 +38,8 @@ import commonHeader from '@/base/common-header/common-header'
 import miniFM from '@/base/mini-FM/mini-FM'
 import loading from '@/base/loading/loading'
 
+import {mapState} from 'vuex'
+
 export default {
 	components: {
 		'comment-title': commentTitle,
@@ -52,18 +54,12 @@ export default {
 		}
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		userProfile(){
-			return this.$store.state.userProfile
-		},
-		userPlaylist(){
-			return this.$store.state.userPlaylist
-		}
+		...mapState([
+			'playType',
+			'isLoading',
+			'userProfile',
+			'userPlaylist',
+		]),
 	},
 	methods: {
 		

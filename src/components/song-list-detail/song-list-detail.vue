@@ -59,6 +59,8 @@ import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 import playAll from '@/base/play-all/play-all'
 
+import {mapState} from 'vuex'
+
 export default {
 	components:{
 		loading,
@@ -69,24 +71,18 @@ export default {
 	},
 	props:[],
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		playMode(){
-			return this.$store.state.playMode
-		},
 		player(){
 			return document.getElementById("player")
 		},
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		songListDetail(){
-			return this.$store.state.songListDetail
-		},
 		listId(){
 			return this.$route.params.id
-		}
+		},
+		...mapState([
+			'playType',
+			'playMode',
+			'isLoading',
+			'songListDetail',
+		])
 	},
 	methods:{
 		playIndexSong(id, index, tracks){

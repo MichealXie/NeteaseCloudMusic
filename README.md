@@ -1,4 +1,6 @@
 # 我的网易云
+
+[预览](https://michealxie.github.io/NeteaseCloudMusic/dist/index.html)
 ## 功能
 #### 歌单, 评论
 + 真实歌单, 没有你找不到的歌单
@@ -72,3 +74,6 @@
 8. 命名规范, 用户资料, 那就叫 profile, 不要一会 user-info 一会 my-info 的, 一开始就该定好! css 命名应该遵循一定的规则, 无论是 BEM 还是自己设计的规则, 不遵守代码复用/修改非常麻烦
 9. 错误/ loading 提示
 10. 全局状态处理, 如登录前后
+
+
+### 开发过程详见 Note.md

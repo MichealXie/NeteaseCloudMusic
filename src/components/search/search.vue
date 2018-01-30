@@ -100,6 +100,7 @@
 
 <script>
 import loading from '@/base/loading/loading'
+import {mapState} from 'vuex'
 
 export default {
 	components: {
@@ -127,18 +128,16 @@ export default {
 		}
 	},
 	computed: {
-		searchResult(){
-			return this.$store.state.searchResult
-		},
+		...mapState([
+			'searchResult',
+			'isSearching',
+		]),
 		searchOption(){
 			return {
 				type: this.type,
 				keywords: this.keywords,
 				name: this.name
 			}
-		},
-		isSearching(){
-			return this.$store.state.isSearching
 		},
 		searchHistory(){
 			if(localStorage.searchHistory) return JSON.parse(localStorage.searchHistory)

@@ -3,29 +3,23 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
 	computed: {
-		currentSong(){
-			return this.$store.state.currentSong
-		},
-		playingList(){
-			return this.$store.state.playingList
-		},
-		currentSongIndex(){
-			return this.$store.state.currentSongIndex
-		},
+		...mapState([
+			'currentSong',
+			'playingList',
+			'currentSongIndex',
+			'isPlay',
+			'playType',
+		]),
 		id(){
 			if(this.playingList[this.currentSongIndex]) return this.playingList[this.currentSongIndex].id
-		},
-		isPlay(){
-			return this.$store.state.isPlay
 		},
 		player(){
 			return document.getElementById('player')
 		},
-		playType(){
-			return this.$store.state.playType
-		}
 	},
 	methods: {
 		nextSong(){

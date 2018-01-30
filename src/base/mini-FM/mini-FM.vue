@@ -20,13 +20,17 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
 	computed: {
+		...mapState([
+			'FM',
+			'lovedSongs',
+			'isPlay',
+		]),
 		id(){
 			if(this.FM) return this.FM.id
-		},
-		FM(){
-			return this.$store.state.FM
 		},
 		song(){
 			if(this.FM) return this.FM.name
@@ -36,9 +40,6 @@ export default {
 			if(this.FM) return this.FM.artists[0].name
 			else return '当前无 FM 播放~'
 		},
-    lovedSongs(){
-      return this.$store.state.lovedSongs
-		},
 		isLoved(){
 			return this.lovedSongs.includes(this.id)
 		},
@@ -47,9 +48,6 @@ export default {
 		},
 		player(){
 			return document.getElementById('player')
-		},
-		isPlay(){
-			return this.$store.state.isPlay
 		},
 	},
 	methods: {

@@ -18,6 +18,8 @@
 import appAudio from '@/components/app-audio/app-audio'
 import error from '@/base/error/error'
 
+import {mapState} from 'vuex'
+
 export default {
   name: 'app',
   components: {
@@ -25,15 +27,11 @@ export default {
     error,
   },
   computed: {
-    isError(){
-      return this.$store.state.isError
-    },
-    isLogin(){
-      return this.$store.state.isLogin
-    },
-    lovedSongs(){
-      return this.$store.state.lovedSongs
-    }
+    ...mapState([
+      'isError',
+      'isLogin',
+      'lovedSongs',
+    ]),
   },
   created () {
   },

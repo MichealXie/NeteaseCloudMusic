@@ -32,6 +32,8 @@ import commonHeader from '@/base/common-header/common-header'
 import miniPlayer from '@/base/mini-player/mini-player'
 import miniFM from '@/base/mini-FM/mini-FM'
 
+import {mapState} from 'vuex'
+
 export default {
 	components:{
 		loading,
@@ -45,12 +47,10 @@ export default {
 		}
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		songLists(){
-			return this.$store.state.songLists
-		}
+		...mapState([
+			'playType',
+			'songLists',
+		]),
 	},
 	methods: {
 		switchStatus(status){

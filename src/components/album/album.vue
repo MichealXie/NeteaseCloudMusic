@@ -50,6 +50,8 @@ import commonHeader from '@/base/common-header/common-header'
 import miniFM from '@/base/mini-FM/mini-FM'
 import miniPlayer from '@/base/mini-player/mini-player'
 
+import {mapState} from 'vuex'
+
 export default {
 	components:{
 		loading,
@@ -63,15 +65,11 @@ export default {
 		}
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		albumSongs(){
-			return this.$store.state.albumSongs
-		},
-		albumInfo(){
-			return this.$store.state.albumInfo			
-		},
+		...mapState([
+			'playType',
+			'albumSongs',
+			'albumInfo',
+		]),
 		player(){
 			return document.getElementById("player")
 		},

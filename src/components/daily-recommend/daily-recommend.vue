@@ -34,6 +34,8 @@ import miniFM from '@/base/mini-FM/mini-FM'
 import playAll from '@/base/play-all/play-all'
 import loading from '@/base/loading/loading'
 
+import {mapState} from 'vuex'
+
 export default {
 	components: {
 		'common-header': commonHeader,
@@ -43,24 +45,16 @@ export default {
 		loading,
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		isLogin(){
-			return this.$store.state.isLogin
-		},
+		...mapState([
+			'playType',
+			'isLoading',
+			'isLogin',
+			// 偷图片
+			'recommendMV',
+			'dailyRecommend',
+		]),
 		player(){
 			return document.getElementById("player")
-		},
-		// 偷图片
-		recommendMV(){
-			return this.$store.state.recommendMV
-		},
-		dailyRecommend(){
-			return this.$store.state.dailyRecommend
 		},
 		// 妈的数据格式不一样... 手动转换...
 		songListDetail(){

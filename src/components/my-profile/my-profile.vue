@@ -39,6 +39,8 @@ import miniFM from '@/base/mini-FM/mini-FM'
 import loading from '@/base/loading/loading'
 import commonHeader from '@/base/common-header/common-header'
 
+import {mapState} from 'vuex'
+
 export default {
 	components: {
 		loading,
@@ -48,21 +50,13 @@ export default {
 		'mini-FM': miniFM,
 	},
 	computed: {
-		playType(){
-			return this.$store.state.playType
-		},
-		isLoading(){
-			return this.$store.state.isLoading
-		},
-		myId(){
-			return this.$store.getters.myId
-		},
-		myInfo(){
-			return this.$store.state.myInfo
-		},
-		myPlaylist(){
-			return this.$store.state.myPlaylist
-		}
+		...mapState([
+			'playType',
+			'isLoading',
+			'myId',
+			'myInfo',
+			'myPlaylist',
+		]),
 	},
 	methods: {
 		logout(){
