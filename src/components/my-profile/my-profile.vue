@@ -53,10 +53,12 @@ export default {
 		...mapState([
 			'playType',
 			'isLoading',
-			'myId',
 			'myInfo',
 			'myPlaylist',
 		]),
+		myId(){
+			return this.$store.getters.myId
+		}
 	},
 	methods: {
 		logout(){

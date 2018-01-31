@@ -13,7 +13,7 @@
     </div>
 		</div>
 		<div class="music-center">
-			<img src="../../assets/play-controler.png" alt="" class="hook">
+			<img src="../../assets/play-controler.png" :class="{'up': !isPlay}" class="hook">
 			<div class="black-circle" :class="{'spin': isPlay}">
 				<img v-if="playingList[currentSongIndex]" :src="playingList[currentSongIndex].al.picUrl" alt="">
 			</div>
@@ -287,8 +287,12 @@ export default {
 				top -20px
 				left 50%
 				transform translateX(-20%)
+				transform-origin:5% 10%
 				height 180px
 				z-index 10
+				transition 1s all
+				&.up
+					transform rotateZ(-15deg)
 			.black-circle
 				position absolute
 				top 88px

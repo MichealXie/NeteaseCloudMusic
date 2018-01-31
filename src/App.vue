@@ -62,6 +62,8 @@ export default {
     color: $color-theme
     font-family: Microsoft Yahei, sans-serif
     font-size 16px
+    // 尝试性...
+    will-change: contents
     .fade-enter-active, .fade-leave-active 
       transition: opacity .5s
     .fade-enter, .fade-leave-to
