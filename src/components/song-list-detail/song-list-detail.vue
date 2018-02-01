@@ -116,6 +116,7 @@ export default {
 			background-size cover
 			.detail-info
 				padding-top 48px
+				min-height 48px
 				display flex
 				.img-ct
 					flex 1
