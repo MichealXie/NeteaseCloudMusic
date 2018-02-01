@@ -1,6 +1,8 @@
 # 我的网易云
 
-[预览](https://michealxie.github.io/NeteaseCloudMusic/dist/index.html)
+[预览(后端还未上线)(https://michealxie.github.io/NeteaseCloudMusic/dist/index.html)
+
+### 图片在最下侧
 ## 功能
 #### 歌单, 评论
 + 真实歌单, 没有你找不到的歌单
@@ -80,3 +82,22 @@
 
 
 ### 开发过程详见 Note.md
+
+
+![](pics/登录.png)
+![](pics/手机登录.png)
+![](pics/首页.png)
+![](pics/精品歌单.png)
+![](pics/排行榜.png)
+![](pics/我的信息.png)
+![](pics/搜索.png)
+![](pics/他人信息.png)
+![](pics/歌单详情.png)
+![](pics/每日推荐.png)
+![](pics/播放界面.png)
+![](pics/评论.png)
+![](pics/搜索.png)
+![](pics/搜索用户.png)
+![](pics/FM.png)
+
+
