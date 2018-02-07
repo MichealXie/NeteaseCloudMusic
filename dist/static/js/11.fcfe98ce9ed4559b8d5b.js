@@ -1,2 +1,0 @@
-webpackJsonp([11],{"0IpB":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticClass:"singer"},[this._v("\n\tthis is singer\n")])},staticRenderFns:[]},i=n("VU/8")({},s,!1,function(e){n("7XMe")},"data-v-47ed5806",null);t.default=i.exports},"7XMe":function(e,t){}});
-//# sourceMappingURL=11.fcfe98ce9ed4559b8d5b.js.map
