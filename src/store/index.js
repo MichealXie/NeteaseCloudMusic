@@ -10,7 +10,7 @@ import actions from './actions'
 import getters from './getters'
 
 axios.defaults.timeout = 30000
-axios.defaults.baseURL = 'http://localhost:1810'
+axios.defaults.baseURL = 'http://47.91.156.35:5500/'
 
 Vue.use(Vuex)
 
