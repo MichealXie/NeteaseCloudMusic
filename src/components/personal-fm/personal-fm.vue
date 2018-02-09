@@ -190,13 +190,11 @@ export default {
 			overflow hidden
 			background-size cover
 			background-position 50%
-			background-color #555
+			background-color #222225
 			filter: blur(20px) brightness(80%)
 			transition 1s all linear
 			gradient-cover()
 			margin -30px
-			// 没有歌曲时的背景
-			background: url('./background.png')
 			img
 				height 100%
 				width 100%

@@ -1,6 +1,6 @@
 # 我的网易云
 
-[预览(后端还未上线)(https://michealxie.github.io/NeteaseCloudMusic/dist/index.html)
+[预览](电脑打开, 加载不安全脚本)(https://michealxie.github.io/NeteaseCloudMusic/dist/index.html)
 
 ### 图片在最下侧
 ## 功能

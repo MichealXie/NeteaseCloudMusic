@@ -112,7 +112,7 @@ export default {
 		padding-bottom 48px
 		.detail-header
 			color rgba(255,255,255,0.9)
-			background-image url('../../assets/background.png')
+			background-color #222225
 			background-size cover
 			.detail-info
 				padding-top 48px

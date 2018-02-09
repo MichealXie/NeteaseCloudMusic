@@ -244,7 +244,7 @@ export default {
 			gradient-cover()
 			margin -30px
 			// 没有歌曲时的背景
-			background: url('./background.png')
+			background-color #222225
 			img
 				height 100%
 				width 100%

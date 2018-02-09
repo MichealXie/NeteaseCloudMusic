@@ -18,7 +18,7 @@ export default {
 
 	.login
 		position relative
-		height 100vh
+		min-height 667px
 		.logosvg
 			position absolute
 			top 15%

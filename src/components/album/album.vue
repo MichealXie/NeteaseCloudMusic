@@ -98,7 +98,7 @@ export default {
 	.album
 		.detail-header
 			color rgba(255,255,255,0.9)
-			background url('../../assets/background.png')
+			background-color #222225
 			background-size cover
 			.detail-info
 				display flex

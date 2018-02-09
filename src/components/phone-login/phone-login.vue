@@ -87,7 +87,7 @@ export default {
 
 	.phone-login
 		position relative
-		height 100vh
+		min-height 667px
 		.header
 			color white
 			font-size 18px
