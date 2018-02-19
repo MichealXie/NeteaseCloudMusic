@@ -112,9 +112,9 @@ export default {
 		}
 	},
 	mounted () {
+		if(this.dailyRecommend.length) return
 		if(this.$store.state.isLogin) this.$store.dispatch('getDailyRecommend')
-		else if(this.dailyRecommend) return
-		else this.$router.push('login')
+		else this.$router.push('/login')
 	},
 	deactivated () {
 		this.$store.commit('setIsLoading', false)

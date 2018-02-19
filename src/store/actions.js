@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from "../router/index.js"
 
 export default{
 	async getRecommend(context) {
@@ -109,6 +110,7 @@ export default{
 		}
 		// 获取到歌曲 url
 		else if (data.data.code === 200) {
+			console.log(data)
 			context.commit('setFM', data.data.data[0])
 			// 获取歌曲的 mp3 文件
 			context.commit('setCurrentSong', `http://music.163.com/song/media/outer/url?id=${context.state.FM.id}.mp3`)
@@ -208,7 +210,7 @@ export default{
 		// 增加日期防止 304....
 		let date = new Date().valueOf()
 		// 现在可以了! 但...我喜欢的音乐更新怎么办?
-		let data = await axios.get(`/like?id=${payload.id}&like=${!payload.isLoved}&date="${date}"`, { withCredentials: true })
+		let data = await axios.get(`/like?id=${payload.id}&like=${!payload.isLoved}&date="${date}"`)
 		// 成功即删除对应 ID 列表片段
 		if (data.data.code === 200) {
 			context.commit('setSingleLoved', payload)
@@ -216,7 +218,7 @@ export default{
 		else context.commit('throwError')
 	},
 	async getDailyRecommend(context) {
-		let data = await axios.get(`/recommend/songs`, { withCredentials: true })
+		let data = await axios.get(`/recommend/songs`)
 		console.log(data)
 		if (data.data.code === 200) {
 			context.commit('setDailyRecommend', data.data.recommend)

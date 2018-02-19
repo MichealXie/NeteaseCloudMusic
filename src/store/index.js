@@ -11,6 +11,7 @@ import getters from './getters'
 
 axios.defaults.timeout = 30000
 axios.defaults.baseURL = 'http://47.91.156.35:5500/'
+axios.defaults.withCredentials = true
 
 Vue.use(Vuex)
 
